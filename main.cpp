@@ -15,15 +15,16 @@ void showList(List);
 bool isEmpty(List);
 void freeList(List*);
 void insertListFromFile(List*, char*);
+void insertList(List*, int, int);
 bool checkFile(char*);
 
 void showList(List head)
 {
-    if (head == NULL)
+    if (head == nullptr)
         printf("Список пуст\n");
     else {
         printf("Список :\n");
-        while (head != NULL) {
+        while (head != nullptr) {
             printf("\nx: %d  y: %d", head->x, head->y);
             head = head->next;
         }
@@ -33,7 +34,7 @@ void showList(List head)
 
 bool isEmpty(List head)
 {
-    if (head == NULL)
+    if (head == nullptr)
         return false;
 
     return true;
@@ -42,7 +43,7 @@ bool isEmpty(List head)
 void freeList(List* head)
 {
     List current = *head;
-    while (current != NULL)
+    while (current != nullptr)
     {
         current = current->next;
         free(*head);
@@ -52,58 +53,71 @@ void freeList(List* head)
 
 void insertListFromFile(List * head, char* nameOfFile)
 {
-    List newPtr, currentPtr;
-    newPtr = (List)malloc(sizeof(ListNode));
-
-    if (newPtr == NULL)
-    {
-        printf("Ошибка выделения памяти!");
-        return;
-    }
-
     if (!checkFile(nameOfFile))
     {
         printf("Ошибка файла");
         return;
     }
 
-
-    FILE* file;
-    file = fopen(nameOfFile, "a+");
-
+    FILE* file = fopen(nameOfFile, "a+");
     char c;
+    int x, y;
     rewind(file);
     c = getc(file);
     while (c != EOF)
     {
+        if (c == '0')
+            x = 10;
+        else
+            x = c - '0';
 
+        c = getc(file);
 
+        if (c == '0')
+            y = 10;
+        else
+            y = c - '0';
 
+        insertList(head,x,y);
+        c = getc(file);
+    }
+}
+
+bool checkFile(char * nameOfFile)
+{
+    if (fopen(nameOfFile, "r") == nullptr)
+        return false;
+
+    return true;
+}
+
+void insertList(List * head, int x, int y)
+{
+    List newPtr, currentPtr;
+    newPtr = (List)malloc(sizeof(ListNode));
+
+    if (newPtr == nullptr)
+    {
+        printf("Ошибка выделения памяти!");
+        return;
     }
 
+    newPtr->y = y;
+    newPtr->x = x;
 
-
-    newPtr->next = NULL;
+    newPtr->next = nullptr;
     currentPtr = *head;
 
-    if (currentPtr == NULL)
+    if (currentPtr == nullptr)
         *head = newPtr;
     else
     {
-        while (currentPtr->next != NULL)
+        while (currentPtr->next != nullptr)
             currentPtr = currentPtr->next;
 
         currentPtr->next = newPtr;
     }
 
-}
-
-bool checkFile(char * nameOfFile)
-{
-    if (fopen(nameOfFile, "r") == NULL)
-        return false;
-
-    return true;
 }
 
 
@@ -114,7 +128,12 @@ int main()
     shape.setFillColor(sf::Color::Yellow);
 
     Image image;
-    image.loadFromFile("Resourses/p1.jpg");
+
+    List head = nullptr;
+
+    insertListFromFile(&head,"/home/user/CLionProjects/coursework/Resourses/Txt/PointsFor4");
+    showList(head);
+
     /*while (window.isOpen())
     {
         sf::Event event;
