@@ -210,6 +210,8 @@ int randomNumber(int board)
 
 
 
+
+
 int main()
 {
     //RenderWindow window(sf::VideoMode(1846, 1048), "SFML works!");
