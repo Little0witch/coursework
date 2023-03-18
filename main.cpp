@@ -72,6 +72,7 @@ void insertListFromFile(List * head, char* nameOfFile)
             x = c - '0';
 
         c = getc(file);
+        c = getc(file);
 
         if (c == '0')
             y = 10;
@@ -79,6 +80,8 @@ void insertListFromFile(List * head, char* nameOfFile)
             y = c - '0';
 
         insertList(head,x,y);
+
+        c = getc(file);
         c = getc(file);
     }
 }
