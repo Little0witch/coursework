@@ -2,6 +2,54 @@
 
 using namespace sf;
 
+struct node{
+    int x;
+    int y;
+    struct node* next;
+};
+
+typedef struct node ListNode;
+typedef ListNode* List;
+
+void showList(List);
+bool isEmpty(List);
+void freeList(List*);
+
+
+void showList(List head)
+{
+    if (head == NULL)
+        printf("Список пуст\n");
+    else {
+        printf("Список :\n");
+        while (head != NULL) {
+            printf("\nx: %d  y: %d", head->x, head->y);
+            head = head->next;
+        }
+        printf("\n");
+    }
+}
+
+bool isEmpty(List head)
+{
+    if (head == NULL)
+        return false;
+
+    return true;
+}
+
+void freeList(List* head)
+{
+    List current = *head;
+    while (current != NULL)
+    {
+        current = current->next;
+        free(*head);
+        *head = current;
+    }
+}
+
+
 int main()
 {
     RenderWindow window(sf::VideoMode(1846, 1048), "SFML works!");
@@ -10,7 +58,7 @@ int main()
 
     Image image;
     image.loadFromFile("Resourses/p1.jpg");
-    while (window.isOpen())
+    /*while (window.isOpen())
     {
         sf::Event event;
         while (window.pollEvent(event))
@@ -22,7 +70,7 @@ int main()
         window.clear();
         window.draw(shape);
         window.display();
-    }
+    }*/
 
     return 0;
 }
