@@ -27,6 +27,8 @@ bool checkFile(char*);
 int sizeList(List);
 void removeNode(List*, int);
 int randomNumber(int);
+struct coordinates giveCoord(List, int);
+
 
 void showList(List head)
 {
@@ -207,9 +209,26 @@ int randomNumber(int board)
     return 0 + rand() % board;
 }
 
+struct coordinates giveCoord(List head, int indexOfNode){
+    struct coordinates coord{};
+    int index = 0;
 
-
-
+    if (head == nullptr)
+        return coord;
+    else
+    {
+        while (head != nullptr) {
+            if (indexOfNode == index)
+            {
+                coord.x = head->x;
+                coord.y = head->y;
+                return coord;
+            }
+            index++;
+            head = head->next;
+        }
+    }
+}
 
 
 int main()
@@ -223,6 +242,7 @@ int main()
     List head = nullptr;
 
     //insertListFromFile(&head,"/home/user/CLionProjects/coursework/Resourses/Txt/PointsFor4");
+
     //showList(head);
 
 
