@@ -1,4 +1,6 @@
 #include <SFML/Graphics.hpp>
+#include <ctime>
+#include <unistd.h>
 
 using namespace sf;
 
@@ -8,6 +10,11 @@ struct node{
     struct node* next;
 };
 
+struct coordinates{
+    int x;
+    int y;
+};
+
 typedef struct node ListNode;
 typedef ListNode* List;
 
@@ -15,8 +22,11 @@ void showList(List);
 bool isEmpty(List);
 void freeList(List*);
 void insertListFromFile(List*, char*);
-void insertList(List*, int, int);
+void insertNode(List*, int, int);
 bool checkFile(char*);
+int sizeList(List);
+void removeNode(List*, int);
+int randomNumber(int);
 
 void showList(List head)
 {
@@ -79,7 +89,7 @@ void insertListFromFile(List * head, char* nameOfFile)
         else
             y = c - '0';
 
-        insertList(head,x,y);
+        insertNode(head,x,y);
 
         c = getc(file);
         c = getc(file);
@@ -94,7 +104,7 @@ bool checkFile(char * nameOfFile)
     return true;
 }
 
-void insertList(List * head, int x, int y)
+void insertNode(List * head, int x, int y)
 {
     List newPtr, currentPtr;
     newPtr = (List)malloc(sizeof(ListNode));
@@ -123,19 +133,96 @@ void insertList(List * head, int x, int y)
 
 }
 
+int sizeList(List head)
+{
+    if (head == nullptr)
+        return 0;
+
+    int size = 0;
+
+    while (head != nullptr) {
+        size++;
+        head = head->next;
+    }
+
+    return size;
+}
+
+void removeNode(List* head, int indexOfNode)
+{
+    if (*head == nullptr)
+    {
+        return;
+    }
+
+    List current = *head, remove = *head, start = *head;
+
+    if ((*head)->next == nullptr && indexOfNode == 0)
+    {
+        free(*head);
+        start = nullptr;
+    }
+    else
+    {
+        if (indexOfNode == 0)
+        {
+            remove = *head;
+            *head = (*head)->next;
+            free(remove);
+        }
+        else
+        {
+            int indexOfRemove = 1;
+            (*head) = (*head)->next;
+            while (*head != nullptr)
+            {
+                if (indexOfRemove == indexOfNode)
+                {
+                    remove = *head;
+                    if ((*head)->next == nullptr)
+                    {
+                        free(remove);
+                        current->next = nullptr;
+                    }
+                    else
+                    {
+                        current->next = (*head)->next;
+                        free(remove);
+                    }
+                    break;
+                }
+                indexOfRemove++;
+                (*head) = (*head)->next;
+            }
+
+        }
+    }
+    *head = start;
+}
+
+int randomNumber(int board)
+{
+    sleep(1);
+    srand(time(NULL));
+    return 0 + rand() % board;
+}
+
+
+
 
 int main()
 {
-    RenderWindow window(sf::VideoMode(1846, 1048), "SFML works!");
-    CircleShape shape(100.f);
-    shape.setFillColor(sf::Color::Yellow);
+    //RenderWindow window(sf::VideoMode(1846, 1048), "SFML works!");
+    //CircleShape shape(100.f);
+    //shape.setFillColor(sf::Color::Yellow);
 
-    Image image;
+    //Image image;
 
     List head = nullptr;
 
-    insertListFromFile(&head,"/home/user/CLionProjects/coursework/Resourses/Txt/PointsFor4");
-    showList(head);
+    //insertListFromFile(&head,"/home/user/CLionProjects/coursework/Resourses/Txt/PointsFor4");
+    //showList(head);
+
 
     /*while (window.isOpen())
     {
