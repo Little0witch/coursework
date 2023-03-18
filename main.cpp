@@ -14,7 +14,8 @@ typedef ListNode* List;
 void showList(List);
 bool isEmpty(List);
 void freeList(List*);
-
+void insertListFromFile(List*, char*);
+bool checkFile(char*);
 
 void showList(List head)
 {
@@ -47,6 +48,62 @@ void freeList(List* head)
         free(*head);
         *head = current;
     }
+}
+
+void insertListFromFile(List * head, char* nameOfFile)
+{
+    List newPtr, currentPtr;
+    newPtr = (List)malloc(sizeof(ListNode));
+
+    if (newPtr == NULL)
+    {
+        printf("Ошибка выделения памяти!");
+        return;
+    }
+
+    if (!checkFile(nameOfFile))
+    {
+        printf("Ошибка файла");
+        return;
+    }
+
+
+    FILE* file;
+    file = fopen(nameOfFile, "a+");
+
+    char c;
+    rewind(file);
+    c = getc(file);
+    while (c != EOF)
+    {
+
+
+
+    }
+
+
+
+    newPtr->next = NULL;
+    currentPtr = *head;
+
+    if (currentPtr == NULL)
+        *head = newPtr;
+    else
+    {
+        while (currentPtr->next != NULL)
+            currentPtr = currentPtr->next;
+
+        currentPtr->next = newPtr;
+    }
+
+}
+
+bool checkFile(char * nameOfFile)
+{
+    if (fopen(nameOfFile, "r") == NULL)
+        return false;
+
+    return true;
 }
 
 
