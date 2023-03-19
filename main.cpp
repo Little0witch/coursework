@@ -15,11 +15,13 @@ int main()
 
     //Image image;
 
-    int** field;
-    Bot bot;
-    field = bot.getMyField();
+    int** field = nullptr;
 
-    showArray(field,10,10);
+    field = allocateMemory(field,10,10);
+    init(field,10,10);
+
+    Bot bot;
+    showArray(bot.getMyField(),10,10);
 
     /*while (window.isOpen())
     {

@@ -13,6 +13,8 @@ private:
     int x,y;
     List head;
 
+    bool checkPositions(int**,int,int,int,int);
+
 public:
 
     Bot(){
@@ -22,28 +24,29 @@ public:
         enemyField = allocateMemory(enemyField, 10, 10);
         init(enemyField, 10, 10);
         insertListFromFile(&head,"/home/user/CLionProjects/coursework/Resources/Txt/PointsFor4");
-        myField = allocateMemory(myField,10,10);
-        init(myField,10,10);
-        myField = autoPositioningOfShips(myField,10,10);
+        myField = autoPositioningOfShips();
     }
 
     int** getMyField() const;
-    int** autoPositioningOfShips(int**,int, int);
+    int** autoPositioningOfShips();
     virtual ~Bot();
 };
 
 Bot::~Bot() {
     freeMemory(enemyField, 10);
+    freeMemory(myField,10);
     freeList(&head);
 }
 
-int** Bot::autoPositioningOfShips(int** field, int n, int m) {
+int** Bot::autoPositioningOfShips() {
+    int** field = nullptr;
+    field = allocateMemory(field,10,10);
+    init(field,10,10);
+
     int sizeOfShips[] = {4,3,2,1};
     int valueOfShips[] = {1,2,3,4};
     srand(time(NULL));
     bool placed;
-    bool intersect;
-    int point1, point2,point3, point4;
 
     for (int i = 0; i < 4; ++i) {
 
@@ -55,44 +58,22 @@ int** Bot::autoPositioningOfShips(int** field, int n, int m) {
             while (!placed){
                 int x = randomNumber(9);
                 int y = randomNumber(9);
-                int orientation = randomNumber(1);
+                int orientation = randomNumber(2);
 
-                printf("x: %d  y: %d\n",x,y);
-
-                if (orientation == 0 && x + size <= 10)//0 - gorizont 1 - virticelno
+                if (orientation == 0 && x + size <= 10)
                 {
-                    intersect = false;
-
-
-                    for (int k = x; k < x + size; ++k) {
-                        if (myField[k][y] != 0){
-                            intersect = true;
-                            break;
-                        }
-                    }
-
-
-
-                    if (!intersect){
+                    if (checkPositions(field,x,y,size,orientation)) {
                         for (int k = x; k < x + size; ++k) {
-                            myField[k][y] = size;
+                            field[k][y] = size;
                         }
                         placed = true;
                     }
+
                 } else if (orientation == 1 && y + size <= 10)
                 {
-                    intersect = false;
-
-                    for (int k = y; k < y + size; ++k) {
-                        if (myField[x][k] != 0){
-                            intersect = true;
-                            break;
-                        }
-                    }
-
-                    if (!intersect){
+                    if (checkPositions(field,x,y,size,orientation)){
                         for (int k = y; k < y+size; ++k) {
-                            myField[x][k] = size;
+                            field[x][k] = size;
                         }
                         placed = true;
                     }
@@ -106,6 +87,73 @@ int** Bot::autoPositioningOfShips(int** field, int n, int m) {
 
 int** Bot::getMyField() const {
     return myField;
+}
+
+bool Bot::checkPositions(int** field, int x, int y, int size, int orientation) {
+    int point1, point2, point3, point4;
+
+    if (orientation == 0){
+
+        if (x > 0)
+            point1 = x - 1;
+        else
+            point1 = x;
+
+        if (x + size + 1 <= 10)
+            point2 = x + size + 1;
+        else
+            point2 = x + size;
+
+        if (y > 0)
+            point3 = y - 1;
+        else
+            point3 = y;
+
+        if (y + 1 > 9)
+            point4 = y;
+        else
+            point4 = y + 1;
+
+        for (int i = point1; i < point2; ++i) {
+            for (int j = point3; j <= point4; ++j) {
+                if (field[i][j] != 0 )
+                    return false;
+            }
+        }
+
+        return true;
+    }
+    else
+    {
+        if (y > 0)
+            point1 = y - 1;
+        else
+            point1 = y;
+
+        if (y + size + 1 <= 10)
+            point2 = y + size + 1;
+        else
+            point2 = y + size;
+
+        if (x > 0)
+            point3 = x - 1;
+        else
+            point3 = x;
+
+        if (x + 1 > 9)
+            point4 = x;
+        else
+            point4 = x + 1;
+
+        for (int i = point1; i < point2; ++i) {
+            for (int j = point3; j <= point4; ++j) {
+                if (field[j][i] != 0)
+                    return false;
+            }
+        }
+
+        return true;
+    }
 }
 
 
