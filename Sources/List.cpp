@@ -199,5 +199,17 @@ struct coordinates giveCoord(List head, int indexOfNode){
     }
 }
 
+bool findNode(List head, int x, int y) {
+    if (head == nullptr)
+        return false;
+
+    while (head != nullptr) {
+        if (head->y == y && head->x == x)
+            return true;
+        head = head->next;
+    }
+    return false;
+}
+
 
 

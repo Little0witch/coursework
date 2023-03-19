@@ -1,7 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include "Headers/List.h"
 #include "Headers/Array.h"
-#include "Headers/Bot.h"
+#include "Headers/BotHard.h"
 
 
 using namespace sf;
@@ -20,7 +20,7 @@ int main()
     field = allocateMemory(field,10,10);
     init(field,10,10);
 
-    Bot bot;
+    BotHard bot;
     showArray(bot.getMyField(),10,10);
 
     /*while (window.isOpen())

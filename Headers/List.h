@@ -28,3 +28,4 @@ int sizeList(List);
 void removeNode(List*, int);
 int randomNumber(int);
 struct coordinates giveCoord(List, int);
+bool findNode(List,int,int);

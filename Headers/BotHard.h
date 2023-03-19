@@ -4,7 +4,7 @@
 #include "List.h"
 #include "Array.h"
 
-class Bot{
+class BotHard{
 private:
     int** enemyField = nullptr;
     int** myField = nullptr;
@@ -18,7 +18,7 @@ private:
 
 public:
 
-    Bot(){
+    BotHard(){
         hit = false;
         theFirstHit = true;
         xOfLastHit = yOfLastHit = -1;
@@ -30,16 +30,16 @@ public:
 
     int** getMyField() const;
     void statusGame(bool);
-    virtual ~Bot();
+    virtual ~BotHard();
 };
 
-Bot::~Bot() {
+BotHard::~BotHard() {
     freeMemory(enemyField, 10);
     freeMemory(myField,10);
     freeList(&head);
 }
 
-int** Bot::autoPositioningOfShips() {
+int** BotHard::autoPositioningOfShips() {
     int** field = nullptr;
     field = allocateMemory(field,10,10);
     init(field,10,10);
@@ -86,11 +86,11 @@ int** Bot::autoPositioningOfShips() {
     return field;
 }
 
-int** Bot::getMyField() const {
+int** BotHard::getMyField() const {
     return myField;
 }
 
-bool Bot::checkPositions(int** field, int x, int y, int size, int orientation) {
+bool BotHard::checkPositions(int** field, int x, int y, int size, int orientation) {
     int point1, point2, point3, point4;
 
     if (orientation == 0){
@@ -157,7 +157,7 @@ bool Bot::checkPositions(int** field, int x, int y, int size, int orientation) {
     }
 }
 
-void Bot::statusGame(bool isHit) {
+void BotHard::statusGame(bool isHit) {
     hit = isHit;
 }
 
