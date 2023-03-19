@@ -10,17 +10,18 @@ private:
     int** myField = nullptr;
     bool hit;
     bool theFirstHit;
-    int x,y;
+    int xOfLastHit,yOfLastHit;
     List head;
 
     bool checkPositions(int**,int,int,int,int);
+    int** autoPositioningOfShips();
 
 public:
 
     Bot(){
         hit = false;
         theFirstHit = true;
-        x = y = -1;
+        xOfLastHit = yOfLastHit = -1;
         enemyField = allocateMemory(enemyField, 10, 10);
         init(enemyField, 10, 10);
         insertListFromFile(&head,"/home/user/CLionProjects/coursework/Resources/Txt/PointsFor4");
@@ -28,7 +29,7 @@ public:
     }
 
     int** getMyField() const;
-    int** autoPositioningOfShips();
+    void statusGame(bool);
     virtual ~Bot();
 };
 
@@ -155,6 +156,11 @@ bool Bot::checkPositions(int** field, int x, int y, int size, int orientation) {
         return true;
     }
 }
+
+void Bot::statusGame(bool isHit) {
+    hit = isHit;
+}
+
 
 
 
