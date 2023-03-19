@@ -38,3 +38,16 @@ void init(int** array, int n, int m)
         }
     }
 }
+
+void showArray(int **array, int n, int m) {
+    if (!array)
+        return;
+
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < m; ++j) {
+            printf("%d ",array[i][j]);
+        }
+        printf("\n");
+    }
+
+}

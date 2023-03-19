@@ -1,20 +1,25 @@
 #include <SFML/Graphics.hpp>
 #include "Headers/List.h"
+#include "Headers/Array.h"
+#include "Headers/Bot.h"
+
 
 using namespace sf;
 
 int main()
 {
+
     //RenderWindow window(sf::VideoMode(1846, 1048), "SFML works!");
     //CircleShape shape(100.f);
     //shape.setFillColor(sf::Color::Yellow);
 
     //Image image;
 
-    List head = nullptr;
-    insertListFromFile(&head,"/home/user/CLionProjects/coursework/Resources/Txt/PointsFor4");
+    int** field;
+    Bot bot;
+    field = bot.getMyField();
 
-
+    showArray(field,10,10);
 
     /*while (window.isOpen())
     {

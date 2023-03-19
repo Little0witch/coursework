@@ -174,9 +174,7 @@ void removeNode(List* head, int indexOfNode)
 
 int randomNumber(int board)
 {
-    sleep(1);
-    srand(time(NULL));
-    return 1 + rand() % board;
+    return 0 + rand() % board;
 }
 
 struct coordinates giveCoord(List head, int indexOfNode){
