@@ -1,9 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include "Headers/List.h"
 
-
 using namespace sf;
-
 
 int main()
 {
