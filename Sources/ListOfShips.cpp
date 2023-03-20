@@ -132,3 +132,9 @@ void insertNode(ListOfShips * head, ListOfCoord list) {
 
 
 }
+
+void autoRemoveNode(ListOfShips *head) {
+
+
+
+}
