@@ -1,5 +1,6 @@
 #include "../Headers/ListOfCoord.h"
 
+
 void showList(ListOfCoord head)
 {
     if (head == nullptr)
@@ -17,9 +18,9 @@ void showList(ListOfCoord head)
 bool isEmpty(ListOfCoord head)
 {
     if (head == nullptr)
-        return false;
+        return true;
 
-    return true;
+    return false;
 }
 
 void freeList(ListOfCoord* head)
