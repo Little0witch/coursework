@@ -2,7 +2,7 @@
 #include <cstdio>
 #include <cstdlib>
 #include "Array.h"
-#include "List.h"
+#include "ListOfCoord.h"
 
 class BotSoft{
 private:
@@ -10,7 +10,7 @@ private:
     int** enemyField = nullptr;
     bool hit;
     int xOfLastHit, yOfLastHit;
-    List list;
+    ListOfCoord list;
 
     bool checkPositions(int**,int,int,int,int);
     int** autoPositioningOfShips();

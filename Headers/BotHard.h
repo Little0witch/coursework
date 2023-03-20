@@ -1,7 +1,7 @@
 #pragma once
 #include <stdio.h>
 #include <stdlib.h>
-#include "List.h"
+#include "ListOfCoord.h"
 #include "Array.h"
 
 class BotHard{
@@ -11,7 +11,7 @@ private:
     bool hit;
     bool theFirstHit;
     int xOfLastHit,yOfLastHit;
-    List head;
+    ListOfCoord head;
 
     bool checkPositions(int**,int,int,int,int);
     int** autoPositioningOfShips();

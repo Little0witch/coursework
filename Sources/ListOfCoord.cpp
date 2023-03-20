@@ -1,6 +1,6 @@
-#include "../Headers/List.h"
+#include "../Headers/ListOfCoord.h"
 
-void showList(List head)
+void showList(ListOfCoord head)
 {
     if (head == nullptr)
         printf("Список пуст\n");
@@ -14,7 +14,7 @@ void showList(List head)
     }
 }
 
-bool isEmpty(List head)
+bool isEmpty(ListOfCoord head)
 {
     if (head == nullptr)
         return false;
@@ -22,9 +22,9 @@ bool isEmpty(List head)
     return true;
 }
 
-void freeList(List* head)
+void freeList(ListOfCoord* head)
 {
-    List current = *head;
+    ListOfCoord current = *head;
     while (current != nullptr)
     {
         current = current->next;
@@ -33,7 +33,7 @@ void freeList(List* head)
     }
 }
 
-void insertListFromFile(List * head, char* nameOfFile)
+void insertListFromFile(ListOfCoord * head, char* nameOfFile)
 {
     if (!checkFile(nameOfFile))
     {
@@ -76,10 +76,10 @@ bool checkFile(char * nameOfFile)
     return true;
 }
 
-void insertNode(List * head, int x, int y)
+void insertNode(ListOfCoord * head, int x, int y)
 {
-    List newPtr, currentPtr;
-    newPtr = (List)malloc(sizeof(ListNode));
+    ListOfCoord newPtr, currentPtr;
+    newPtr = (ListOfCoord)malloc(sizeof(ListNode));
 
     if (newPtr == nullptr)
     {
@@ -105,7 +105,7 @@ void insertNode(List * head, int x, int y)
 
 }
 
-int sizeList(List head)
+int sizeList(ListOfCoord head)
 {
     if (head == nullptr)
         return 0;
@@ -120,7 +120,7 @@ int sizeList(List head)
     return size;
 }
 
-void removeNode(List* head, int indexOfNode)
+void removeNode(ListOfCoord* head, int indexOfNode)
 {
     if (*head == nullptr)
     {
@@ -132,7 +132,7 @@ void removeNode(List* head, int indexOfNode)
         return;
     }
 
-    List remove = *head;
+    ListOfCoord remove = *head;
 
     indexOfNode--;
 
@@ -151,8 +151,8 @@ void removeNode(List* head, int indexOfNode)
         }
         else
         {
-            List current = *head;
-            List previous = nullptr;
+            ListOfCoord current = *head;
+            ListOfCoord previous = nullptr;
             while (current != nullptr && indexOfNode > 0)
             {
                 previous = current;
@@ -177,7 +177,7 @@ int randomNumber(int board)
     return 0 + rand() % board;
 }
 
-struct coordinates giveCoord(List head, int indexOfNode){
+struct coordinates giveCoord(ListOfCoord head, int indexOfNode){
     struct coordinates coord{};
     indexOfNode--;
     int index = 0;
@@ -199,7 +199,7 @@ struct coordinates giveCoord(List head, int indexOfNode){
     }
 }
 
-bool findNode(List head, int x, int y) {
+bool findNode(ListOfCoord head, int x, int y) {
     if (head == nullptr)
         return false;
 
