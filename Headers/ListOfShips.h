@@ -20,5 +20,5 @@ bool isEmpty(ListOfShips);
 void freeList(ListOfShips*);
 void insertNode(ListOfShips*, ListOfCoord);
 int sizeList(ListOfShips);
-void removeNode(ListOfShips*, int);
-int isHit(ListOfShips*, int, int);
+void removeNode(ListOfShips*);
+int isHit(ListOfShips, int, int);

@@ -134,40 +134,37 @@ void insertNode(ListOfShips * head, ListOfCoord list) {
     }
 
 }
-int isHit(ListOfShips * head, int x, int y) //-1 мимо 0 попали
+int isHit(ListOfShips head, int x, int y) //-1 мимо 0 попали
 {
-    ListOfShips* current = head;
+    ListOfShips current = head;
 
     int index = 0, flag = -1;
 
-    if (*current == nullptr)
+    if (current == nullptr)
         printf("Список пуст\n");
     else
     {
-        while (*current != nullptr) {
+        while (current != nullptr) {
 
-            if (findNode((*current)->list,x,y))
+            if (findNode(current->list,x,y))
             {
-                (*current)->hit++;
-                removeNode(&(*current)->list,x,y);
+                current->hit++;
+                removeNode(&current->list,x,y);
 
                 flag = 0;
 
-                if ((*current)->hit == (*current)->size)
+                if (current->hit == current->size)
                 {
-                    (*current)->destroy = true;
-                    flag = (*current)->size;
+                    current->destroy = true;
+                    flag = current->size;
                 }
 
                 break;
             }
             index++;
-            *current = (*current)->next;
+            current = current->next;
         }
     }
-
-    if (flag > 0)
-        removeNode(head,index);
 
     return flag;
 }

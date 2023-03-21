@@ -18,15 +18,35 @@ int main()
 
     //Image image;
 
-    BotSoft botSoft;
+    //BotSoft botSoft;
     ListOfShips listShips = nullptr;
+    ListOfCoord listCoord = nullptr;
 
+    //listShips = botSoft.getListOfMyShips();
 
-    listShips = botSoft.getListOfMyShips();
+    insertNode(&listCoord,0,1);
+    insertNode(&listCoord,0,2);
+    insertNode(&listCoord,0,3);
 
+    insertNode(&listShips,listCoord);
+
+    freeList(&listCoord);
+
+    insertNode(&listCoord,1,1);
+    insertNode(&listCoord,1,2);
+
+    insertNode(&listShips,listCoord);
 
     showList(listShips);
 
+    isHit(listShips,1,1);
+    isHit(listShips,0,1);
+    isHit(listShips,0,2);
+    isHit(listShips,0,2);
+    isHit(listShips,0,2);
+
+
+    showList(listShips);
 
     /*while (window.isOpen())
     {
