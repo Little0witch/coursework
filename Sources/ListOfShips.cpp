@@ -7,9 +7,10 @@ bool isEmpty(ListOfShips head)
 
     return false;
 }
-
+//TODO::make normal freeList
 void freeList(ListOfShips *head)
 {
+    *head = nullptr;
     ListOfShips current = *head;
     while (current != nullptr)
     {
