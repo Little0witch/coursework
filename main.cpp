@@ -6,7 +6,6 @@
 #include "Headers/BotSoft.h"
 
 
-
 using namespace sf;
 
 int main()

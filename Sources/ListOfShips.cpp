@@ -134,6 +134,7 @@ void insertNode(ListOfShips * head, ListOfCoord list) {
     }
 
 }
+//TODO::make autoRemoveNode what has destroy is true
 int isHit(ListOfShips head, int x, int y) //-1 мимо 0 попали
 {
     ListOfShips current = head;
