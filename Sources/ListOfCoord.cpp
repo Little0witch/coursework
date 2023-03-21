@@ -23,8 +23,10 @@ bool isEmpty(ListOfCoord head)
     return false;
 }
 
+//TODO::make normal freeList
 void freeList(ListOfCoord* head)
 {
+    *head = nullptr;
     ListOfCoord current = *head;
     while (current != nullptr)
     {
@@ -32,8 +34,8 @@ void freeList(ListOfCoord* head)
         free(*head);
         *head = current;
     }
-    *head = nullptr;
 }
+
 
 void insertListFromFile(ListOfCoord * head, char* nameOfFile)
 {

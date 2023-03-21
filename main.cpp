@@ -19,13 +19,15 @@ int main()
     //Image image;
 
     BotSoft botSoft;
-
     ListOfShips listShips = nullptr;
+
 
     listShips = botSoft.getListOfMyShips();
 
-    //showList(listShips);
 
+//    showList(listShips);
+
+    showArray(botSoft.getMyField(),10,10);
 
     /*while (window.isOpen())
     {

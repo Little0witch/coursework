@@ -71,8 +71,9 @@ int** BotSoft::autoPositioningOfShips() {
                             insertNode(&coordOfShips,k,y);
                             field[k][y] = size;
                         }
+
                         insertNode(&listOfMyShips,coordOfShips);
-                        showList(listOfMyShips);
+                        //showList(listOfMyShips);
                         placed = true;
                         freeList(&coordOfShips);
                     }
@@ -85,7 +86,7 @@ int** BotSoft::autoPositioningOfShips() {
                             field[x][k] = size;
                         }
                         insertNode(&listOfMyShips,coordOfShips);
-                        showList(listOfMyShips);
+                        //showList(listOfMyShips);
                         placed = true;
                         freeList(&coordOfShips);
                     }
@@ -93,6 +94,7 @@ int** BotSoft::autoPositioningOfShips() {
             }
         }
     }
+    showList(listOfMyShips);
 
     return field;
 }

@@ -17,7 +17,6 @@ void freeList(ListOfShips *head)
         free(*head);
         *head = current;
     }
-
 }
 
 void showList(ListOfShips head) {
@@ -115,7 +114,10 @@ void insertNode(ListOfShips * head, ListOfCoord list) {
     newPtr->size = sizeList(list);
     newPtr->hit = 0;
     newPtr->destroy = false;
+
     newPtr->list = list;
+
+
 
     newPtr->next = nullptr;
     currentPtr = *head;
