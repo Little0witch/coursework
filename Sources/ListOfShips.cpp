@@ -21,13 +21,15 @@ void freeList(ListOfShips *head)
 }
 
 void showList(ListOfShips head) {
+
     if (head == nullptr)
         printf("Список пуст\n");
     else {
         printf("Список :\n");
         while (head != nullptr) {
-            printf("\ndestroy: %d  size: %d  hit: %d", head->destroy, head->size, head->hit);
+            printf("destroy: %d  size: %d  hit: %d \n", head->destroy, head->size, head->hit);
             showList(head->list);
+            printf("\n");
             head = head->next;
         }
         printf("\n");
@@ -127,7 +129,6 @@ void insertNode(ListOfShips * head, ListOfCoord list) {
 
         currentPtr->next = newPtr;
     }
-
 
 }
 int isHit(ListOfShips * head, int x, int y) //-1 мимо 0 попали

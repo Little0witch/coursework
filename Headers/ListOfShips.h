@@ -7,7 +7,7 @@ struct Node{
     bool destroy;
     int size;
     int hit;
-    ListOfCoord list;
+    ListOfCoord list = nullptr;
     struct Node* next;
 };
 

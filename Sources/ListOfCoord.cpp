@@ -8,7 +8,7 @@ void showList(ListOfCoord head)
     else {
         printf("Список :\n");
         while (head != nullptr) {
-            printf("\nx: %d  y: %d", head->x, head->y);
+            printf("x: %d  y: %d\n", head->x, head->y);
             head = head->next;
         }
         printf("\n");
@@ -32,6 +32,7 @@ void freeList(ListOfCoord* head)
         free(*head);
         *head = current;
     }
+    *head = nullptr;
 }
 
 void insertListFromFile(ListOfCoord * head, char* nameOfFile)

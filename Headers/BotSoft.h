@@ -3,6 +3,7 @@
 #include <cstdlib>
 #include "Array.h"
 #include "ListOfCoord.h"
+#include "ListOfShips.h"
 
 class BotSoft{
 private:
@@ -10,7 +11,10 @@ private:
     int** enemyField = nullptr;
     bool hit;
     int xOfLastHit, yOfLastHit;
-    ListOfCoord list;
+    ListOfCoord list = nullptr;
+    ListOfShips listOfMyShips = nullptr;
+
+private:
 
     bool checkPositions(int**,int,int,int,int);
     int** autoPositioningOfShips();
@@ -25,16 +29,21 @@ public:
         xOfLastHit = yOfLastHit = -1;
 
         myField = autoPositioningOfShips();
+
+        //showList(listOfMyShips);
     }
 
     int **getMyField() const;
     struct coordinates giveCoord();
     void statusGame(int);
     virtual ~BotSoft();
+    ListNodeShips *getListOfMyShips();
 };
 
 int** BotSoft::autoPositioningOfShips() {
     int** field = nullptr;
+    ListOfCoord coordOfShips = nullptr;
+
     field = allocateMemory(field,10,10);
     init(field,10,10);
 
@@ -59,18 +68,26 @@ int** BotSoft::autoPositioningOfShips() {
                 {
                     if (checkPositions(field,x,y,size,orientation)) {
                         for (int k = x; k < x + size; ++k) {
+                            insertNode(&coordOfShips,k,y);
                             field[k][y] = size;
                         }
+                        insertNode(&listOfMyShips,coordOfShips);
+                        showList(listOfMyShips);
                         placed = true;
+                        freeList(&coordOfShips);
                     }
 
                 } else if (orientation == 1 && y + size <= 10)
                 {
                     if (checkPositions(field,x,y,size,orientation)){
                         for (int k = y; k < y+size; ++k) {
+                            insertNode(&coordOfShips,x,k);
                             field[x][k] = size;
                         }
+                        insertNode(&listOfMyShips,coordOfShips);
+                        showList(listOfMyShips);
                         placed = true;
+                        freeList(&coordOfShips);
                     }
                 }
             }
@@ -213,4 +230,8 @@ void BotSoft::fillHit() {
 
 
 
+}
+
+ListNodeShips *BotSoft::getListOfMyShips(){
+    return listOfMyShips;
 }

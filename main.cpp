@@ -3,6 +3,7 @@
 #include "Headers/Array.h"
 #include "Headers/BotHard.h"
 #include "Headers/ListOfShips.h"
+#include "Headers/BotSoft.h"
 
 
 
@@ -17,21 +18,14 @@ int main()
 
     //Image image;
 
-    ListOfCoord listCoord = nullptr;
-
-    insertNode(&listCoord,0,0);
-    insertNode(&listCoord,0,1);
-    insertNode(&listCoord,0,2);
+    BotSoft botSoft;
 
     ListOfShips listShips = nullptr;
 
-    insertNode(&listShips,listCoord);
+    listShips = botSoft.getListOfMyShips();
 
-    printf("flag: %d\n", isHit(&listShips,0,0));
-    printf("flag: %d\n", isHit(&listShips,0,1));
-    printf("flag: %d\n", isHit(&listShips,0,2));
+    //showList(listShips);
 
-    showList(listShips);
 
     /*while (window.isOpen())
     {
