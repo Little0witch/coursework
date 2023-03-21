@@ -167,6 +167,7 @@ bool BotSoft::checkPositions(int** field, int x, int y, int size, int orientatio
 BotSoft::~BotSoft() {
     freeMemory(enemyField,10);
     freeMemory(myField,10);
+    freeList(&listOfMyShips);
 }
 
 int **BotSoft::getMyField() const {
@@ -174,12 +175,13 @@ int **BotSoft::getMyField() const {
 }
 
 void BotSoft::statusGame(int isHit) {
-    //0 - мимо
-    //1 - удар
+    //-1 - мимо
+    //0 - удар
     //2 - потопил весь корабль
-    if (isHit == 1)
+    if (isHit == -1)
     {
-        hit = true;
+        hit = false;
+        enemyField[xOfLastHit][yOfLastHit] = 1;
 
     }
 
