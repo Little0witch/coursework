@@ -29,3 +29,4 @@ void removeNode(ListOfCoord*, int);
 int randomNumber(int);
 struct coordinates giveCoord(ListOfCoord, int);
 bool findNode(ListOfCoord, int, int);
+void removeNode(ListOfCoord*, int, int);

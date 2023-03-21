@@ -63,8 +63,6 @@ void removeNode(ListOfShips * head, int indexOfNode) {
 
     ListOfShips remove = *head;
 
-    indexOfNode--;
-
     if ((*head)->next == nullptr && indexOfNode == 0)
     {
         free(*head);
@@ -132,9 +130,40 @@ void insertNode(ListOfShips * head, ListOfCoord list) {
 
 
 }
+int isHit(ListOfShips * head, int x, int y) //-1 мимо 0 попали
+{
+    ListOfShips* current = head;
 
-void autoRemoveNode(ListOfShips *head) {
+    int index = 0, flag = -1;
 
+    if (*current == nullptr)
+        printf("Список пуст\n");
+    else
+    {
+        while (*current != nullptr) {
 
+            if (findNode((*current)->list,x,y))
+            {
+                (*current)->hit++;
+                removeNode(&(*current)->list,x,y);
 
+                flag = 0;
+
+                if ((*current)->hit == (*current)->size)
+                {
+                    (*current)->destroy = true;
+                    flag = (*current)->size;
+                }
+
+                break;
+            }
+            index++;
+            *current = (*current)->next;
+        }
+    }
+
+    if (flag > 0)
+        removeNode(head,index);
+
+    return flag;
 }

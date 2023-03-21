@@ -212,5 +212,48 @@ bool findNode(ListOfCoord head, int x, int y) {
     return false;
 }
 
+void removeNode(ListOfCoord * head, int x, int y) {
+    if (*head == nullptr)
+    {
+        return;
+    }
+
+    ListOfCoord remove = *head;
+
+    if ((*head)->next == nullptr && (*head)->x == x && (*head)->y == y)
+    {
+        free(*head);
+        *head = nullptr;
+    }
+    else
+    {
+        if ((*head)->next != nullptr && (*head)->x == x && (*head)->y == y)
+        {
+            remove = *head;
+            *head = (*head)->next;
+            free(remove);
+        }
+        else
+        {
+            ListOfCoord current = *head;
+            ListOfCoord previous = nullptr;
+            while (current != nullptr && (*head)->x != x && (*head)->y != y)
+            {
+                previous = current;
+                current = current->next;
+            }
+            if (current == nullptr)
+            {
+                printf("Index is out of range");
+                return;
+            } else
+            {
+                previous->next = current->next;
+                free(current);
+            }
+        }
+    }
+}
+
 
 

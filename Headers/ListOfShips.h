@@ -21,5 +21,4 @@ void freeList(ListOfShips*);
 void insertNode(ListOfShips*, ListOfCoord);
 int sizeList(ListOfShips);
 void removeNode(ListOfShips*, int);
-void autoRemoveNode(ListOfShips*);
-
+int isHit(ListOfShips*, int, int);

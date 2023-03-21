@@ -2,6 +2,8 @@
 #include "Headers/ListOfCoord.h"
 #include "Headers/Array.h"
 #include "Headers/BotHard.h"
+#include "Headers/ListOfShips.h"
+
 
 
 using namespace sf;
@@ -15,13 +17,21 @@ int main()
 
     //Image image;
 
-    int** field = nullptr;
+    ListOfCoord listCoord = nullptr;
 
-    field = allocateMemory(field,10,10);
-    init(field,10,10);
+    insertNode(&listCoord,0,0);
+    insertNode(&listCoord,0,1);
+    insertNode(&listCoord,0,2);
 
-    BotHard bot;
-    showArray(bot.getMyField(),10,10);
+    ListOfShips listShips = nullptr;
+
+    insertNode(&listShips,listCoord);
+
+    printf("flag: %d\n", isHit(&listShips,0,0));
+    printf("flag: %d\n", isHit(&listShips,0,1));
+    printf("flag: %d\n", isHit(&listShips,0,2));
+
+    showList(listShips);
 
     /*while (window.isOpen())
     {
