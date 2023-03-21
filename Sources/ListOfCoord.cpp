@@ -34,6 +34,8 @@ void freeList(ListOfCoord* head)
         free(*head);
         *head = current;
     }
+
+
 }
 
 
