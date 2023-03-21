@@ -25,9 +25,8 @@ int main()
     listShips = botSoft.getListOfMyShips();
 
 
-//    showList(listShips);
+    showList(listShips);
 
-    showArray(botSoft.getMyField(),10,10);
 
     /*while (window.isOpen())
     {
