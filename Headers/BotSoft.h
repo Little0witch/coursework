@@ -35,7 +35,7 @@ public:
     virtual ~BotSoft();
     ListNodeShips *getListOfMyShips();
 };
-
+//TODO::make normal randomNumber without sleep
 int** BotSoft::autoPositioningOfShips() {
     int** field = nullptr;
     ListOfCoord coordOfShips = nullptr;
@@ -46,7 +46,8 @@ int** BotSoft::autoPositioningOfShips() {
     int sizeOfShips[] = {4,3,2,1};
     int valueOfShips[] = {1,2,3,4};
 
-    srand(time(NULL));
+    sleep(1);
+    srand(time(nullptr));
     bool placed;
 
     for (int i = 0; i < 4; ++i) {
@@ -164,6 +165,7 @@ BotSoft::~BotSoft() {
     freeMemory(enemyField,10);
     freeMemory(myField,10);
     freeList(&listOfMyShips);
+    freeList(&listOfHit);
 }
 
 int **BotSoft::getMyField() const {
@@ -276,7 +278,6 @@ struct coordinates BotSoft::giveCoordinates() {
 
     return coord;
 }
-
 
 ListNodeShips *BotSoft::getListOfMyShips(){
     return listOfMyShips;

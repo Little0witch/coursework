@@ -17,7 +17,25 @@ int main()
 
     //Image image;
 
-    //BotSoft botSoft;
+    BotSoft botSoft1;
+    BotSoft botSoft2;
+
+    ListOfShips listOfShips1 = nullptr;
+    ListOfShips listOfShips2 = nullptr;
+
+    listOfShips1 = botSoft1.getListOfMyShips();
+    listOfShips2 = botSoft2.getListOfMyShips();
+
+    int** field1 = botSoft1.getMyField();
+    int **field2 = botSoft2.getMyField();
+
+    showArray(field1,10,10);
+    printf("\n");
+    showArray(field2,10,10);
+    printf("\n");
+
+
+
 
 
     /*while (window.isOpen())
