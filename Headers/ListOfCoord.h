@@ -30,3 +30,5 @@ int randomNumber(int);
 struct coordinates giveCoord(ListOfCoord, int);
 bool findNode(ListOfCoord, int, int);
 void removeNode(ListOfCoord*, int, int);
+struct coordinates giveMinCoord(ListOfCoord);
+struct coordinates giveMaxCoord(ListOfCoord);

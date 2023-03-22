@@ -185,7 +185,6 @@ int randomNumber(int board)
 
 struct coordinates giveCoord(ListOfCoord head, int indexOfNode){
     struct coordinates coord{};
-    indexOfNode--;
     int index = 0;
 
     if (head == nullptr)
@@ -258,6 +257,52 @@ void removeNode(ListOfCoord * head, int x, int y) {
             }
         }
     }
+}
+
+struct coordinates giveMinCoord(ListOfCoord head) {
+    struct coordinates minCoord{};
+
+    if (head == nullptr)
+        return minCoord;
+
+    minCoord.x = head->x;
+    minCoord.y = head->y;
+
+    while (head != nullptr) {
+
+        if (head->y + head->x < minCoord.x + minCoord.y)
+        {
+            minCoord.y = head->y;
+            minCoord.x = head->x;
+        }
+
+        head = head->next;
+    }
+
+    return minCoord;
+}
+
+struct coordinates giveMaxCoord(ListOfCoord head) {
+    struct coordinates maxCoord{};
+
+    if (head == nullptr)
+        return maxCoord;
+
+    maxCoord.x = head->x;
+    maxCoord.y = head->y;
+
+    while (head != nullptr) {
+
+        if (head->y + head->x > maxCoord.x + maxCoord.y)
+        {
+            maxCoord.y = head->y;
+            maxCoord.x = head->x;
+        }
+
+        head = head->next;
+    }
+
+    return maxCoord;
 }
 
 

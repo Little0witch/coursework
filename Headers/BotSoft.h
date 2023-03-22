@@ -8,16 +8,17 @@
 class BotSoft{
 private:
     int** myField = nullptr;
-    int** enemyField = nullptr;
+    int** enemyField = nullptr;//0 - пустая 1 - удар 2 - корабль
     bool hit;
     int xOfLastHit, yOfLastHit;
-    ListOfCoord list = nullptr;
+    ListOfCoord listOfHit = nullptr;
     ListOfShips listOfMyShips = nullptr;
 
 private:
 
     bool checkPositions(int**,int,int,int,int);
     int** autoPositioningOfShips();
+    void addEmptyCells();
     void fillHit();
 
 
@@ -34,7 +35,7 @@ public:
     }
 
     int **getMyField() const;
-    struct coordinates giveCoord();
+    struct coordinates giveCoordinates();
     void statusGame(int);
     virtual ~BotSoft();
     ListNodeShips *getListOfMyShips();
@@ -182,50 +183,83 @@ void BotSoft::statusGame(int isHit) {
     {
         hit = false;
         enemyField[xOfLastHit][yOfLastHit] = 1;
-
     }
 
-    if (isHit)
+    if (isHit > 0)
     {
-        enemyField[xOfLastHit][yOfLastHit] = 2;//потопил
-    }
-    else
-        enemyField[xOfLastHit][yOfLastHit] = 1;//мимо
-
-    if (isHit == 2)
-    {
-        freeList(&list);
         hit = false;
+        freeList(&listOfHit);
+        enemyField[xOfLastHit][yOfLastHit] = 2;
+        addEmptyCells();
+    }
+
+    if (isHit == 0)
+    {
+        hit = true;
+        insertNode(&listOfHit,xOfLastHit,yOfLastHit);
     }
 }
 
-struct coordinates BotSoft::giveCoord() {
+struct coordinates BotSoft::giveCoordinates() {
     struct coordinates coord{};
 
-    if (isEmpty(list))
+    if (hit)
     {
-        int x,y;
-        do
+        if (sizeList(listOfHit) == 1)
         {
-            x = randomNumber(9);
-            y = randomNumber(9);
-        } while (enemyField[x][y] != 0);
+            coord = giveCoord(listOfHit, 0);
 
-        xOfLastHit = x;
-        yOfLastHit = y;
+            if (coord.x - 1 >= 0 && enemyField[coord.x - 1][coord.y] != 0)
+                coord.x--;
+            else
+            {
+                if (coord.x + 1 <= 9 && enemyField[coord.x + 1][coord.y] != 0)
+                    coord.x++;
+                else
+                {
+                    if (coord.y - 1 >= 0 && enemyField[coord.x][coord.y - 1] != 0)
+                        coord.y--;
+                    else
+                    {
+                        if (coord.y + 1 <=9 && enemyField[coord.x][coord.y + 1] != 0)
+                            coord.y++;
+                    }
+                }
+            }
+        }
+        else
+        {
+            int x1,y1,x2,y2;
+            coord = giveCoord(listOfHit,0);
+            x1 = coord.x;
+            y1 = coord.y;
+            coord = giveCoord(listOfHit, 1);
+            x2 = coord.x;
+            y2 = coord.y;
 
-        coord.x = x;
-        coord.y = y;
+            if (x1 - x2 == 0)
+            {
 
-        return coord;
+            }
+            else
+            {
+
+            }
+        }
     }
     else
     {
+        do
+        {
+            coord.x = randomNumber(9);
+            coord.y = randomNumber(9);
+        } while (enemyField[coord.x][coord.y] != 0);
 
-
-
-        return coord;
+        xOfLastHit = coord.x;
+        yOfLastHit = coord.y;
     }
+
+    return coord;
 }
 
 void BotSoft::fillHit() {
@@ -236,4 +270,40 @@ void BotSoft::fillHit() {
 
 ListNodeShips *BotSoft::getListOfMyShips(){
     return listOfMyShips;
+}
+
+void BotSoft::addEmptyCells() {
+
+    for (int i = 0; i < 10; ++i) {
+        for (int j = 0; j < 10; ++j) {
+            if (enemyField[i][j] == 2)
+            {
+                if (i - 1 >=0  && j - 1 >= 0)
+                    enemyField[i-1][j-1] = 1;
+
+                if (i - 1 >= 0 && enemyField[i-1][j] != 2)
+                    enemyField[i-1][j] = 1;
+
+                if (i - 1 >=0  && j + 1 <= 9)
+                    enemyField[i-1][j+1] = 1;
+
+                if (j - 1 >=0 && enemyField[i][j-1] != 2)
+                    enemyField[i][j - 1] = 1;
+
+                if (j+1 <=9 && enemyField[i][j+1] !=2)
+                    enemyField[i][j+1] = 1;
+
+                if (i + 1 <= 9 && j - 1 >=0)
+                    enemyField[i+1][j-1] =1;
+
+                if (i+1 <=9 && enemyField[i+1][j] != 2)
+                    enemyField[i+1][j] = 1;
+
+                if (i + 1 <=9 && j+1<=9)
+                    enemyField[i+1][j+1] = 1;
+
+            }
+        }
+    }
+
 }
