@@ -19,8 +19,6 @@ private:
     bool checkPositions(int**,int,int,int,int);
     int** autoPositioningOfShips();
     void addEmptyCells();
-    void fillHit();
-
 
 public:
     BotSoft() {
@@ -28,10 +26,7 @@ public:
         enemyField = allocateMemory(enemyField,10,10);
         init(enemyField,10,10);
         xOfLastHit = yOfLastHit = -1;
-
         myField = autoPositioningOfShips();
-
-        //showList(listOfMyShips);
     }
 
     int **getMyField() const;
@@ -178,7 +173,7 @@ int **BotSoft::getMyField() const {
 void BotSoft::statusGame(int isHit) {
     //-1 - мимо
     //0 - удар
-    //2 - потопил весь корабль
+    //1-4 - потопил весь корабль
     if (isHit == -1)
     {
         hit = false;
@@ -209,19 +204,19 @@ struct coordinates BotSoft::giveCoordinates() {
         {
             coord = giveCoord(listOfHit, 0);
 
-            if (coord.x - 1 >= 0 && enemyField[coord.x - 1][coord.y] != 0)
+            if (coord.x - 1 >= 0 && enemyField[coord.x - 1][coord.y] != 1)
                 coord.x--;
             else
             {
-                if (coord.x + 1 <= 9 && enemyField[coord.x + 1][coord.y] != 0)
+                if (coord.x + 1 <= 9 && enemyField[coord.x + 1][coord.y] != 1)
                     coord.x++;
                 else
                 {
-                    if (coord.y - 1 >= 0 && enemyField[coord.x][coord.y - 1] != 0)
+                    if (coord.y - 1 >= 0 && enemyField[coord.x][coord.y - 1] != 1)
                         coord.y--;
                     else
                     {
-                        if (coord.y + 1 <=9 && enemyField[coord.x][coord.y + 1] != 0)
+                        if (coord.y + 1 <=9 && enemyField[coord.x][coord.y + 1] != 1)
                             coord.y++;
                     }
                 }
@@ -229,21 +224,41 @@ struct coordinates BotSoft::giveCoordinates() {
         }
         else
         {
-            int x1,y1,x2,y2;
-            coord = giveCoord(listOfHit,0);
-            x1 = coord.x;
-            y1 = coord.y;
-            coord = giveCoord(listOfHit, 1);
-            x2 = coord.x;
-            y2 = coord.y;
+            int xOfMin,yOfMin,xOfMax,yOfMax;
 
-            if (x1 - x2 == 0)
+            xOfMax = giveMaxCoord(listOfHit).x;
+            yOfMax = giveMaxCoord(listOfHit).y;
+
+            xOfMin = giveMinCoord(listOfHit).x;
+            yOfMin = giveMinCoord(listOfHit).y;
+
+            if (xOfMin - xOfMax == 0)
             {
-
+                if (yOfMin - 1 >=0 && enemyField[xOfMin][yOfMin - 1] != 1)
+                {
+                    coord.y = yOfMin - 1;
+                    coord.x = xOfMin;
+                }
+                else
+                    if (yOfMax +1 <=9 && enemyField[xOfMax][yOfMax + 1] != 1)
+                    {
+                        coord.y = yOfMax + 1;
+                        coord.x = xOfMax;
+                    }
             }
             else
             {
-
+                if (xOfMin - 1 >=0 && enemyField[xOfMin - 1][yOfMin] != 1)
+                {
+                    coord.x=xOfMin-1;
+                    coord.y = yOfMin;
+                }
+                else
+                    if (xOfMax +1 <=9 && enemyField[xOfMax + 1][yOfMax] != 1)
+                    {
+                        coord.x = xOfMax + 1;
+                        coord.y = yOfMax;
+                    }
             }
         }
     }
@@ -262,11 +277,6 @@ struct coordinates BotSoft::giveCoordinates() {
     return coord;
 }
 
-void BotSoft::fillHit() {
-
-
-
-}
 
 ListNodeShips *BotSoft::getListOfMyShips(){
     return listOfMyShips;
