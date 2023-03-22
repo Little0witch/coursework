@@ -35,7 +35,13 @@ int main()
     printf("\n");
 
 
+    while (true)
+    {
 
+
+
+
+    }
 
 
     /*while (window.isOpen())
