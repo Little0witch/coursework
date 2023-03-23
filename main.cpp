@@ -12,7 +12,7 @@ int main()
 {
     //RenderWindow window(sf::VideoMode(1846, 1048), "SFML works!");
 
-    BotSoft botSoft1;
+    /*BotSoft botSoft1;
     BotSoft botSoft2;
 
     ListOfShips listOfShips1 = nullptr;
@@ -55,7 +55,41 @@ int main()
             botSoft2.statusGame(flag);
         } while (flag >= 0);
 
-    }
+    }*/
+
+
+    ListOfCoord listOfCoord = nullptr;
+    ListOfShips listOfShips = nullptr;
+
+    insertNode(&listOfCoord,0,0);
+    insertNode(&listOfCoord,0,1);
+    insertNode(&listOfCoord,0,2);
+
+    insertNode(&listOfShips,listOfCoord);
+
+    freeList(&listOfCoord);
+
+    insertNode(&listOfCoord,1,0);
+    insertNode(&listOfCoord,2,0);
+
+    insertNode(&listOfShips,listOfCoord);
+
+    listOfShips->next->destroy = true;
+
+    freeList(&listOfCoord);
+
+    insertNode(&listOfCoord,1,1);
+    insertNode(&listOfCoord,2,1);
+    insertNode(&listOfCoord,3,1);
+
+    insertNode(&listOfShips,listOfCoord);
+
+
+    autoRemoveNode(&listOfShips);
+
+    showList(listOfShips);
+
+
 
 
     return 0;
