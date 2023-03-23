@@ -91,7 +91,16 @@ int main()
     isHit(listOfShips,&listOfShips,1,0);
     isHit(listOfShips,&listOfShips,2,0);
 
-    showList(listOfShips);
+    isHit(listOfShips,&listOfShips,1,1);
+    isHit(listOfShips,&listOfShips,2,1);
+    isHit(listOfShips,&listOfShips,3,1);
+
+    isHit(listOfShips,&listOfShips,0,0);
+    isHit(listOfShips,&listOfShips,0,1);
+    isHit(listOfShips,&listOfShips,0,2);
+
+
+    printf("size %d", sizeList(listOfShips));
 
     return 0;
 }

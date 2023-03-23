@@ -118,7 +118,8 @@ int isHit(ListOfShips head, ListOfShips*removeHead, int x, int y) //-1 мимо 
         }
     }
 
-    autoRemoveNode(removeHead);
+    if(flag > 0)
+        autoRemoveNode(removeHead);
 
     return flag;
 }
