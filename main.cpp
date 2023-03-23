@@ -74,8 +74,6 @@ int main()
 
     insertNode(&listOfShips,listOfCoord);
 
-    listOfShips->next->destroy = true;
-
     freeList(&listOfCoord);
 
     insertNode(&listOfCoord,1,1);
@@ -85,12 +83,15 @@ int main()
     insertNode(&listOfShips,listOfCoord);
 
 
+
     autoRemoveNode(&listOfShips);
 
     showList(listOfShips);
 
+    isHit(listOfShips,&listOfShips,1,0);
+    isHit(listOfShips,&listOfShips,2,0);
 
-
+    showList(listOfShips);
 
     return 0;
 }

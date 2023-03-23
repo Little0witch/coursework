@@ -85,15 +85,15 @@ void insertNode(ListOfShips * head, ListOfCoord list) {
     }
 
 }
-//TODO::make autoRemoveNode ships what has destroy is true
-int isHit(ListOfShips head, int x, int y) //-1 мимо 0 попали
+
+int isHit(ListOfShips head, ListOfShips*removeHead, int x, int y) //-1 мимо 0 попали
 {
     ListOfShips current = head;
 
     int index = 0, flag = -1;
 
     if (current == nullptr)
-        printf("Список пуст\n");
+        return -10;
     else
     {
         while (current != nullptr) {
@@ -117,6 +117,8 @@ int isHit(ListOfShips head, int x, int y) //-1 мимо 0 попали
             current = current->next;
         }
     }
+
+    autoRemoveNode(removeHead);
 
     return flag;
 }
@@ -157,10 +159,8 @@ void autoRemoveNode(ListOfShips * head) {
                 }
             }
             if (current == nullptr)
-            {
-                printf("Index is out of range");
                 return;
-            } else
+            else
             {
                 previous->next = current->next;
                 free(current);
