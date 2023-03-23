@@ -178,7 +178,6 @@ void BotSoft::statusGame(int isHit) {
     //1-4 - потопил весь корабль
     if (isHit == -1)
     {
-        hit = false;
         enemyField[xOfLastHit][yOfLastHit] = 1;
     }
 
@@ -188,11 +187,14 @@ void BotSoft::statusGame(int isHit) {
         freeList(&listOfHit);
         enemyField[xOfLastHit][yOfLastHit] = 2;
         addEmptyCells();
+        printf("\n\n\n");
+        showArray(enemyField,10,10);
     }
 
     if (isHit == 0)
     {
         hit = true;
+        enemyField[xOfLastHit][yOfLastHit] = 2;
         insertNode(&listOfHit,xOfLastHit,yOfLastHit);
     }
 }
@@ -270,11 +272,12 @@ struct coordinates BotSoft::giveCoordinates() {
         {
             coord.x = randomNumber(9);
             coord.y = randomNumber(9);
+            printf("\nrandom numbers x: %d, y: %d",coord.x,coord.y);
         } while (enemyField[coord.x][coord.y] != 0);
-
-        xOfLastHit = coord.x;
-        yOfLastHit = coord.y;
     }
+
+    xOfLastHit = coord.x;
+    yOfLastHit = coord.y;
 
     return coord;
 }

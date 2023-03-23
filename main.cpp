@@ -27,7 +27,7 @@ int main()
     listOfShips2 = botSoft2.getListOfMyShips();
 
     int** field1 = botSoft1.getMyField();
-    int **field2 = botSoft2.getMyField();
+    int** field2 = botSoft2.getMyField();
 
     showArray(field1,10,10);
     printf("\n");
@@ -35,13 +35,30 @@ int main()
     printf("\n");
 
 
+    int x,y;
+    int flag = -1;
+    struct coordinates coord;
 
     while (true)
     {
+        do {
+            printf("\nInput x: ");
+            scanf("%d",&x);
+            printf("Input y: ");
+            scanf("%d",&y);
+
+            flag = isHit(listOfShips2,x,y);
+            printf("flag = %d",flag);
+        }while(flag > 0);
 
 
-
-
+        do {
+            coord = botSoft2.giveCoordinates();
+            printf("\nx: %d, y: %d",coord.x,coord.y);
+            flag = isHit(listOfShips1,coord.x,coord.y);
+            printf("flag = %d",flag);
+            botSoft2.statusGame(flag);
+        } while (flag >= 0);
 
     }
 
