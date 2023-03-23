@@ -321,12 +321,14 @@ struct coordinates BotHard::giveCoordinates() {
     }
     else
     {
+        int randomNum;
         do
         {
-            coord = giveCoord(listOfCoord, randomNumber(sizeList(listOfCoord)));
+            randomNum = randomNumber(sizeList(listOfCoord));
+            printf("+");
+            printf("\n random num = %d size = %d",randomNum, sizeList(listOfCoord));
+            coord = giveCoord(listOfCoord, randomNum);
         } while (enemyField[coord.x][coord.y] != 0);
-
-        removeNode(&listOfCoord,coord.x,coord.y);
     }
 
     xOfLastHit = coord.x;
