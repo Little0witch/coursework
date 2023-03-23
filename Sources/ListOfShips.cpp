@@ -52,55 +52,6 @@ int sizeList(ListOfShips head)
     return size;
 }
 
-void removeNode(ListOfShips * head, int indexOfNode) {
-    if (*head == nullptr)
-    {
-        return;
-    }
-
-    if (indexOfNode < 0)
-    {
-        return;
-    }
-
-    ListOfShips remove = *head;
-
-    if ((*head)->next == nullptr && indexOfNode == 0)
-    {
-        free(*head);
-        *head = nullptr;
-    }
-    else
-    {
-        if (indexOfNode == 0)
-        {
-            remove = *head;
-            *head = (*head)->next;
-            free(remove);
-        }
-        else
-        {
-            ListOfShips current = *head;
-            ListOfShips previous = nullptr;
-            while (current != nullptr && indexOfNode > 0)
-            {
-                previous = current;
-                current = current->next;
-                indexOfNode--;
-            }
-            if (current == nullptr)
-            {
-                printf("Index is out of range");
-                return;
-            } else
-            {
-                previous->next = current->next;
-                free(current);
-            }
-        }
-    }
-}
-
 void insertNode(ListOfShips * head, ListOfCoord list) {
 
     ListOfShips newPtr, currentPtr;
@@ -168,4 +119,52 @@ int isHit(ListOfShips head, int x, int y) //-1 мимо 0 попали
     }
 
     return flag;
+}
+
+void autoRemoveNode(ListOfShips * head) {
+    if (*head == nullptr)
+    {
+        return;
+    }
+
+    ListOfShips remove = *head;
+
+    if ((*head)->next == nullptr && (*head)->destroy)
+    {
+        free(*head);
+        *head = nullptr;
+    }
+    else
+    {
+        if ((*head)->next != nullptr && (*head)->destroy)
+        {
+            remove = *head;
+            *head = (*head)->next;
+            free(remove);
+        }
+        else
+        {
+            ListOfShips current = *head;
+            ListOfShips previous = nullptr;
+            while (current != nullptr)
+            {
+                if (current->destroy)
+                    break;
+                else
+                {
+                    previous = current;
+                    current = current->next;
+                }
+            }
+            if (current == nullptr)
+            {
+                printf("Index is out of range");
+                return;
+            } else
+            {
+                previous->next = current->next;
+                free(current);
+            }
+        }
+    }
 }

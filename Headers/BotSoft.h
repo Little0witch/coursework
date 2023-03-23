@@ -272,7 +272,6 @@ struct coordinates BotSoft::giveCoordinates() {
         {
             coord.x = randomNumber(9);
             coord.y = randomNumber(9);
-            printf("\nrandom numbers x: %d, y: %d",coord.x,coord.y);
         } while (enemyField[coord.x][coord.y] != 0);
     }
 
