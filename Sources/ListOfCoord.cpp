@@ -187,7 +187,7 @@ struct coordinates giveCoord(ListOfCoord head, int indexOfNode){
     struct coordinates coord{};
     int index = 0;
 
-    if (head == nullptr)
+    if (head == nullptr || indexOfNode > sizeList(head))
         return coord;
     else
     {
