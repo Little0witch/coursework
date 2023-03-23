@@ -241,10 +241,15 @@ void removeNode(ListOfCoord * head, int x, int y) {
         {
             ListOfCoord current = *head;
             ListOfCoord previous = nullptr;
-            while (current != nullptr && (*head)->x != x && (*head)->y != y)
+            while (current != nullptr )
             {
-                previous = current;
-                current = current->next;
+                if (current->y == y && current->x == x)
+                    break;
+                else
+                {
+                    previous = current;
+                    current = current->next;
+                }
             }
             if (current == nullptr)
             {
