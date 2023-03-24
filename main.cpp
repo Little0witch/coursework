@@ -33,9 +33,9 @@ int main()
 
     int x,y;
     int flag = -1;
-    struct coordinates coord;
+    struct coordinates coord{};
 
-    while (true)
+    while (sizeList(listOfShips1) > 0)
     {
         printf("\nInput x: ");
         scanf("%d",&x);
@@ -51,5 +51,6 @@ int main()
 
     }
 
+    printf("\n\n\n\nbbbbbbbbb");
     return 0;
 }

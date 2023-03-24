@@ -1,6 +1,6 @@
 #pragma once
-#include <stdio.h>
-#include <stdlib.h>
+#include <cstdio>
+#include <cstdlib>
 #include "ListOfCoord.h"
 #include "ListOfShips.h"
 #include "Array.h"
@@ -222,7 +222,7 @@ void BotHard::statusGame(int isHit) {
     if (isHit > 0)
     {
         arrayOfDeathShips[isHit]--;
-        if (arrayOfDeathShips[numberOfFile] == 0 && numberOfFile >= 1)
+        if ((arrayOfDeathShips[numberOfFile] == 0 && numberOfFile >= 1) || sizeList(listOfCoord) == 0)
         {
             numberOfFile--;
             freeList(&listOfCoord);
