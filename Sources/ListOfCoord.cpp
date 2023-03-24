@@ -67,6 +67,8 @@ void insertListFromFile(ListOfCoord * head, char* nameOfFile)
         else
             y = c - '0';
 
+        x--;
+        y--;
         insertNode(head,x,y);
 
         c = getc(file);
