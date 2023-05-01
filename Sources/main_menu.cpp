@@ -11,6 +11,59 @@ void main_menu::main_menu_run()
             {
                 window.close();
             }
+
+            //подсветка красным при наведении курсора на кнопку
+            if (event.type == sf::Event::MouseMoved)
+            {
+                sf::Vector2f mousePosition = window.mapPixelToCoords(sf::Mouse::getPosition(window));
+                //кнокпа игры online
+                //если курсор наведен на кнопку
+                if (sprite_online_play.getGlobalBounds().contains(mousePosition))
+                {
+                    //замена изображения на красную кнопки
+                    window.clear(sf::Color::Black);
+                    window.draw(sprite_background);
+                    window.draw(sprite_online_play);
+                    window.display();
+                }
+                else
+                {
+                    //кнокпа игры с ботом
+                    if (sprite_button_levels.getGlobalBounds().contains(mousePosition)) {
+                        //замена изображения на красную кнопки
+                        window.clear(sf::Color::Black);
+                        window.draw(sprite_background);
+                        window.draw(sprite_button_levels);
+                        window.display();
+                    } else
+                    {
+                        //кнокпа игры с ботом
+                        if (sprite_instruction_manual.getGlobalBounds().contains(mousePosition)) {
+                            //замена изображения на красную кнопки
+                            window.clear(sf::Color::Black);
+                            window.draw(sprite_background);
+                            window.draw(sprite_instruction_manual);
+                            window.display();
+                        } else {
+                            //кнокпа выхода
+                            if (sprite_exit.getGlobalBounds().contains(mousePosition)) {
+                                //замена изображения на красную кнопки
+                                window.clear(sf::Color::Black);
+                                window.draw(sprite_background);
+                                window.draw(sprite_exit);
+                                window.display();
+                            } else {
+                                //замена изображения на голубую кнопку
+                                window.clear(sf::Color::Black);
+                                window.draw(sprite_background);
+                                window.display();
+                            }
+                        }
+                    }
+                }
+            }
+
+            //нажатие кнопки
             if (event.type==sf::Event::MouseButtonPressed && event.mouseButton.button==sf::Mouse::Left)
             {
                 //онлайн игра
@@ -38,13 +91,6 @@ void main_menu::main_menu_run()
                     window.close();
                 }
             }
-
-
-            window.clear(sf::Color::Black);
-            window.draw(sprite_background);
-           // window.draw(sprite_button_levels);
-            window.display();
         }
-
     }
 }

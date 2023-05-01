@@ -32,7 +32,7 @@ public:
         button_difficult_levels.loadFromFile("../Resources/Img/Main window/button_dif_level_red.png");
         sprite_button_levels.setTexture(button_difficult_levels);
         sprite_button_levels.setPosition(570.f,513.f);
-        button_instruction_manual.loadFromFile("../Resources/Img/Main window/button_instruction_manual_red.png");
+        button_instruction_manual.loadFromFile("../Resources/Img/Main window/button_instruction_red.png");
         sprite_instruction_manual.setTexture(button_instruction_manual);
         sprite_instruction_manual.setPosition(570.f,685.f);
         button_exit.loadFromFile("../Resources/Img/Main window/button_exit_red.png");
