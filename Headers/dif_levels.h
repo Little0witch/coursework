@@ -2,12 +2,12 @@
 #ifndef COURSEWORK_DIF_LEVELS_H
 #define COURSEWORK_DIF_LEVELS_H
 #include <SFML/Graphics.hpp>
-#include "main_menu.h"
+//#include "main_menu.h"
 
 class dif_levels
 {
 private:
-    sf::RenderWindow window;
+    sf::RenderWindow &window;
     sf::Texture background;
     sf::Texture button_easy_blue;
     sf::Texture button_easy_red;
@@ -24,7 +24,7 @@ private:
     sf::Sprite sprite_button_exit_blue;
     sf::Sprite sprite_button_exit_red;
 public:
-    dif_levels() : window(sf::VideoMode(1846,1048),"Battlership")
+    dif_levels(sf::RenderWindow &other) : window(other)
     {
         background.loadFromFile("../Resources/Img/Difficulty levels/win_without_button.png");
         button_easy_blue.loadFromFile("../Resources/Img/Difficulty levels/button_easy_blue.png");

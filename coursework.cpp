@@ -14,8 +14,11 @@ int main()
     //RenderWindow window(sf::VideoMode(1846, 1048), "SFML works!");
    // sf::RenderWindow tmp(sf::VideoMode(1836, 1048),"Battlership");
     //main_menu window(tmp);
-    main_menu window;
-    window.main_menu_run();
+    sf::RenderWindow window(sf::VideoMode(1846,1048),"Battlership");
+    main_menu main_window(window);
+    main_window.main_menu_run();
+   // main_menu window;
+   // window.main_menu_run();
 
 //    BotSoft botSoft1;
 //    BotHard botHard;

@@ -8,7 +8,7 @@
 class main_menu
 {
 private:
-    sf::RenderWindow window;
+    sf::RenderWindow &window;
     sf::Texture background;
     sf::Texture button_online_play;
     sf::Texture button_difficult_levels;
@@ -21,8 +21,11 @@ private:
     sf::Sprite sprite_instruction_manual;
     sf::Sprite sprite_exit;
 
+    sf::Texture back_instr_man;
+    sf::Sprite sprite_back_instr_man;
+
 public:
-    main_menu() : window(sf::VideoMode(1846,1048),"aaaa")
+    main_menu(sf::RenderWindow &other) : window(other)
     {
         background.loadFromFile("../Resources/Img/Main window/main_window.png");
         sprite_background.setTexture(background);
@@ -38,6 +41,9 @@ public:
         button_exit.loadFromFile("../Resources/Img/Main window/button_exit_red.png");
         sprite_exit.setTexture(button_exit);
         sprite_exit.setPosition(570.f,857.f);
+
+        back_instr_man.loadFromFile("../Resources/Img/Instruction manual/window_instruction_manual.png");
+        sprite_back_instr_man.setTexture(back_instr_man);
 
     }
     void main_menu_run();

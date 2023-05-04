@@ -84,12 +84,13 @@ void dif_levels::dif_levels_run()
 //кнокпа выхода
                 if ((event.mouseButton.x>=570 && event.mouseButton.x<=1261) && (event.mouseButton.y>=793 && event.mouseButton.y<=908))
                 {
-                    window.close();
-                    main_menu window_menu;
-                    window_menu.main_menu_run();
+//                    window.close();
+//                    main_menu window_menu;
+//                    window_menu.main_menu_run();
+                    return;
                 }
             }
         }
     }
-    return;
+   // return;
 }
