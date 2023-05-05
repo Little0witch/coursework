@@ -7,6 +7,7 @@
 #include "Headers/BotHard.h"
 #include "Headers/main_menu.h"
 #include "Headers/play_window.h"
+#include "Headers/placemenr_field.h"
 using namespace sf;
 
 int main()
@@ -19,8 +20,10 @@ int main()
     sf::RenderWindow window(sf::VideoMode(1846,1048),"Battlership");
 //    main_menu main_window(window);
 //    main_window.main_menu_run();
-    play_window window_play(window);
-    window_play.play_window_run();
+//    play_window window_play(window);
+//    window_play.play_window_run();
+placemenr_field placemenrField(window);
+placemenrField.placemenr_field_run();
 
    // main_menu window;
    // window.main_menu_run();

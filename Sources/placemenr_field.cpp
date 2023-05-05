@@ -1,6 +1,10 @@
-#include "play_window.h"
+//
+// Created by tanya on 5.5.23.
+//
 
-void play_window::play_window_run()
+#include "../Headers/placemenr_field.h"
+
+void placemenr_field::placemenr_field_run()
 {
     while (window.isOpen())
     {
@@ -14,9 +18,9 @@ void play_window::play_window_run()
         }
         window.clear(sf::Color::Black);
         window.draw(sprite_background);
-        window.draw(tmp_B1);
-        window.draw(tmp_A1);
-        window.draw(sprite_missed_bomb);
+        window.draw(sprite_button_back);
+        window.draw(tmp);
+
         window.display();
     }
 }
