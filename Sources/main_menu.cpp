@@ -38,7 +38,7 @@ void main_menu::main_menu_run()
                     //window.close();
 //                    instruction_manual window_instruction;
 //                    window_instruction.instruction_manual_run();
-                    instruction_manual window_instruction(window, sprite_back_instr_man);
+                    instruction_manual window_instruction(window);
                     window_instruction.instruction_manual_run();
                     window.clear(sf::Color::Black);
                     window.draw(sprite_background);

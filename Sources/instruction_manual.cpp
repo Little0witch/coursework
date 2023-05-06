@@ -25,27 +25,27 @@ void instruction_manual::instruction_manual_run()
             }
 
             //подсветка красным при наведении курсора на кнопку
-//            if (event.type == sf::Event::MouseMoved)
-//            {
-//                sf::Vector2f mousePosition = window.mapPixelToCoords(sf::Mouse::getPosition(window));
-//                //кнокпа выхода
-//                if (sprite_exit_blue.getGlobalBounds().contains(mousePosition))
-//                {
-//                    //замена изображения на красную кнопки
-//                    window.clear(sf::Color::Black);
-//                    window.draw(sprite_background);
-//                    window.draw(sprite_exit_red);
-//                    window.display();
-//                }
-//                else
-//                {
+            if (event.type == sf::Event::MouseMoved)
+            {
+                sf::Vector2f mousePosition = window.mapPixelToCoords(sf::Mouse::getPosition(window));
+                //кнокпа выхода
+                if (sprite_exit_blue.getGlobalBounds().contains(mousePosition))
+                {
+                    //замена изображения на красную кнопки
+                    window.clear(sf::Color::Black);
+                    window.draw(sprite_background);
+                    window.draw(sprite_exit_red);
+                    window.display();
+                }
+                else
+                {
                     //замена изображения на голубую кнопку
                     window.clear(sf::Color::Black);
                     window.draw(sprite_background);
-                 //   window.draw(sprite_exit_blue);
+                    window.draw(sprite_exit_blue);
                     window.display();
-               // }
-          //  }
+                }
+            }
         }
     }
 }
