@@ -1,10 +1,6 @@
-//
-// Created by tanya on 5.5.23.
-//
+#include "../Headers/placement_field.h"
 
-#include "../Headers/placemenr_field.h"
-
-void placemenr_field::placemenr_field_run()
+void placement_field::placement_field_run()
 {
     while (window.isOpen())
     {
@@ -19,6 +15,9 @@ void placemenr_field::placemenr_field_run()
         window.clear(sf::Color::Black);
         window.draw(sprite_background);
         window.draw(sprite_button_back);
+        window.draw(sprite_button_reset);
+        window.draw(sprite_button_auto);
+        window.draw(sprite_button_play);
         window.draw(tmp);
 
         window.display();

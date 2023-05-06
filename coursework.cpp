@@ -7,7 +7,7 @@
 #include "Headers/BotHard.h"
 #include "Headers/main_menu.h"
 #include "Headers/play_window.h"
-#include "Headers/placemenr_field.h"
+#include "Headers/placement_field.h"
 using namespace sf;
 
 int main()
@@ -22,7 +22,7 @@ int main()
 //    main_window.main_menu_run();
 //    play_window window_play(window);
 //    window_play.play_window_run();
-placemenr_field placemenrField(window);
+placement_field placemenrField(window);
 placemenrField.placemenr_field_run();
 
    // main_menu window;
