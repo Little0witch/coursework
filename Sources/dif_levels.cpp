@@ -7,6 +7,7 @@ void dif_levels::dif_levels_run()
         sf::Event event;
         while (window.pollEvent(event))
         {
+            //обязательная проверка на закрытие окна
             if (event.type==sf::Event::Closed)
             {
                 window.close();
@@ -74,23 +75,21 @@ void dif_levels::dif_levels_run()
 //кнокпа простого режима
                 if ((event.mouseButton.x>=570 && event.mouseButton.x<=1261) && (event.mouseButton.y>=450 && event.mouseButton.y<=565))
                 {
-                    window.close();
+                    placement_field placement_field(window);
+                    placement_field.placement_field_run();
                 }
 //кнокпа сложного режима
                 if ((event.mouseButton.x>=570 && event.mouseButton.x<=1261) && (event.mouseButton.y>=623 && event.mouseButton.y<=738))
                 {
-                    window.close();
+                    placement_field placement_field(window);
+                    placement_field.placement_field_run();
                 }
 //кнокпа выхода
                 if ((event.mouseButton.x>=570 && event.mouseButton.x<=1261) && (event.mouseButton.y>=793 && event.mouseButton.y<=908))
                 {
-//                    window.close();
-//                    main_menu window_menu;
-//                    window_menu.main_menu_run();
                     return;
                 }
             }
         }
     }
-   // return;
 }

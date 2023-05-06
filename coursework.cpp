@@ -18,6 +18,8 @@ int main()
 
 
     sf::RenderWindow window(sf::VideoMode(1846,1048),"Battlership");
+
+//главное окно и все остальные от него
     main_menu main_window(window);
     main_window.main_menu_run();
 

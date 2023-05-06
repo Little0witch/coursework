@@ -5,6 +5,7 @@ void play_window::play_window_run()
     while (window.isOpen())
     {
         sf::Event event;
+        //обязательная проверка на закрытие окна
         while (window.pollEvent(event))
         {
             if (event.type == sf::Event::Closed)

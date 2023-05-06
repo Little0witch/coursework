@@ -7,6 +7,7 @@ void instruction_manual::instruction_manual_run()
         sf::Event event;
         while (window.pollEvent(event))
         {
+            //обязательная проверка на закрытие окна
             if (event.type==sf::Event::Closed)
             {
                 window.close();

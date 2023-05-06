@@ -2,7 +2,8 @@
 #ifndef COURSEWORK_DIF_LEVELS_H
 #define COURSEWORK_DIF_LEVELS_H
 #include <SFML/Graphics.hpp>
-//#include "main_menu.h"
+#include "placement_field.h"
+
 
 class dif_levels
 {

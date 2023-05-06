@@ -1,15 +1,14 @@
 #ifndef COURSEWORK_PLACEMENT_FIELD_H
 #define COURSEWORK_PLACEMENT_FIELD_H
 #include <SFML/Graphics.hpp>
+#include <iostream>
 
 class placement_field {
-//private:
-public:
+private:
     sf::RenderWindow &window;
     sf::Texture background;
     sf::Texture texture_atlas;
 
-    sf::Texture button_back_blue;
     sf::Texture button_back_red;
     sf::Texture button_auto_blue;
     sf::Texture button_auto_red;
@@ -18,49 +17,62 @@ public:
     sf::Texture button_play_blue;
     sf::Texture button_play_red;
 
+    sf::Sprite sprite_background_texture_atlas;
     sf::Sprite sprite_background;
     sf::Sprite sprite_button_back;
     sf::Sprite sprite_button_auto;
     sf::Sprite sprite_button_reset;
     sf::Sprite sprite_button_play;
+    sf::Sprite sprite_ships;
 
+    sf::Sprite sprite_button_auto_red;
+    sf::Sprite sprite_button_reset_red;
+    sf::Sprite sprite_button_play_red;
+
+    //флаг нажатия на автоматическую расстановку
+    bool flag_auto_pressed = false;
     sf::RectangleShape tmp;
 
 public:
     placement_field(sf::RenderWindow &other_window) : window(other_window)
     {
-//        background.loadFromFile("../Resources/Img/Ships/window_field.png");
-//        sprite_background.setTexture(background);
-
-        texture_atlas.loadFromFile("../Resources/Img/Ships/window_field.png");
-        sprite_button_play.setTexture(texture_atlas);
-        sprite_button_play.setTextureRect(sf::IntRect(1483,742,113,110));
-        sprite_button_play.setPosition(sf::Vector2f(1483.f,742.f));
         background.loadFromFile("../Resources/Img/Ships/placement_window.png");
         sprite_background.setTexture(background);
-       // button_back_red.loadFromFile("../Resources/Img/Ships/button_back.png");
-//        sprite_button_back.setTexture(button_back_red);
-//        sprite_button_back.setPosition(170.f,20.f);
+
+        texture_atlas.loadFromFile("../Resources/Img/Ships/window_field.png");
 
         sprite_button_back.setTexture(texture_atlas);
         sprite_button_back.setTextureRect(sf::IntRect(170.f,20.f, 350.f,140.f));
         sprite_button_back.setPosition(sf::Vector2f(170.f,20.f));
 
-        button_reset_blue.loadFromFile("../Resources/Img/Ships/button_reset_blue.png");
-        sprite_button_reset.setTexture(button_reset_blue);
-        sprite_button_reset.setPosition(1028.f,742.f);
-        button_auto_blue.loadFromFile("../Resources/Img/Ships/button_auto_blue.png");
-        sprite_button_auto.setTexture(button_auto_blue);
-        sprite_button_auto.setPosition(1190.f,742.f);
-        button_play_blue.loadFromFile("../Resources/Img/Ships/button_play_blue.png");
+        sprite_ships.setTexture(texture_atlas);
+        sprite_ships.setTextureRect(sf::IntRect(1025.f,283.f,570.f,400.f));
+        sprite_ships.setPosition(1025.f,283.f);
 
-       // sprite_button_play.setTexture(button_play_blue);
-     //   sprite_button_play.setPosition(1483.f,742.f);
+        sprite_button_reset.setTexture(texture_atlas);
+        sprite_button_reset.setTextureRect(sf::IntRect(1028.f,742.f,113.f,110.f));
+        sprite_button_reset.setPosition(sf::Vector2f(1028.f,742.f));
 
+        sprite_button_auto.setTexture(texture_atlas);
+        sprite_button_auto.setTextureRect(sf::IntRect(1190.f,742.f,240.f,110.f));
+        sprite_button_auto.setPosition(sf::Vector2f(1190.f,742.f));
 
-        tmp.setSize(sf::Vector2f(113.f,110.f));
-        tmp.setPosition(1483.f,742.f);
-        tmp.setFillColor(sf::Color(255, 255, 255, 128));
+        sprite_button_play.setTexture(texture_atlas);
+        sprite_button_play.setTextureRect(sf::IntRect(1483.f,742.f,113.f,110.f));
+        sprite_button_play.setPosition(sf::Vector2f(1483.f,742.f));
+
+        button_reset_red.loadFromFile("../Resources/Img/Ships/button_reset_red.png");
+        sprite_button_reset_red.setTexture(button_reset_red);
+        sprite_button_reset_red.setPosition(sf::Vector2f(1028.f,742.f));
+
+        button_auto_red.loadFromFile("../Resources/Img/Ships/button_auto_red.png");
+        sprite_button_auto_red.setTexture(button_auto_red);
+        sprite_button_auto_red.setPosition(sf::Vector2f(1190.f,742.f));
+
+        button_play_red.loadFromFile("../Resources/Img/Ships/button_play_red.png");
+        sprite_button_play_red.setTexture(button_play_red);
+        sprite_button_play_red.setPosition(sf::Vector2f(1483.f,742.f));
+
     }
     void placement_field_run();
 };
