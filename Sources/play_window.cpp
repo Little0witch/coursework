@@ -15,9 +15,11 @@ void play_window::play_window_run()
         }
         window.clear(sf::Color::Black);
         window.draw(sprite_background);
+        window.draw(sprite_button_back);
         window.draw(tmp_B1);
         window.draw(tmp_A1);
         window.draw(sprite_missed_bomb);
+        window.draw(sprite_left_arrow);
         window.display();
     }
 }
