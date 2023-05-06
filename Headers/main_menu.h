@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include "dif_levels.h"
 #include "instruction_manual.h"
+#include "window_exit.h"
 
 class main_menu
 {

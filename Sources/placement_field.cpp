@@ -128,6 +128,5 @@ void placement_field::placement_field_run()
                 }
             }
         }
-
     }
 }

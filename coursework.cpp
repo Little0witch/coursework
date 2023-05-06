@@ -13,8 +13,8 @@ using namespace sf;
 int main()
 {
     //RenderWindow window(sf::VideoMode(1846, 1048), "SFML works!");
-   // sf::RenderWindow tmp(sf::VideoMode(1836, 1048),"Battlership");
-    //main_menu window(tmp);
+   // sf::RenderWindow _yes(sf::VideoMode(1836, 1048),"Battlership");
+    //main_menu window(_yes);
 
 
     sf::RenderWindow window(sf::VideoMode(1846,1048),"Battlership");

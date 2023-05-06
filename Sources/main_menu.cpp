@@ -39,7 +39,9 @@ void main_menu::main_menu_run()
                 //выход
                 if ((event.mouseButton.x>=570 && event.mouseButton.x<=1261) && (event.mouseButton.y>=857 && event.mouseButton.y<=972))
                 {
-                    window.close();
+                    window_exit exit_window(window);
+                    exit_window.window_exit_run();
+                   // window.close();
                 }
             }
 
