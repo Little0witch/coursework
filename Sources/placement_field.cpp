@@ -1,5 +1,6 @@
 #include "../Headers/placement_field.h"
 #include "../Headers/Player.h"
+#include "../Headers/play_window.h"
 
 void placement_field::placement_field_run(int complexity)
 {
@@ -131,8 +132,8 @@ void placement_field::placement_field_run(int complexity)
 //кнокпа play
                 if ((event.mouseButton.x>=1483 && event.mouseButton.x<=1596) && (event.mouseButton.y>=742 && event.mouseButton.y<=852))
                 {
-                    return;
-
+                    play_window playWindow(window);
+                    playWindow.play_window_run(player, complexity);
                 }
 
             }

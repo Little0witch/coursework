@@ -1,6 +1,6 @@
 #include "../Headers/play_window.h"
 
-void play_window::play_window_run(int complexity)
+void play_window::play_window_run(Player& player,int complexity)
 {
 //    if (complexity == 1)
 //        BotSoft bot;

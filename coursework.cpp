@@ -1,8 +1,5 @@
 #include <SFML/Graphics.hpp>
-#include "Headers/main_menu.h"
-#include "Headers/play_window.h"
 #include "Headers/placement_field.h"
-#include "Headers/BotSoft.h"
 
 using namespace sf;
 
