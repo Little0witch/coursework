@@ -4,7 +4,7 @@ void dif_levels::dif_levels_run()
 {
     while (window.isOpen())
     {
-        sf::Event event;
+        sf::Event event{};
         while (window.pollEvent(event))
         {
             //обязательная проверка на закрытие окна
@@ -76,13 +76,13 @@ void dif_levels::dif_levels_run()
                 if ((event.mouseButton.x>=570 && event.mouseButton.x<=1261) && (event.mouseButton.y>=450 && event.mouseButton.y<=565))
                 {
                     placement_field placement_field(window);
-                    placement_field.placement_field_run();
+                    placement_field.placement_field_run(1);
                 }
 //кнокпа сложного режима
                 if ((event.mouseButton.x>=570 && event.mouseButton.x<=1261) && (event.mouseButton.y>=623 && event.mouseButton.y<=738))
                 {
                     placement_field placement_field(window);
-                    placement_field.placement_field_run();
+                    placement_field.placement_field_run(2);
                 }
 //кнокпа выхода
                 if ((event.mouseButton.x>=570 && event.mouseButton.x<=1261) && (event.mouseButton.y>=793 && event.mouseButton.y<=908))

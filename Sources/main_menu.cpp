@@ -22,7 +22,7 @@ void main_menu::main_menu_run()
                     //это временно!!!
                     //здесь еще нужно подключение по сети сделать
                     placement_field placement_field(window);
-                    placement_field.placement_field_run();
+                    placement_field.placement_field_run(0);
                 }
                 //игра с ботом
                 if ((event.mouseButton.x>=570 && event.mouseButton.x<=1261) && (event.mouseButton.y>=513 && event.mouseButton.y<=628))

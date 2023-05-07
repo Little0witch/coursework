@@ -15,6 +15,14 @@ struct coordinates{
     int y;
 };
 
+struct coordinateOfShip{
+    int x;
+    int y;
+    int size;
+    int orientation;//0 - gorizont (y=   x!=) 1 - vert(x= y!=)
+};
+
+
 typedef struct node ListNode;
 typedef ListNode* ListOfCoord;
 

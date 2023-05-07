@@ -1,6 +1,7 @@
 #ifndef COURSEWORK_PLAY_WINDOW_H
 #define COURSEWORK_PLAY_WINDOW_H
 #include <SFML/Graphics.hpp>
+//#include "Player.h"
 
 class play_window {
 private:
@@ -56,7 +57,7 @@ public:
         tmp.setPosition(170.f,30.f);
         tmp.setFillColor(sf::Color(255, 255, 255, 128));
     }
-    void play_window_run();
+    void play_window_run(int);
 };
 
 

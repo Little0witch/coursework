@@ -10,24 +10,22 @@ private:
     int** myField = nullptr;
     ListOfShips listOfMyShips = nullptr;
 public:
-    int** autoPositioningOfShips();
+    void autoPositioningOfShips();
     bool checkPositions(int**,int,int,int,int);
     int **getMyField() const;
-    const ListNodeShips *getListOfMyShips() const;
-
-    void setMyField(int **field);
+    ListNodeShips *getListOfMyShips() const;
 
     Player();
 
     virtual ~Player();
 };
 
-int **Player::autoPositioningOfShips() {
-    int** field = nullptr;
+void Player::autoPositioningOfShips() {
     ListOfCoord coordOfShips = nullptr;
+    myField = allocateMemory(myField, 10, 10);
+    init(myField, 10, 10);
 
-    field = allocateMemory(field,10,10);
-    init(field,10,10);
+    freeList(&listOfMyShips);
 
     int sizeOfShips[] = {4,3,2,1};
     int valueOfShips[] = {1,2,3,4};
@@ -50,10 +48,10 @@ int **Player::autoPositioningOfShips() {
 
                 if (orientation == 0 && x + size <= 10)
                 {
-                    if (checkPositions(field,x,y,size,orientation)) {
+                    if (checkPositions(myField, x, y, size, orientation)) {
                         for (int k = x; k < x + size; ++k) {
                             insertNode(&coordOfShips,k,y);
-                            field[k][y] = size;
+                            myField[k][y] = size;
                         }
 
                         insertNode(&listOfMyShips,coordOfShips);
@@ -63,10 +61,10 @@ int **Player::autoPositioningOfShips() {
 
                 } else if (orientation == 1 && y + size <= 10)
                 {
-                    if (checkPositions(field,x,y,size,orientation)){
+                    if (checkPositions(myField, x, y, size, orientation)){
                         for (int k = y; k < y+size; ++k) {
                             insertNode(&coordOfShips,x,k);
-                            field[x][k] = size;
+                            myField[x][k] = size;
                         }
                         insertNode(&listOfMyShips,coordOfShips);
                         placed = true;
@@ -76,8 +74,6 @@ int **Player::autoPositioningOfShips() {
             }
         }
     }
-
-    return field;
 }
 
 bool Player::checkPositions(int** field, int x, int y, int size, int orientation) {
@@ -156,12 +152,8 @@ int **Player::getMyField() const {
     return myField;
 }
 
-const ListNodeShips *Player::getListOfMyShips() const {
+ListNodeShips *Player::getListOfMyShips() const {
     return listOfMyShips;
-}
-
-void Player::setMyField(int **field) {
-    Player::myField = field;
 }
 
 Player::Player() = default;

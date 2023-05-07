@@ -56,6 +56,7 @@ BotHard::BotHard() {
 int **BotHard::autoPositioningOfShips() {
     int** field = nullptr;
     ListOfCoord coordOfShips = nullptr;
+    freeList(&listOfMyShips);
 
     field = allocateMemory(field,10,10);
     init(field,10,10);

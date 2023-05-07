@@ -1,9 +1,13 @@
 #include "../Headers/placement_field.h"
+#include "../Headers/Player.h"
 
-void placement_field::placement_field_run()
+void placement_field::placement_field_run(int complexity)
 {
+    Player player;
+
     while (window.isOpen())
     {
+
         sf::Event event{};
         while (window.pollEvent(event))
         {
@@ -31,6 +35,10 @@ void placement_field::placement_field_run()
                     {
                         window.draw(sprite_ships);
                     }
+                    else
+                        show_placement();
+
+
                     window.display();
                 }
                 else
@@ -49,6 +57,9 @@ void placement_field::placement_field_run()
                         {
                             window.draw(sprite_ships);
                         }
+                        else
+                            show_placement();
+
                         window.display();
                     }
                     else
@@ -67,6 +78,9 @@ void placement_field::placement_field_run()
                             {
                                 window.draw(sprite_ships);
                             }
+                            else
+                                show_placement();
+
                             window.display();
                         }
                         else
@@ -82,6 +96,9 @@ void placement_field::placement_field_run()
                             {
                                 window.draw(sprite_ships);
                             }
+                            else
+                                show_placement();
+
                             window.display();
                         }
                     }
@@ -96,23 +113,13 @@ void placement_field::placement_field_run()
                 {
                     return;
                 }
-//кнокпа reset
-                if ((event.mouseButton.x>=1028 && event.mouseButton.x<=1141) && (event.mouseButton.y>=742 && event.mouseButton.y<=852))
-                {
-                    flag_auto_pressed = false;
-                    window.clear(sf::Color::Black);
-                    window.draw(sprite_background);
-                    window.draw(sprite_button_back);
-                    window.draw(sprite_button_reset);
-                    window.draw(sprite_button_auto);
-                    window.draw(sprite_button_play);
-                    window.draw(sprite_ships);
-                    window.display();
-                }
+
 //кнопка auto
                 if ((event.mouseButton.x>=1190 && event.mouseButton.x<=1430) && (event.mouseButton.y>=742 && event.mouseButton.y<=852))
                 {
                     flag_auto_pressed = true;
+                    player.autoPositioningOfShips();
+                    set_placement(player.getListOfMyShips());
                     window.clear(sf::Color::Black);
                     window.draw(sprite_background);
                     window.draw(sprite_button_back);
@@ -125,8 +132,33 @@ void placement_field::placement_field_run()
                 if ((event.mouseButton.x>=1483 && event.mouseButton.x<=1596) && (event.mouseButton.y>=742 && event.mouseButton.y<=852))
                 {
                     return;
+
                 }
+
             }
         }
     }
+}
+
+void placement_field::set_placement(ListOfShips listOfShips) {
+    struct coordinateOfShip coord{};
+
+    printf("\n+");
+
+    for (int i = 0; i < 10; ++i) {
+        coord = giveCoordOfShip(listOfShips,i);
+
+        if (coord.orientation == 0)//vert
+        {
+            ships[i].setRotation(90.f);
+        }
+        ships[i].setPosition((float)coord.x, (float)coord.y);
+    }
+}
+
+void placement_field::show_placement() {
+    for (int i = 0; i < 10; ++i) {
+        window.draw(ships[i]);
+    }
+    window.display();
 }

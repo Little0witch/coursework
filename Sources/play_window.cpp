@@ -1,10 +1,15 @@
 #include "../Headers/play_window.h"
 
-void play_window::play_window_run()
+void play_window::play_window_run(int complexity)
 {
+//    if (complexity == 1)
+//        BotSoft bot;
+//    else
+//        BotHard bot;
+
     while (window.isOpen())
     {
-        sf::Event event;
+        sf::Event event{};
         //обязательная проверка на закрытие окна
         while (window.pollEvent(event))
         {

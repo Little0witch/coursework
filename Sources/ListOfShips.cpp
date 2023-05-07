@@ -34,8 +34,9 @@ void showList(ListOfShips head) {
         }
         printf("\n");
     }
-
 }
+
+
 
 int sizeList(ListOfShips head)
 {
@@ -167,5 +168,55 @@ void autoRemoveNode(ListOfShips * head) {
                 free(current);
             }
         }
+    }
+}
+
+struct coordinateOfShip giveCoordOfShip(ListOfShips head, int index){
+
+    if (head == nullptr)
+        return {};
+    else
+    {
+        struct coordinateOfShip coord{};
+        int i = 0;
+
+        while (head != nullptr)
+        {
+            if (index  == i)
+                break;
+            else
+            {
+                head = head->next;
+                i++;
+            }
+        }
+
+        coord.y = 228 + head->list->x * 56;
+        coord.x = 285 + head->list->y * 56;
+
+
+        coord.size = head->size;
+        coord.orientation = -1;
+        if (head->size != 1)
+        {
+            if (head->list->y != head->list->next->y)
+                coord.orientation = 0;
+
+            if (head->list->x == head->list->next->x)
+                coord.orientation = 1;
+        }
+
+        coord.y +=56;
+        if (coord.orientation != 1)
+        {
+            coord.x-=56;
+        }
+
+        if (coord.orientation == 0)
+        {
+            coord.x +=56;
+        }
+
+        return coord;
     }
 }

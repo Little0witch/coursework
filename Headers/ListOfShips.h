@@ -1,6 +1,6 @@
 #pragma once
-#include <stdio.h>
-#include <stdlib.h>
+#include <cstdio>
+#include <cstdlib>
 #include "ListOfCoord.h"
 
 struct Node{
@@ -22,3 +22,5 @@ void insertNode(ListOfShips*, ListOfCoord);
 int sizeList(ListOfShips);
 void autoRemoveNode(ListOfShips*);
 int isHit(ListOfShips,ListOfShips*, int, int);
+struct coordinateOfShip giveCoordOfShip(ListOfShips, int);
+

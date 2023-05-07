@@ -2,12 +2,14 @@
 #define COURSEWORK_PLACEMENT_FIELD_H
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include "ListOfShips.h"
 
 class placement_field {
 private:
     sf::RenderWindow &window;
     sf::Texture background;
     sf::Texture texture_atlas;
+    sf::Texture texture_atlas_1;
 
     sf::Texture button_back_red;
     sf::Texture button_auto_blue;
@@ -28,6 +30,14 @@ private:
     sf::Sprite sprite_button_auto_red;
     sf::Sprite sprite_button_reset_red;
     sf::Sprite sprite_button_play_red;
+
+    sf::Texture shipOf1;
+    sf::Texture shipOf2;
+    sf::Texture shipOf3;
+    sf::Texture shipOf4;
+
+
+    sf::Sprite ships[10];
 
     //флаг нажатия на автоматическую расстановку
     bool flag_auto_pressed = false;
@@ -73,8 +83,29 @@ public:
         sprite_button_play_red.setTexture(button_play_red);
         sprite_button_play_red.setPosition(sf::Vector2f(1483.f,742.f));
 
+
+        texture_atlas_1.loadFromFile("../Resources/Img/Ships/m_all_ships.png");
+        for (auto & ship : ships) {
+            ship.setTexture(texture_atlas_1);
+        }
+
+        ships[0].setTextureRect(sf::IntRect(0.f, 0.f,228.f,56.f));//4
+
+        ships[1].setTextureRect(sf::IntRect(0.f,115.f, 167.f,56.f));//3
+        ships[2].setTextureRect(sf::IntRect(0.f,115.f, 167.f,56.f));//3
+
+        ships[3].setTextureRect(sf::IntRect(0.f,230.f,112.f,56.f));//2
+        ships[4].setTextureRect(sf::IntRect(0.f,230.f,112.f,56.f));//2
+        ships[5].setTextureRect(sf::IntRect(0.f,230.f,112.f,56.f));//2
+
+        ships[6].setTextureRect(sf::IntRect(0.f,344.f,56.f,56.f));//1
+        ships[7].setTextureRect(sf::IntRect(0.f,344.f,56.f,56.f));//1
+        ships[8].setTextureRect(sf::IntRect(0.f,344.f,56.f,56.f));//1
+        ships[9].setTextureRect(sf::IntRect(0.f,344.f,56.f,56.f));//1
     }
-    void placement_field_run();
+    void placement_field_run(int);//1 soft 2 hard
+    void set_placement(ListOfShips);
+    void show_placement();
 };
 
 
