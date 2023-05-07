@@ -1,4 +1,5 @@
 #pragma once
+#include <SFML/Graphics.hpp>
 #include "Array.h"
 #include "ListOfCoord.h"
 #include "ListOfShips.h"
@@ -12,7 +13,6 @@ public:
     bool checkPositions(int**,int,int,int,int);
     int **getMyField() const;
     ListNodeShips *getListOfMyShips() const;
-
 
     ~Player();
 };

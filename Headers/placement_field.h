@@ -1,8 +1,9 @@
 #ifndef COURSEWORK_PLACEMENT_FIELD_H
 #define COURSEWORK_PLACEMENT_FIELD_H
 #include <SFML/Graphics.hpp>
+#include <iostream>
 #include "ListOfShips.h"
-
+#include "../Headers/Player.h"
 
 
 class placement_field {

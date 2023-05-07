@@ -5,6 +5,7 @@
 void placement_field::placement_field_run(int complexity)
 {
     Player player;
+    sf::Vector2f mousePosition;
 
     while (window.isOpen())
     {
@@ -20,7 +21,7 @@ void placement_field::placement_field_run(int complexity)
             //подсветка красным при наведении курсора на кнопку
             if (event.type == sf::Event::MouseMoved)
             {
-                sf::Vector2f mousePosition = window.mapPixelToCoords(sf::Mouse::getPosition(window));
+                mousePosition = window.mapPixelToCoords(sf::Mouse::getPosition(window));
             //кнокпа сброса
                 //если курсор наведен на кнопку
                 if (sprite_button_reset.getGlobalBounds().contains(mousePosition))
@@ -130,10 +131,10 @@ void placement_field::placement_field_run(int complexity)
                     window.display();
                 }
 //кнокпа play
-                if ((event.mouseButton.x>=1483 && event.mouseButton.x<=1596) && (event.mouseButton.y>=742 && event.mouseButton.y<=852))
+                if ((event.mouseButton.x>=1483 && event.mouseButton.x<=1596) && (event.mouseButton.y>=742 && event.mouseButton.y<=852) && flag_auto_pressed)
                 {
                     play_window playWindow(window);
-                    playWindow.play_window_run(player, complexity);
+                    playWindow.play_window_run(player, complexity,ships);
                 }
 
             }

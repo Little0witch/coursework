@@ -18,11 +18,13 @@ private:
     sf::Sprite sprite_left_arrow;
     sf::Sprite sprite_right_arrow;
 
-
+    sf::Texture texture_atlas_1;
     sf::RectangleShape tmp_A1;
     sf::RectangleShape tmp_B1;
 
     sf::RectangleShape tmp;
+
+    sf::Sprite* shipsOfPlayer;
 
 public:
     play_window(sf::RenderWindow &other) : window(other)
@@ -56,8 +58,10 @@ public:
         tmp.setSize(sf::Vector2f(345.f,110.f));
         tmp.setPosition(170.f,30.f);
         tmp.setFillColor(sf::Color(255, 255, 255, 128));
+
     }
-    void play_window_run(Player&, int);
+    void play_window_run(Player&, int, sf::Sprite*);
+    void show_placement();
 };
 
 
