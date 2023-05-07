@@ -2,12 +2,15 @@
 #define COURSEWORK_PLAY_WINDOW_H
 #include <SFML/Graphics.hpp>
 #include "Player.h"
+#include "window_win.h"
+#include "window_lose.h"
 
 class play_window {
 private:
     sf::RenderWindow &window;
     sf::Texture background;
     sf::Texture t_missed_bomb;
+    sf::Texture t_hit;
     sf::Texture t_left_arrow;
     sf::Texture t_right_arrow;
     sf::Texture button_back;
@@ -25,6 +28,13 @@ private:
     sf::RectangleShape tmp;
 
     sf::Sprite* shipsOfPlayer;
+    //ходы игрока
+    sf::Sprite missed_on_bot_field[80];
+    sf::Sprite hit_on_bot[20];
+
+    //ходы бота
+    sf::Sprite missed_on_player_field[80];
+    sf::Sprite hit_on_player[20];
 
 public:
     play_window(sf::RenderWindow &other) : window(other)
@@ -32,12 +42,11 @@ public:
         background.loadFromFile("../Resources/Img/Play window/field.png");
         button_back.loadFromFile("../Resources/Img/Play window/m_arrow_back_red.png");
         t_missed_bomb.loadFromFile("../Resources/Img/Play window/m_missed_bomb.png");
-
+        t_hit.loadFromFile("../Resources/Img/Play window/m_injury.png");
         sprite_background.setTexture(background);
         sprite_button_back.setTexture(button_back);
         sprite_button_back.setPosition(170.f,30.f);
         sprite_missed_bomb.setTexture(t_missed_bomb);
-        sprite_missed_bomb.setPosition(228.f,342.f);
 
         t_left_arrow.loadFromFile("../Resources/Img/Play window/m_left_arrow_blue.png");
         t_right_arrow.loadFromFile("../Resources/Img/Play window/m_right_arrow_blue.png");
@@ -47,6 +56,18 @@ public:
 
         sprite_right_arrow.setPosition(835.f,458.f);
         sprite_left_arrow.setPosition(835.f,458.f);
+
+        for (int i = 0; i < 20; ++i)
+        {
+            hit_on_bot[i].setTexture(t_hit);
+            hit_on_player[i].setTexture(t_hit);
+        }
+
+        for (int i = 0; i < 80; ++i)
+        {
+            missed_on_bot_field[i].setTexture(t_missed_bomb);
+            missed_on_player_field[i].setTexture(t_missed_bomb);
+        }
 
         //размер клетки
         tmp_A1.setSize(sf::Vector2f(56.f,56.f));
@@ -62,6 +83,7 @@ public:
     }
     void play_window_run(Player&, int, sf::Sprite*);
     void show_placement();
+    void show_field_enemy(sf::Sprite*, sf::Sprite*, int, int);
 };
 
 

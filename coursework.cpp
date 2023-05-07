@@ -1,7 +1,8 @@
 #include <SFML/Graphics.hpp>
 #include "Headers/placement_field.h"
 
-using namespace sf;
+
+
 
 int main()
 {
@@ -24,6 +25,7 @@ int main()
 //поле для расстановки
 placement_field placementField(window);
 placementField.placement_field_run(1);
+
 
 
 //

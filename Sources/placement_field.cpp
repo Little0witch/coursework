@@ -135,6 +135,7 @@ void placement_field::placement_field_run(int complexity)
                 {
                     play_window playWindow(window);
                     playWindow.play_window_run(player, complexity,ships);
+                    return;
                 }
 
             }
@@ -164,3 +165,4 @@ void placement_field::show_placement() {
     }
     window.display();
 }
+
