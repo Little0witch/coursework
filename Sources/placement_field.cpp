@@ -4,7 +4,7 @@ void placement_field::placement_field_run()
 {
     while (window.isOpen())
     {
-        sf::Event event;
+        sf::Event event{};
         while (window.pollEvent(event))
         {
             //обязательная проверка на закрытие окна

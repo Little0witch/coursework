@@ -4,7 +4,7 @@ void main_menu::main_menu_run()
 {
     while (window.isOpen())
     {
-        sf::Event event;
+        sf::Event event{};
         while (window.pollEvent(event))
         {
             //обязательная проверка на закрытие окна

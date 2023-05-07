@@ -86,7 +86,7 @@ void insertNode(ListOfShips * head, ListOfCoord list) {
 
 }
 
-int isHit(ListOfShips head, ListOfShips*removeHead, int x, int y) //-1 мимо 0 попали
+int isHit(ListOfShips head, ListOfShips* removeHead, int x, int y) //-1 мимо 0 попали
 {
     ListOfShips current = head;
 
