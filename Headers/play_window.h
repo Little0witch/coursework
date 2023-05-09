@@ -37,7 +37,7 @@ private:
     sf::Sprite hit_on_player[20];
 
 public:
-    play_window(sf::RenderWindow &other) : window(other)
+    play_window(sf::RenderWindow &other, sf::Sprite* shipsOfPlayer) : window(other), shipsOfPlayer(shipsOfPlayer)
     {
         background.loadFromFile("../Resources/Img/Play window/field.png");
         button_back.loadFromFile("../Resources/Img/Play window/m_arrow_back_red.png");
@@ -81,7 +81,7 @@ public:
         tmp.setFillColor(sf::Color(255, 255, 255, 128));
 
     }
-    void play_window_run(Player&, int, sf::Sprite*);
+    void play_window_run(Player&, int);
     void show_placement();
     void show_field_enemy(sf::Sprite*, sf::Sprite*, int, int);
 };

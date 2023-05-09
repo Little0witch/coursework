@@ -1,8 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include "Headers/placement_field.h"
-
-
-
+#include "Headers/connect_type.h"
+#include "Headers/input_code.h"
 
 int main()
 {
@@ -23,10 +22,15 @@ int main()
 //    window_play.play_window_run();
 
 //поле для расстановки
-placement_field placementField(window);
-placementField.placement_field_run(1);
+//placement_field placementField(window);
+//placementField.placement_field_run(1);
 
+//окно выбора типа подключения
+//connect_type window_connect_type(window);
+//window_connect_type.connect_type_run();
 
+input_code window_input_code(window);
+window_input_code.input_code_run();
 
 //
 //    BotSoft botSoft1;

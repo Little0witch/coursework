@@ -5,7 +5,7 @@
 void placement_field::placement_field_run(int complexity)
 {
     Player player;
-    sf::Vector2f mousePosition;
+//    sf::Vector2f mousePosition;
 
     while (window.isOpen())
     {
@@ -13,38 +13,48 @@ void placement_field::placement_field_run(int complexity)
         sf::Event event{};
         while (window.pollEvent(event))
         {
+
             //обязательная проверка на закрытие окна
             if (event.type == sf::Event::Closed)
             {
                 window.close();
             }
+
+            if ((event.mouseButton.x>=1483 && event.mouseButton.x<=1596) && (event.mouseButton.y>=742 && event.mouseButton.y<=852) && flag_auto_pressed)
+                {
+                    printf("\n  ==+");
+                    play_window playWindow(window, ships);
+                    playWindow.play_window_run(player, complexity);
+                    return;
+                }
             //подсветка красным при наведении курсора на кнопку
             if (event.type == sf::Event::MouseMoved)
             {
-                mousePosition = window.mapPixelToCoords(sf::Mouse::getPosition(window));
+                sf::Vector2f mousePosition = window.mapPixelToCoords(sf::Mouse::getPosition(window));
+
             //кнокпа сброса
                 //если курсор наведен на кнопку
-                if (sprite_button_reset.getGlobalBounds().contains(mousePosition))
-                {
-                    //замена изображения на красную кнопки
-                    window.clear(sf::Color::Black);
-                    window.draw(sprite_background);
-                    window.draw(sprite_button_back);
-                    window.draw(sprite_button_auto);
-                    window.draw(sprite_button_play);
-                    window.draw(sprite_button_reset_red);
-                    if (!flag_auto_pressed)
-                    {
-                        window.draw(sprite_ships);
-                    }
-                    else
-                        show_placement();
-
-
-                    window.display();
-                }
-                else
-                {
+//                if (sprite_button_reset.getGlobalBounds().contains(mousePosition))
+//                {
+//                    //замена изображения на красную кнопки
+//                    window.clear(sf::Color::Black);
+//                    window.draw(sprite_background);
+//                    window.draw(sprite_button_back);
+//                    window.draw(sprite_button_auto);
+//                    window.draw(sprite_button_play);
+//                    window.draw(sprite_button_reset_red);
+//                    if (!flag_auto_pressed)
+//                    {
+//                        window.draw(sprite_ships);
+//                    }
+//                    else
+//                    {
+//                        show_placement();
+//                    }
+//                    window.display();
+//                }
+//                else
+//                {
             //кнокпа автоматической расстановки
                     if (sprite_button_auto.getGlobalBounds().contains(mousePosition))
                     {
@@ -60,7 +70,9 @@ void placement_field::placement_field_run(int complexity)
                             window.draw(sprite_ships);
                         }
                         else
+                        {
                             show_placement();
+                        }
 
                         window.display();
                     }
@@ -81,7 +93,9 @@ void placement_field::placement_field_run(int complexity)
                                 window.draw(sprite_ships);
                             }
                             else
+                            {
                                 show_placement();
+                            }
 
                             window.display();
                         }
@@ -99,19 +113,25 @@ void placement_field::placement_field_run(int complexity)
                                 window.draw(sprite_ships);
                             }
                             else
+                            {
                                 show_placement();
-
+                            }
                             window.display();
                         }
-                    }
+                    //}
                 }
             }
 
             //открытие нового окна при нажатии
             if (event.type==sf::Event::MouseButtonPressed && event.mouseButton.button==sf::Mouse::Left)
             {
+                sf::Vector2f mousePosition_1 = window.mapPixelToCoords(sf::Mouse::getPosition(window));
 //кнокпа "назад"
-                if ((event.mouseButton.x>=170 && event.mouseButton.x<=520) && (event.mouseButton.y>=20 && event.mouseButton.y<=160))
+//                if ((event.mouseButton.x>=170 && event.mouseButton.x<=520) && (event.mouseButton.y>=20 && event.mouseButton.y<=160))
+//                {
+//                    return;
+//                }
+                if (sprite_button_back.getGlobalBounds().contains(mousePosition_1))
                 {
                     return;
                 }
@@ -131,13 +151,28 @@ void placement_field::placement_field_run(int complexity)
                     window.display();
                 }
 //кнокпа play
-                if ((event.mouseButton.x>=1483 && event.mouseButton.x<=1596) && (event.mouseButton.y>=742 && event.mouseButton.y<=852) && flag_auto_pressed)
-                {
-                    play_window playWindow(window);
-                    playWindow.play_window_run(player, complexity,ships);
-                    return;
-                }
+//                if ((event.mouseButton.x>=1483 && event.mouseButton.x<=1596) && (event.mouseButton.y>=742 && event.mouseButton.y<=852) && flag_auto_pressed)
+//                {
+//
+//                    play_window playWindow(window);
+//                    playWindow.play_window_run(player, complexity, ships);
+//                    return;
+//                }
 
+//                if (sprite_button_play.getGlobalBounds().contains(mousePosition_1) && flag_auto_pressed)
+//                {
+//                    printf("\n  ==+");
+//                    play_window playWindow(window);
+//                    playWindow.play_window_run(player, complexity, ships);
+//                    return;
+//                }
+//                if (sprite_button_play.getGlobalBounds().contains(mousePosition_1))
+//                {
+//                    printf("\n  ==+");
+//                    play_window playWindow(window, ships);
+//                    playWindow.play_window_run(player, complexity);
+//                    return;
+//                }
             }
         }
     }

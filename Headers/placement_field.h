@@ -104,6 +104,7 @@ public:
         ships[7].setTextureRect(sf::IntRect(0.f,344.f,56.f,56.f));//1
         ships[8].setTextureRect(sf::IntRect(0.f,344.f,56.f,56.f));//1
         ships[9].setTextureRect(sf::IntRect(0.f,344.f,56.f,56.f));//1
+
     }
     void placement_field_run(int);//1 soft 2 hard
     void set_placement(ListOfShips);

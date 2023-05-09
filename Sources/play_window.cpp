@@ -3,9 +3,9 @@
 #include "../Headers/BotHard.h"
 
 
-void play_window::play_window_run(Player& player,int complexity, sf::Sprite* shipsOfPlayer)
+void play_window::play_window_run(Player& player,int complexity)
 {
-    this->shipsOfPlayer = shipsOfPlayer;
+   // this->shipsOfPlayer = shipsOfPlayer;
     bool isPlayerMove = true;
     int x;
     int y;
@@ -76,6 +76,9 @@ void play_window::play_window_run(Player& player,int complexity, sf::Sprite* shi
                                 y = y * 56 + 285;
                                 hit_on_bot[kol_hit_for_player].setPosition(x, y);
                                 kol_hit_for_player++;
+                                show_field_enemy(hit_on_bot, missed_on_bot_field, kol_hit_for_player-1, kol_miss_for_player-1);
+                                //вывод ходов бота
+                                show_field_enemy(hit_on_player, missed_on_player_field, kol_hit_for_bot-1, kol_miss_for_bot-1);
                             }
                             else
                             {
@@ -89,7 +92,18 @@ void play_window::play_window_run(Player& player,int complexity, sf::Sprite* shi
 
                         }
 
+                        window.clear(sf::Color::Black);
+                        window.draw(sprite_background);
+                        window.draw(sprite_button_back);
+                        window.draw(sprite_right_arrow);
+                        show_placement();
+                        //вывод ходов игрока
+                        show_field_enemy(hit_on_bot, missed_on_bot_field, kol_hit_for_player-1, kol_miss_for_player-1);
+                        //вывод ходов бота
+                        show_field_enemy(hit_on_player, missed_on_player_field, kol_hit_for_bot-1, kol_miss_for_bot-1);
+                        window.display();
                     }
+
                 }
                 else
                 {
@@ -118,16 +132,16 @@ void play_window::play_window_run(Player& player,int complexity, sf::Sprite* shi
                 }
 
             }
-            window.clear(sf::Color::Black);
-            window.draw(sprite_background);
-            window.draw(sprite_button_back);
-            window.draw(sprite_left_arrow);
-            show_placement();
-            //вывод ходов игрока
-            show_field_enemy(hit_on_bot, missed_on_bot_field, kol_hit_for_player-1, kol_miss_for_player-1);
-            //вывод ходов бота
-            show_field_enemy(hit_on_player, missed_on_player_field, kol_hit_for_bot-1, kol_miss_for_bot-1);
-            window.display();
+//            window.clear(sf::Color::Black);
+//            window.draw(sprite_background);
+//            window.draw(sprite_button_back);
+//            window.draw(sprite_left_arrow);
+//            show_placement();
+//            //вывод ходов игрока
+//            show_field_enemy(hit_on_bot, missed_on_bot_field, kol_hit_for_player-1, kol_miss_for_player-1);
+//            //вывод ходов бота
+//            show_field_enemy(hit_on_player, missed_on_player_field, kol_hit_for_bot-1, kol_miss_for_bot-1);
+//            window.display();
         }
     }
     else
