@@ -2,6 +2,7 @@
 #include "Headers/placement_field.h"
 #include "Headers/connect_type.h"
 #include "Headers/input_code.h"
+#include "Headers/dif_levels.h"
 
 int main()
 {
@@ -26,11 +27,15 @@ int main()
 //placementField.placement_field_run(1);
 
 //окно выбора типа подключения
-//connect_type window_connect_type(window);
-//window_connect_type.connect_type_run();
+connect_type window_connect_type(window);
+window_connect_type.connect_type_run();
 
-input_code window_input_code(window);
-window_input_code.input_code_run();
+//input_code window_input_code(window);
+//window_input_code.input_code_run();
+
+//выбор сложности игры с ботом
+//dif_levels window_dif_levels(window);
+//window_dif_levels.dif_levels_run();
 
 
 //

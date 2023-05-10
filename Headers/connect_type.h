@@ -1,6 +1,7 @@
 #ifndef COURSEWORK_CONNECT_TYPE_H
 #define COURSEWORK_CONNECT_TYPE_H
 #include <SFML/Graphics.hpp>
+#include "input_code.h"
 
 class connect_type {
 private:
@@ -18,7 +19,7 @@ private:
     bool move_client = false;
     bool move_server = false;
     bool move_exit = false;
-    sf::RectangleShape tmp;
+ //   sf::RectangleShape tmp;
 
 public:
     connect_type(sf::RenderWindow &other) : window(other)
@@ -52,9 +53,9 @@ public:
 //        tmp.setPosition(573.f,450.f);
 //
 //        //position exit
-        tmp.setSize(sf::Vector2f(700.f, 125.f));
-        tmp.setFillColor(sf::Color(255, 255, 255, 128));
-        tmp.setPosition(573.f,620.f);
+//        tmp.setSize(sf::Vector2f(700.f, 125.f));
+//        tmp.setFillColor(sf::Color(255, 255, 255, 128));
+//        tmp.setPosition(573.f,620.f);
 
     }
     void connect_type_run();

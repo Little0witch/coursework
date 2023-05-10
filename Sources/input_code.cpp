@@ -42,17 +42,7 @@ void input_code::input_code_run()
             //обязательно так, потому что есть дребезжание мыши
             else
             {
-//                if (event.type == sf::Event::MouseMoved)
-//                {
                     sf::Vector2f mouse_pos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
-//                if (event.mouseMove.x>=572.f && event.mouseMove.x<=1275.f && event.mouseMove.y>=621.f && event.mouseMove.y>=743.f)
-//                {
-//                    move_exit = true;
-//                }
-//                else
-//                {
-//                    move_exit = false;
-//                }
 //с кого-то рожна не работало выше и пришлось прописать так
                     if (sprite_exit.getGlobalBounds().contains(mouse_pos))
                     {
@@ -82,11 +72,6 @@ void input_code::input_code_run()
                 window.draw(sprite_exit);
             }
             window.display();
-
-
-
-
-
         }
     }
 

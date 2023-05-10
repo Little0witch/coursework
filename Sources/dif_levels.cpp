@@ -19,39 +19,33 @@ void dif_levels::dif_levels_run()
                 sf::Vector2f mousePosition = window.mapPixelToCoords(sf::Mouse::getPosition(window));
                 //кнокпа простого режима
                 //если курсор наведен на кнопку
-                if (sprite_button_easy_blue.getGlobalBounds().contains(mousePosition))
+                if (sprite_button_easy_red.getGlobalBounds().contains(mousePosition))
                 {
                     //замена изображения на красную кнопки
                     window.clear(sf::Color::Black);
                     window.draw(sprite_background);
                     window.draw(sprite_button_easy_red);
-                    window.draw(sprite_button_hard_blue);
-                    window.draw(sprite_button_exit_blue);
                     window.display();
                 }
                 else
                 {
                     //кнокпа сложного режима
-                    if (sprite_button_hard_blue.getGlobalBounds().contains(mousePosition))
+                    if (sprite_button_hard_red.getGlobalBounds().contains(mousePosition))
                     {
                         //замена изображения на красную кнопки
                         window.clear(sf::Color::Black);
                         window.draw(sprite_background);
-                        window.draw(sprite_button_easy_blue);
                         window.draw(sprite_button_hard_red);
-                        window.draw(sprite_button_exit_blue);
                         window.display();
                     }
                     else
                     {
                         //кнокпа выхода
-                        if (sprite_button_exit_blue.getGlobalBounds().contains(mousePosition))
+                        if (sprite_button_exit_red.getGlobalBounds().contains(mousePosition))
                         {
                             //замена изображения на красную кнопки
                             window.clear(sf::Color::Black);
                             window.draw(sprite_background);
-                            window.draw(sprite_button_easy_blue);
-                            window.draw(sprite_button_hard_blue);
                             window.draw(sprite_button_exit_red);
                             window.display();
                         }
@@ -60,9 +54,7 @@ void dif_levels::dif_levels_run()
                             //замена изображения на голубую кнопку
                             window.clear(sf::Color::Black);
                             window.draw(sprite_background);
-                            window.draw(sprite_button_easy_blue);
-                            window.draw(sprite_button_hard_blue);
-                            window.draw(sprite_button_exit_blue);
+                            window.draw(tmp);
                             window.display();
                         }
                     }

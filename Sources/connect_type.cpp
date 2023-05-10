@@ -44,6 +44,8 @@ void connect_type::connect_type_run() {
                 if (event.mouseButton.x>=573 && event.mouseButton.x<=1273 && event.mouseButton.y>=280 && event.mouseButton.y<=405)
                 {
                     //открытие окна ввода
+                    input_code window_input_code(window);
+                    window_input_code.input_code_run();
                 }
                 else
                 {
@@ -76,7 +78,7 @@ void connect_type::connect_type_run() {
             {
                 window.draw(sprite_button_exit);
             }
-            window.draw(tmp);
+           // window.draw(tmp);
             window.display();
         }
     }
