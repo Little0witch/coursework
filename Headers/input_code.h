@@ -2,6 +2,8 @@
 #define COURSEWORK_INPUT_CODE_H
 #include <SFML/Graphics.hpp>
 #include <string>
+#include "placement_field.h"
+
 class input_code {
 private:
     sf::RenderWindow &window;

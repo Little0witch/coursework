@@ -3,7 +3,8 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "ListOfShips.h"
-#include "../Headers/Player.h"
+#include "Player.h"
+#include "play_window.h"
 
 
 class placement_field {
@@ -106,7 +107,7 @@ public:
         ships[9].setTextureRect(sf::IntRect(0.f,344.f,56.f,56.f));//1
 
     }
-    void placement_field_run(int);//1 soft 2 hard
+    void placement_field_run(int);//0 online 1 soft 2 hard
     void set_placement(ListOfShips);
     void show_placement();
 };

@@ -27,7 +27,7 @@ private:
 
     sf::RectangleShape tmp;
 
-    sf::Sprite* shipsOfPlayer;
+    sf::Sprite shipsOfPlayer[10];
     //ходы игрока
     sf::Sprite missed_on_bot_field[80];
     sf::Sprite hit_on_bot[20];
@@ -37,7 +37,7 @@ private:
     sf::Sprite hit_on_player[20];
 
 public:
-    play_window(sf::RenderWindow &other, sf::Sprite* shipsOfPlayer) : window(other), shipsOfPlayer(shipsOfPlayer)
+    play_window(sf::RenderWindow &other, sf::Sprite* shipsOfPlayer) : window(other)
     {
         background.loadFromFile("../Resources/Img/Play window/field.png");
         button_back.loadFromFile("../Resources/Img/Play window/m_arrow_back_red.png");
@@ -56,6 +56,11 @@ public:
 
         sprite_right_arrow.setPosition(835.f,458.f);
         sprite_left_arrow.setPosition(835.f,458.f);
+
+        for (int i = 0; i < 10; ++i) {
+            this->shipsOfPlayer[i] = shipsOfPlayer[i];
+
+        }
 
         for (int i = 0; i < 20; ++i)
         {
@@ -82,6 +87,9 @@ public:
 
     }
     void play_window_run(Player&, int);
+    void play_with_soft(Player&);
+    void  play_with_hard(Player&);
+    void play_with_friend(Player&);
     void show_placement();
     void show_field_enemy(sf::Sprite*, sf::Sprite*, int, int);
 };

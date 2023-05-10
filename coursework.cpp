@@ -32,6 +32,7 @@ int main()
 input_code window_input_code(window);
 window_input_code.input_code_run();
 
+
 //
 //    BotSoft botSoft1;
 //
