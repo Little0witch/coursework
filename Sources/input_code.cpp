@@ -36,18 +36,19 @@ void input_code::input_code_run()
                 if (event.key.code == sf::Keyboard::Enter)
                 {
                     placement_field window_placement_field(window);
-                    window_placement_field.placement_field_run(1);
+                    window_placement_field.placement_field_run(1, flag);
+                    if (flag)
+                    {
+                        return;
+                    }
                 }
             }
             //обязательно так, потому что есть дребезжание мыши
             else
             {
                     sf::Vector2f mouse_pos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
-//с кого-то рожна не работало выше и пришлось прописать так
                     if (sprite_exit.getGlobalBounds().contains(mouse_pos))
                     {
-
-                        printf("\n %d  %d", mouse_pos.x, mouse_pos.y);
                         move_exit = true;
                     }
                     else
@@ -62,7 +63,7 @@ void input_code::input_code_run()
                         }
                     }
 
-                }
+            }
 
             window.clear(sf::Color::Black);
             window.draw(sprite);

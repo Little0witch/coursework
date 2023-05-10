@@ -2,7 +2,7 @@
 #include "../Headers/Player.h"
 #include "../Headers/play_window.h"
 
-void placement_field::placement_field_run(int complexity)
+void placement_field::placement_field_run(int complexity, bool &flag)
 {
     Player player;
 //    sf::Vector2f mousePosition;
@@ -144,26 +144,26 @@ void placement_field::placement_field_run(int complexity)
                     window.display();
                 }
 //кнокпа play
-                if ((event.mouseButton.x>=1483 && event.mouseButton.x<=1596) && (event.mouseButton.y>=742 && event.mouseButton.y<=852) && flag_auto_pressed)
-                {
-
-                    play_window playWindow(window,ships);
-                    playWindow.play_window_run(player, complexity);
-                    return;
-                }
+//                if ((event.mouseButton.x>=1483 && event.mouseButton.x<=1596) && (event.mouseButton.y>=742 && event.mouseButton.y<=852) && flag_auto_pressed)
+//                {
+//
+//                    play_window playWindow(window,ships);
+//                    playWindow.play_window_run(player, complexity, flag);
+//                    return;
+//                }
 
                 if (sprite_button_play.getGlobalBounds().contains(mousePosition_1) && flag_auto_pressed)
                 {
                     printf("\n  ==+");
                     play_window playWindow(window,ships);
-                    playWindow.play_window_run(player, complexity);
+                    playWindow.play_window_run(player, complexity, flag);
                     return;
                 }
                 if (sprite_button_play.getGlobalBounds().contains(mousePosition_1))
                 {
                     printf("\n  ==+");
                     play_window playWindow(window, ships);
-                    playWindow.play_window_run(player, complexity);
+                    playWindow.play_window_run(player, complexity, flag);
                     return;
                 }
             }

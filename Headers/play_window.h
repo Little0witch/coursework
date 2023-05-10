@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "window_win.h"
 #include "window_lose.h"
+#include "window_exit.h"
 
 class play_window {
 private:
@@ -21,11 +22,11 @@ private:
     sf::Sprite sprite_left_arrow;
     sf::Sprite sprite_right_arrow;
 
+    //bool &flag;
     sf::Texture texture_atlas_1;
     sf::RectangleShape tmp_A1;
     sf::RectangleShape tmp_B1;
 
-    sf::RectangleShape tmp;
 
     sf::Sprite shipsOfPlayer[10];
     //ходы игрока
@@ -35,6 +36,7 @@ private:
     //ходы бота
     sf::Sprite missed_on_player_field[80];
     sf::Sprite hit_on_player[20];
+    sf::RectangleShape tmp;
 
 public:
     play_window(sf::RenderWindow &other, sf::Sprite* shipsOfPlayer) : window(other)
@@ -81,15 +83,15 @@ public:
         tmp_B1.setFillColor(sf::Color::Red);
         tmp_B1.setPosition(228.f, 342.f);
 
-        tmp.setSize(sf::Vector2f(345.f,110.f));
-        tmp.setPosition(170.f,30.f);
+        tmp.setSize(sf::Vector2f(150.f,195.f));
+        tmp.setPosition(835.f,458.f);
         tmp.setFillColor(sf::Color(255, 255, 255, 128));
 
     }
-    void play_window_run(Player&, int);
-    void play_with_soft(Player&);
-    void  play_with_hard(Player&);
-    void play_with_friend(Player&);
+    void play_window_run(Player&, int, bool &flag);
+    void play_with_soft(Player&, bool &flag);
+    void  play_with_hard(Player&, bool &flag);
+    void play_with_friend(Player&, bool &flag);
     void show_placement();
     void show_field_enemy(sf::Sprite*, sf::Sprite*, int, int);
 };

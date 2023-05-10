@@ -7,23 +7,18 @@ class instruction_manual {
 private:
     sf::RenderWindow &window;
     sf::Texture background;
-    sf::Texture button_exit_blue;
     sf::Texture button_exit_red;
     sf::Sprite sprite_background;
-    sf::Sprite sprite_exit_blue;
     sf::Sprite sprite_exit_red;
 
 public:
     instruction_manual(sf::RenderWindow &other) : window(other)
     {
-        background.loadFromFile("../Resources/Img/Instruction manual/window_instruction_manual.png");
-        button_exit_blue.loadFromFile("../Resources/Img/Instruction manual/button_exit_blue.png");
-        button_exit_red.loadFromFile("../Resources/Img/Instruction manual/button_exit_red.png");
+        background.loadFromFile("../Resources/Img/Instruction manual/wind_inst_w_but.png");
+        button_exit_red.loadFromFile("../Resources/Img/Instruction manual/m_button_exit_red.png");
         sprite_background.setTexture(background);
-        sprite_exit_blue.setTexture(button_exit_blue);
-        sprite_exit_blue.setPosition(665.f,918.f);
         sprite_exit_red.setTexture(button_exit_red);
-        sprite_exit_red.setPosition(665.f,918.f);
+        sprite_exit_red.setPosition(658.f,915.f);
     }
     void instruction_manual_run();
 };

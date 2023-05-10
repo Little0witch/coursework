@@ -18,9 +18,6 @@ void instruction_manual::instruction_manual_run()
 //кнокпа выхода
                 if ((event.mouseButton.x>=665 && event.mouseButton.x<=1190) && (event.mouseButton.y>=918 && event.mouseButton.y<=1005))
                 {
-//                    window.close();
-//                    main_menu window_menu;
-//                    window_menu.main_menu_run();
                     return;
                 }
             }
@@ -30,7 +27,7 @@ void instruction_manual::instruction_manual_run()
             {
                 sf::Vector2f mousePosition = window.mapPixelToCoords(sf::Mouse::getPosition(window));
                 //кнокпа выхода
-                if (sprite_exit_blue.getGlobalBounds().contains(mousePosition))
+                if (sprite_exit_red.getGlobalBounds().contains(mousePosition))
                 {
                     //замена изображения на красную кнопки
                     window.clear(sf::Color::Black);
@@ -43,7 +40,6 @@ void instruction_manual::instruction_manual_run()
                     //замена изображения на голубую кнопку
                     window.clear(sf::Color::Black);
                     window.draw(sprite_background);
-                    window.draw(sprite_exit_blue);
                     window.display();
                 }
             }

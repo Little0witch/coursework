@@ -19,10 +19,8 @@ void main_menu::main_menu_run()
                 //онлайн игра
                 if ((event.mouseButton.x>=570 && event.mouseButton.x<=1261) && (event.mouseButton.y>=340 && event.mouseButton.y<=455))
                 {
-                    //это временно!!!
-                    //здесь еще нужно подключение по сети сделать
-                    placement_field placement_field(window);
-                    placement_field.placement_field_run(0);
+                    connect_type window_connect_type(window);
+                    window_connect_type.connect_type_run();
                 }
                 //игра с ботом
                 if ((event.mouseButton.x>=570 && event.mouseButton.x<=1261) && (event.mouseButton.y>=513 && event.mouseButton.y<=628))
@@ -39,9 +37,8 @@ void main_menu::main_menu_run()
                 //выход
                 if ((event.mouseButton.x>=570 && event.mouseButton.x<=1261) && (event.mouseButton.y>=857 && event.mouseButton.y<=972))
                 {
-                    window_exit exit_window(window);
-                    exit_window.window_exit_run();
-                   // window.close();
+                    window.close();
+                    return;
                 }
             }
 

@@ -14,6 +14,7 @@ private:
 
     sf::Font font;
     sf::Text text;
+    bool flag = false;
     sf::RectangleShape tmp;
     bool move_exit = false;
 

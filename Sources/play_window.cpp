@@ -3,7 +3,7 @@
 #include "../Headers/BotHard.h"
 
 
-void play_window::play_window_run(Player& player,int complexity)
+void play_window::play_window_run(Player& player,int complexity, bool &flag)
 {
    // this->shipsOfPlayer = shipsOfPlayer;
 //    bool isPlayerMove = true;
@@ -153,11 +153,11 @@ void play_window::play_window_run(Player& player,int complexity)
 //        }
         if (complexity==1)
         {
-            play_with_soft(player);
+            play_with_soft(player, flag);
         }
         if (complexity == 2)
         {
-            play_with_hard(player);
+            play_with_hard(player, flag);
         }
 
 
@@ -188,7 +188,7 @@ void play_window::show_field_enemy(sf::Sprite *hit, sf::Sprite *missed, int kol_
 
 }
 
-void play_window::play_with_soft(Player &player) {
+void play_window::play_with_soft(Player &player, bool &flag) {
     int hit = 0 ;
     bool isPlayerMove = true;
     int x;
@@ -254,6 +254,21 @@ void play_window::play_with_soft(Player &player) {
 //                    lose_window.window_lose_run();
 //                    return;
 //                }
+
+                if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
+                {
+                    sf::Vector2f mouse_pos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
+                    if (sprite_button_back.getGlobalBounds().contains(mouse_pos))
+                    {
+                        window_exit windowExit(window);
+                        windowExit.window_exit_run(flag);
+                        if (flag)
+                        {
+                            return;
+                        }
+                    }
+                }
+
                 if (isPlayerMove)
                 {
                     if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
@@ -344,7 +359,7 @@ void play_window::play_with_soft(Player &player) {
         }
 }
 
-void play_window::play_with_hard(Player & player)
+void play_window::play_with_hard(Player & player, bool &flag)
 {
     bool isPlayerMove = true;
     int x;

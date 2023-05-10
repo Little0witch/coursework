@@ -52,6 +52,7 @@ void connect_type::connect_type_run() {
                     if (event.mouseButton.x>=573 && event.mouseButton.x<=1273 && event.mouseButton.y>=450 && event.mouseButton.y<=575)
                     {
                         //создание подключения
+                        return;
                     }
                     else
                     {
@@ -78,7 +79,6 @@ void connect_type::connect_type_run() {
             {
                 window.draw(sprite_button_exit);
             }
-           // window.draw(tmp);
             window.display();
         }
     }
