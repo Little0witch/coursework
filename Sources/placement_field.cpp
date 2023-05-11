@@ -99,7 +99,6 @@ void placement_field::placement_field_run(int complexity, bool &flag) {
                 if (sprite_button_back.getGlobalBounds().contains(mousePosition_1)) {
                     return;
                 }
-
 //кнопка auto
                 if ((event.mouseButton.x >= 1190 && event.mouseButton.x <= 1430) &&
                     (event.mouseButton.y >= 742 && event.mouseButton.y <= 852)) {
