@@ -5,7 +5,6 @@
 void placement_field::placement_field_run(int complexity, bool &flag) {
     Player player;
 
-
     while (window.isOpen()) {
 
         sf::Event event{};
