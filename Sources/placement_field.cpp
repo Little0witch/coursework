@@ -135,6 +135,9 @@ void placement_field::placement_field_run(int complexity, bool &flag)
                     flag_auto_pressed = true;
                     player.autoPositioningOfShips();
                     set_placement(player.getListOfMyShips());
+                    showArray(player.getMyField(),10,10);
+                    showList(player.getListOfMyShips());
+
                     window.clear(sf::Color::Black);
                     window.draw(sprite_background);
                     window.draw(sprite_button_back);
@@ -178,13 +181,14 @@ void placement_field::set_placement(ListOfShips listOfShips) {
 
     for (int i = 0; i < 10; ++i) {
         coord = giveCoordOfShip(listOfShips,i);
-
-        if (coord.orientation == 0)//vert
+        if (coord.orientation == 1)//vert//если 1 значит нужно повернуть
         {
             ships[i].setRotation(90.f);
         }
         ships[i].setPosition((float)coord.x, (float)coord.y);
     }
+    printf("\n");
+//по дефу он горизантальные
 }
 
 void placement_field::show_placement() {

@@ -53,7 +53,7 @@ int sizeList(ListOfShips head)
     return size;
 }
 
-void insertNode(ListOfShips * head, ListOfCoord list) {
+void insertNode(ListOfShips * head, ListOfCoord list, int orient) {
 
     ListOfShips newPtr, currentPtr;
     newPtr = (ListOfShips)malloc(sizeof(ListNodeShips));
@@ -66,6 +66,7 @@ void insertNode(ListOfShips * head, ListOfCoord list) {
 
     newPtr->size = sizeList(list);
     newPtr->hit = 0;
+    newPtr->orientation = orient;
     newPtr->destroy = false;
 
     newPtr->list = list;
@@ -191,31 +192,39 @@ struct coordinateOfShip giveCoordOfShip(ListOfShips head, int index){
             }
         }
 
-        coord.y = 228 + head->list->x * 56;
-        coord.x = 285 + head->list->y * 56;
+        coord.y = 228 + (head->list->x) * 56;
+        coord.x = 285 + (head->list->y) * 56;
 
 
         coord.size = head->size;
-        coord.orientation = -1;
+        coord.orientation = 0; //зачем тогда здесь меняем?
+        // просто не заходит в if 
         if (head->size != 1)
         {
-            if (head->list->y != head->list->next->y)
-                coord.orientation = 0;
-
-            if (head->list->x == head->list->next->x)
+            if (head->list->y == head->list->next->y)
+            {
                 coord.orientation = 1;
+                coord.y = 228 + (head->list->x + 1) * 56;
+                coord.x = 285 + (head->list->y) * 56;
+            }
         }
 
-        coord.y +=56;
-        if (coord.orientation != 1)
-        {
-            coord.x-=56;
-        }
+        coord.y = 228 + (head->list->x) * 56;
+        coord.x = 285 + (head->list->y) * 56;
+        printf("\n-----size: %d x: %d y: %d",head->size,head->list->x,head->list->y);
 
-        if (coord.orientation == 0)
-        {
-            coord.x +=56;
-        }
+
+
+        //coord.y +=56;
+//        if (coord.orientation == -1)
+//        {
+//            coord.x+=56;
+//        }
+//
+//        if (coord.orientation == 0)
+//        {
+//            coord.x +=56;
+//        }
 
         return coord;
     }

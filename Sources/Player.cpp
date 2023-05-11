@@ -10,8 +10,6 @@ void Player::autoPositioningOfShips() {
     int sizeOfShips[] = {4,3,2,1};
     int valueOfShips[] = {1,2,3,4};
 
-    sleep(1);
-    srand(time(nullptr));
     bool placed;
 
     for (int i = 0; i < 4; ++i) {
