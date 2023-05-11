@@ -50,13 +50,15 @@ placementField.placement_field_run(1,flag);
 
 
 //    Player player;
-//    player.autoPositioningOfShips();
+//    for (int i = 0; i < 10; ++i) {
+//        player.autoPositioningOfShips();
 //
-//    ListNodeShips* listNodeShips = player.getListOfMyShips();
-//    printf("\n\n");
-//    showArray(player.getMyField(),10,10);
-//    printf("\n\n");
-//    showList(listNodeShips);
+//        //ListNodeShips* listNodeShips = player.getListOfMyShips();
+//        //printf("\n\n");
+//        showArray(player.getMyField(),10,10);
+//        printf("\n\n");
+//    }
+    //showList(listNodeShips);
 
     return 0;
 }

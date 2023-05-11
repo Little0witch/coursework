@@ -51,3 +51,12 @@ void showArray(int **array, int n, int m) {
     }
 
 }
+
+char *allocateMemoryForString(char * string, int n) {
+    if (!(string = (char*)malloc(n)))
+    {
+        printf("error locate memory");
+        return nullptr;
+    }
+    return string;
+}

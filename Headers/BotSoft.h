@@ -69,7 +69,7 @@ int** BotSoft::autoPositioningOfShips() {
                             field[k][y] = size;
                         }
 
-                        insertNode(&listOfMyShips,coordOfShips);
+                        insertNode(&listOfMyShips,coordOfShips,orientation);
                         placed = true;
                         freeList(&coordOfShips);
                     }
@@ -285,7 +285,6 @@ ListNodeShips *BotSoft::getListOfMyShips(){
 }
 
 void BotSoft::addEmptyCells() {
-
     for (int i = 0; i < 10; ++i) {
         for (int j = 0; j < 10; ++j) {
             if (enemyField[i][j] == 2)

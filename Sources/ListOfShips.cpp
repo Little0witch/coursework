@@ -1,19 +1,17 @@
 #include "../Headers/ListOfShips.h"
 
-bool isEmpty(ListOfShips head)
-{
+bool isEmpty(ListOfShips head) {
     if (head == nullptr)
         return true;
 
     return false;
 }
+
 //TODO::make normal freeList
-void freeList(ListOfShips *head)
-{
+void freeList(ListOfShips *head) {
     *head = nullptr;
     ListOfShips current = *head;
-    while (current != nullptr)
-    {
+    while (current != nullptr) {
         current = current->next;
         free(*head);
         *head = current;
@@ -27,7 +25,8 @@ void showList(ListOfShips head) {
     else {
         printf("Список :\n");
         while (head != nullptr) {
-            printf("destroy: %d  size: %d  hit: %d \n", head->destroy, head->size, head->hit);
+            printf("destroy: %d  size: %d  hit: %d orientation: %d\n", head->destroy, head->size, head->hit,
+                   head->orientation);
             showList(head->list);
             printf("\n");
             head = head->next;
@@ -37,9 +36,7 @@ void showList(ListOfShips head) {
 }
 
 
-
-int sizeList(ListOfShips head)
-{
+int sizeList(ListOfShips head) {
     if (head == nullptr)
         return 0;
 
@@ -53,13 +50,12 @@ int sizeList(ListOfShips head)
     return size;
 }
 
-void insertNode(ListOfShips * head, ListOfCoord list, int orient) {
+void insertNode(ListOfShips *head, ListOfCoord list, int orient) {
 
     ListOfShips newPtr, currentPtr;
-    newPtr = (ListOfShips)malloc(sizeof(ListNodeShips));
+    newPtr = (ListOfShips) malloc(sizeof(ListNodeShips));
 
-    if (newPtr == nullptr)
-    {
+    if (newPtr == nullptr) {
         printf("Ошибка выделения памяти!");
         return;
     }
@@ -72,14 +68,12 @@ void insertNode(ListOfShips * head, ListOfCoord list, int orient) {
     newPtr->list = list;
 
 
-
     newPtr->next = nullptr;
     currentPtr = *head;
 
     if (currentPtr == nullptr)
         *head = newPtr;
-    else
-    {
+    else {
         while (currentPtr->next != nullptr)
             currentPtr = currentPtr->next;
 
@@ -88,7 +82,7 @@ void insertNode(ListOfShips * head, ListOfCoord list, int orient) {
 
 }
 
-int isHit(ListOfShips head, ListOfShips* removeHead, int x, int y) //-1 мимо 0 попали
+int isHit(ListOfShips head, ListOfShips *removeHead, int x, int y) //-1 мимо 0 попали
 {
     ListOfShips current = head;
 
@@ -96,19 +90,16 @@ int isHit(ListOfShips head, ListOfShips* removeHead, int x, int y) //-1 мимо
 
     if (current == nullptr)
         return -10;
-    else
-    {
+    else {
         while (current != nullptr) {
 
-            if (findNode(current->list,x,y))
-            {
+            if (findNode(current->list, x, y)) {
                 current->hit++;
-                removeNode(&current->list,x,y);
+                removeNode(&current->list, x, y);
 
                 flag = 0;
 
-                if (current->hit == current->size)
-                {
+                if (current->hit == current->size) {
                     current->destroy = true;
                     flag = current->size;
                 }
@@ -120,51 +111,41 @@ int isHit(ListOfShips head, ListOfShips* removeHead, int x, int y) //-1 мимо
         }
     }
 
-    if(flag > 0)
+    if (flag > 0)
         autoRemoveNode(removeHead);
 
     return flag;
 }
 
-void autoRemoveNode(ListOfShips * head) {
-    if (*head == nullptr)
-    {
+void autoRemoveNode(ListOfShips *head) {
+    if (*head == nullptr) {
         return;
     }
 
     ListOfShips remove = *head;
 
-    if ((*head)->next == nullptr && (*head)->destroy)
-    {
+    if ((*head)->next == nullptr && (*head)->destroy) {
         free(*head);
         *head = nullptr;
-    }
-    else
-    {
-        if ((*head)->next != nullptr && (*head)->destroy)
-        {
+    } else {
+        if ((*head)->next != nullptr && (*head)->destroy) {
             remove = *head;
             *head = (*head)->next;
             free(remove);
-        }
-        else
-        {
+        } else {
             ListOfShips current = *head;
             ListOfShips previous = nullptr;
-            while (current != nullptr)
-            {
+            while (current != nullptr) {
                 if (current->destroy)
                     break;
-                else
-                {
+                else {
                     previous = current;
                     current = current->next;
                 }
             }
             if (current == nullptr)
                 return;
-            else
-            {
+            else {
                 previous->next = current->next;
                 free(current);
             }
@@ -172,59 +153,45 @@ void autoRemoveNode(ListOfShips * head) {
     }
 }
 
-struct coordinateOfShip giveCoordOfShip(ListOfShips head, int index){
+struct coordinateOfShip giveCoordOfShip(ListOfShips head, int index) {
 
     if (head == nullptr)
         return {};
-    else
-    {
+    else {
         struct coordinateOfShip coord{};
         int i = 0;
 
-        while (head != nullptr)
-        {
-            if (index  == i)
+        while (head != nullptr) {
+            if (index == i)
                 break;
-            else
-            {
+            else {
                 head = head->next;
                 i++;
             }
         }
-
-        coord.y = 228 + (head->list->x) * 56;
-        coord.x = 285 + (head->list->y) * 56;
-
-
         coord.size = head->size;
-        coord.orientation = 0; //зачем тогда здесь меняем?
-        // просто не заходит в if 
-        if (head->size != 1)
-        {
-            if (head->list->y == head->list->next->y)
-            {
-                coord.orientation = 1;
-                coord.y = 228 + (head->list->x + 1) * 56;
-                coord.x = 285 + (head->list->y) * 56;
-            }
+
+        if (head->orientation == 1)
+            coord.orientation = 0;
+        else
+            coord.orientation = 1;
+
+        if (coord.size == 1)
+            coord.orientation = 0;
+
+
+        if (coord.orientation == 1) {
+            coord.y = 228 + (head->list->x + 1) * 56.5;
+            coord.x = 285 + (head->list->y) * 56.5;
+        } else {
+            coord.y = 228 + (head->list->x + 1) * 56.5;
+            coord.x = 285 + (head->list->y - 1) * 56.5;
         }
-
-        coord.y = 228 + (head->list->x) * 56;
-        coord.x = 285 + (head->list->y) * 56;
-        printf("\n-----size: %d x: %d y: %d",head->size,head->list->x,head->list->y);
-
-
-
-        //coord.y +=56;
-//        if (coord.orientation == -1)
-//        {
-//            coord.x+=56;
-//        }
-//
-//        if (coord.orientation == 0)
-//        {
-//            coord.x +=56;
-//        }
+        if (coord.size == 1)
+        {
+            coord.y = 228 + (head->list->x + 1) * 56.5;
+            coord.x = 285 + (head->list->y - 1) * 55.5;
+        }
 
         return coord;
     }

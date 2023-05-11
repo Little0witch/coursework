@@ -2,33 +2,28 @@
 #include "../Headers/Player.h"
 #include "../Headers/play_window.h"
 
-void placement_field::placement_field_run(int complexity, bool &flag)
-{
+void placement_field::placement_field_run(int complexity, bool &flag) {
     Player player;
+
 //    sf::Vector2f mousePosition;
 
-    while (window.isOpen())
-    {
+    while (window.isOpen()) {
 
         sf::Event event{};
-        while (window.pollEvent(event))
-        {
+        while (window.pollEvent(event)) {
 
             //обязательная проверка на закрытие окна
-            if (event.type == sf::Event::Closed)
-            {
+            if (event.type == sf::Event::Closed) {
                 window.close();
             }
 
             //подсветка красным при наведении курсора на кнопку
-            if (event.type == sf::Event::MouseMoved)
-            {
+            if (event.type == sf::Event::MouseMoved) {
                 sf::Vector2f mousePosition = window.mapPixelToCoords(sf::Mouse::getPosition(window));
 
-            //кнокпа сброса
+                //кнокпа сброса
                 //если курсор наведен на кнопку
-                if (sprite_button_reset.getGlobalBounds().contains(mousePosition))
-                {
+                if (sprite_button_reset.getGlobalBounds().contains(mousePosition)) {
                     //замена изображения на красную кнопки
                     window.clear(sf::Color::Black);
                     window.draw(sprite_background);
@@ -36,21 +31,15 @@ void placement_field::placement_field_run(int complexity, bool &flag)
                     window.draw(sprite_button_auto);
                     window.draw(sprite_button_play);
                     window.draw(sprite_button_reset_red);
-                    if (!flag_auto_pressed)
-                    {
+                    if (!flag_auto_pressed) {
                         window.draw(sprite_ships);
-                    }
-                    else
-                    {
+                    } else {
                         show_placement();
                     }
                     window.display();
-                }
-                else
-                {
-            //кнокпа автоматической расстановки
-                    if (sprite_button_auto.getGlobalBounds().contains(mousePosition))
-                    {
+                } else {
+                    //кнокпа автоматической расстановки
+                    if (sprite_button_auto.getGlobalBounds().contains(mousePosition)) {
                         //замена изображения на красную кнопки
                         window.clear(sf::Color::Black);
                         window.draw(sprite_background);
@@ -58,22 +47,16 @@ void placement_field::placement_field_run(int complexity, bool &flag)
                         window.draw(sprite_button_reset);
                         window.draw(sprite_button_auto_red);
                         window.draw(sprite_button_play);
-                        if (!flag_auto_pressed)
-                        {
+                        if (!flag_auto_pressed) {
                             window.draw(sprite_ships);
-                        }
-                        else
-                        {
+                        } else {
                             show_placement();
                         }
 
                         window.display();
-                    }
-                    else
-                    {
-            //кнокпа начала игры
-                        if (sprite_button_play.getGlobalBounds().contains(mousePosition))
-                        {
+                    } else {
+                        //кнокпа начала игры
+                        if (sprite_button_play.getGlobalBounds().contains(mousePosition)) {
                             //замена изображения на красную кнопки
                             window.clear(sf::Color::Black);
                             window.draw(sprite_background);
@@ -81,19 +64,14 @@ void placement_field::placement_field_run(int complexity, bool &flag)
                             window.draw(sprite_button_reset);
                             window.draw(sprite_button_auto);
                             window.draw(sprite_button_play_red);
-                            if (!flag_auto_pressed)
-                            {
+                            if (!flag_auto_pressed) {
                                 window.draw(sprite_ships);
-                            }
-                            else
-                            {
+                            } else {
                                 show_placement();
                             }
 
                             window.display();
-                        }
-                        else
-                        {
+                        } else {
                             //замена изображения на голубую кнопку
                             window.clear(sf::Color::Black);
                             window.draw(sprite_background);
@@ -101,12 +79,9 @@ void placement_field::placement_field_run(int complexity, bool &flag)
                             window.draw(sprite_button_reset);
                             window.draw(sprite_button_auto);
                             window.draw(sprite_button_play);
-                            if (!flag_auto_pressed)
-                            {
+                            if (!flag_auto_pressed) {
                                 window.draw(sprite_ships);
-                            }
-                            else
-                            {
+                            } else {
                                 show_placement();
                             }
                             window.display();
@@ -116,27 +91,23 @@ void placement_field::placement_field_run(int complexity, bool &flag)
             }
 
             //открытие нового окна при нажатии
-            if (event.type==sf::Event::MouseButtonPressed && event.mouseButton.button==sf::Mouse::Left)
-            {
+            if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
                 sf::Vector2f mousePosition_1 = window.mapPixelToCoords(sf::Mouse::getPosition(window));
 //кнокпа "назад"
 //                if ((event.mouseButton.x>=170 && event.mouseButton.x<=520) && (event.mouseButton.y>=20 && event.mouseButton.y<=160))
 //                {
 //                    return;
 //                }
-                if (sprite_button_back.getGlobalBounds().contains(mousePosition_1))
-                {
+                if (sprite_button_back.getGlobalBounds().contains(mousePosition_1)) {
                     return;
                 }
 
 //кнопка auto
-                if ((event.mouseButton.x>=1190 && event.mouseButton.x<=1430) && (event.mouseButton.y>=742 && event.mouseButton.y<=852))
-                {
+                if ((event.mouseButton.x >= 1190 && event.mouseButton.x <= 1430) &&
+                    (event.mouseButton.y >= 742 && event.mouseButton.y <= 852)) {
                     flag_auto_pressed = true;
                     player.autoPositioningOfShips();
                     set_placement(player.getListOfMyShips());
-                    showArray(player.getMyField(),10,10);
-                    showList(player.getListOfMyShips());
 
                     window.clear(sf::Color::Black);
                     window.draw(sprite_background);
@@ -155,15 +126,13 @@ void placement_field::placement_field_run(int complexity, bool &flag)
 //                    return;
 //                }
 
-                if (sprite_button_play.getGlobalBounds().contains(mousePosition_1) && flag_auto_pressed)
-                {
+                if (sprite_button_play.getGlobalBounds().contains(mousePosition_1) && flag_auto_pressed) {
                     printf("\n  ==+");
-                    play_window playWindow(window,ships);
+                    play_window playWindow(window, ships);
                     playWindow.play_window_run(player, complexity, flag);
                     return;
                 }
-                if (sprite_button_play.getGlobalBounds().contains(mousePosition_1))
-                {
+                if (sprite_button_play.getGlobalBounds().contains(mousePosition_1)) {
                     printf("\n  ==+");
                     play_window playWindow(window, ships);
                     playWindow.play_window_run(player, complexity, flag);
@@ -177,25 +146,24 @@ void placement_field::placement_field_run(int complexity, bool &flag)
 void placement_field::set_placement(ListOfShips listOfShips) {
     struct coordinateOfShip coord{};
 
-    printf("\n+");
-
     for (int i = 0; i < 10; ++i) {
-        coord = giveCoordOfShip(listOfShips,i);
-        if (coord.orientation == 1)//vert//если 1 значит нужно повернуть
-        {
+        coord = giveCoordOfShip(listOfShips, i);
+        if (coord.orientation == 1)
             ships[i].setRotation(90.f);
-        }
-        ships[i].setPosition((float)coord.x, (float)coord.y);
+        else
+            ships[i].setRotation(0);
+
+        ships[i].setPosition((float) coord.x, (float) coord.y);
     }
-    printf("\n");
-//по дефу он горизантальные
 }
 
 void placement_field::show_placement() {
     for (int i = 0; i < 10; ++i) {
         window.draw(ships[i]);
     }
-   // window.display();
+    // window.display();
 }
+
+
 
 
