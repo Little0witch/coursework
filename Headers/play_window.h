@@ -102,6 +102,7 @@ public:
     void show_field_enemy(sf::Sprite*, sf::Sprite*, int, int);
     void set_sprite_of_hit(int**, int);
     void show_hits();
+    bool isEmpty(int, int, int**);
 };
 
 

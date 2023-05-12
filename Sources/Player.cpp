@@ -180,7 +180,7 @@ Player::Player() {
 }
 
 void Player::addHit(int x, int y, int isHit) {
-    if (isHit > 1) {
+    if (isHit == 1) {
         enemyField[x][y] = 2;
         addEmptyCells();
     }

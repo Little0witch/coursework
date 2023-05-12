@@ -105,8 +105,6 @@ void placement_field::placement_field_run(int complexity, bool &flag) {
                     (event.mouseButton.y >= 742 && event.mouseButton.y <= 852)) {
                     flag_auto_pressed = true;
                     player.autoPositioningOfShips();
-                    showArray(player.getMyField(),10,10);
-                    printf("\n\n");
                     set_placement(player.getListOfMyShips());
 
                     window.clear(sf::Color::Black);

@@ -15,6 +15,10 @@ private:
     ListOfShips listOfMyShips = nullptr;
 
 private:
+public:
+    int **getEnemyField() const;
+
+private:
 
     bool checkPositions(int**,int,int,int,int);
     int** autoPositioningOfShips();
@@ -317,4 +321,8 @@ void BotSoft::addEmptyCells() {
         }
     }
 
+}
+
+int **BotSoft::getEnemyField() const {
+    return enemyField;
 }
