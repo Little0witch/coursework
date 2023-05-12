@@ -97,6 +97,7 @@ void placement_field::placement_field_run(int complexity, bool &flag) {
 //                    return;
 //                }
                 if (sprite_button_back.getGlobalBounds().contains(mousePosition_1)) {
+
                     return;
                 }
 //кнопка auto
@@ -104,6 +105,8 @@ void placement_field::placement_field_run(int complexity, bool &flag) {
                     (event.mouseButton.y >= 742 && event.mouseButton.y <= 852)) {
                     flag_auto_pressed = true;
                     player.autoPositioningOfShips();
+                    showArray(player.getMyField(),10,10);
+                    printf("\n\n");
                     set_placement(player.getListOfMyShips());
 
                     window.clear(sf::Color::Black);
@@ -124,13 +127,11 @@ void placement_field::placement_field_run(int complexity, bool &flag) {
 //                }
 
                 if (sprite_button_play.getGlobalBounds().contains(mousePosition_1) && flag_auto_pressed) {
-                    printf("\n  ==+");
                     play_window playWindow(window, ships);
                     playWindow.play_window_run(player, complexity, flag);
                     return;
                 }
                 if (sprite_button_play.getGlobalBounds().contains(mousePosition_1)) {
-                    printf("\n  ==+");
                     play_window playWindow(window, ships);
                     playWindow.play_window_run(player, complexity, flag);
                     return;
@@ -138,6 +139,7 @@ void placement_field::placement_field_run(int complexity, bool &flag) {
             }
         }
     }
+
 }
 
 void placement_field::set_placement(ListOfShips listOfShips) {
@@ -152,6 +154,7 @@ void placement_field::set_placement(ListOfShips listOfShips) {
 
         ships[i].setPosition((float) coord.x, (float) coord.y);
     }
+
 }
 
 void placement_field::show_placement() {

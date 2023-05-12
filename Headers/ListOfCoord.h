@@ -16,8 +16,8 @@ struct coordinates{
 };
 
 struct coordinateOfShip{
-    int x;
-    int y;
+    float x;
+    float y;
     int size;
     int orientation;//0 - gorizont (y=   x!=) 1 - vert(x= y!=)
 };

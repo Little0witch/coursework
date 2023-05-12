@@ -38,9 +38,15 @@ private:
     sf::Sprite hit_on_player[20];
     sf::RectangleShape tmp;
 
+    sf::Sprite hits_of_bot[100];
+    int value_of_sprite_bot;
+    sf::Sprite hits_of_player[100];
+    int value_of_sprite_player;
+
 public:
     play_window(sf::RenderWindow &other, sf::Sprite* shipsOfPlayer) : window(other)
     {
+        value_of_sprite_bot = value_of_sprite_player = 0;
         background.loadFromFile("../Resources/Img/Play window/field.png");
         button_back.loadFromFile("../Resources/Img/Play window/m_arrow_back_red.png");
         t_missed_bomb.loadFromFile("../Resources/Img/Play window/m_missed_bomb.png");
@@ -94,6 +100,8 @@ public:
     void play_with_friend(Player&, bool &flag);
     void show_placement();
     void show_field_enemy(sf::Sprite*, sf::Sprite*, int, int);
+    void set_sprite_of_hit(int**, int);
+    void show_hits();
 };
 
 

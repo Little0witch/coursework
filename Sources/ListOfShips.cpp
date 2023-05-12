@@ -181,16 +181,47 @@ struct coordinateOfShip giveCoordOfShip(ListOfShips head, int index) {
 
 
         if (coord.orientation == 1) {
-            coord.y = 228 + (head->list->x + 1) * 56.5;
-            coord.x = 285 + (head->list->y) * 56.5;
+            if (coord.size == 4)
+            {
+                coord.y = 228 + (head->list->x + 1) * 56.3;
+                coord.x = 285 + (head->list->y) * 56.7;
+            }
+            else
+            if (coord.size == 3)
+            {
+                coord.y = 228 + (head->list->x + 1) * 56.2;
+                coord.x = 285 + (head->list->y) * 56;
+            }
+            else
+            if (coord.size == 2)
+            {
+                coord.y = 228 + (head->list->x + 1) * 56.7;
+                coord.x = 287 + (head->list->y) * 57.9;
+            }
         } else {
-            coord.y = 228 + (head->list->x + 1) * 56.5;
-            coord.x = 285 + (head->list->y - 1) * 56.5;
+            if (coord.size == 4)
+            {
+                coord.y = 228 + (head->list->x + 1) * 57.5;
+                coord.x = 285 + (head->list->y - 1) * 56.9;
+            }
+            else
+            if (coord.size == 3)
+            {
+                coord.y = 228 + (head->list->x + 1) * 57;
+                coord.x = 285 + (head->list->y -1) * 57.8;
+            }
+            else
+            if (coord.size == 2)
+            {
+                coord.y = 228 + (head->list->x + 1) * 55.5;
+                coord.x = 285 + (head->list->y - 1) * 56.8;
+            }
+
         }
         if (coord.size == 1)
         {
-            coord.y = 228 + (head->list->x + 1) * 56.5;
-            coord.x = 285 + (head->list->y - 1) * 55.5;
+            coord.y = 228 + (head->list->x + 1) * 55.5;
+            coord.x = 285 + (head->list->y - 1) * 56.5;
         }
 
         return coord;

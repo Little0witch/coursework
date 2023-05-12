@@ -94,8 +94,8 @@ public:
 
         ships[0].setTextureRect(sf::IntRect(0.f, 0.f,228.f,56.f));//4
 
-        ships[1].setTextureRect(sf::IntRect(0.f,115.f, 167.f,56.f));//3
-        ships[2].setTextureRect(sf::IntRect(0.f,115.f, 167.f,56.f));//3
+        ships[1].setTextureRect(sf::IntRect(0.f,123.5, 169.f,54.5));//3
+        ships[2].setTextureRect(sf::IntRect(0.f,123.5, 169.f,54.5));//3
 
         ships[3].setTextureRect(sf::IntRect(0.f,230.f,112.f,56.f));//2
         ships[4].setTextureRect(sf::IntRect(0.f,230.f,112.f,56.f));//2

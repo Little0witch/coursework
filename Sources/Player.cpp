@@ -123,8 +123,13 @@ bool Player::checkPositions(int **field, int x, int y, int size, int orientation
 }
 
 Player::~Player() {
-    freeMemory(myField, 10);
-    freeList(&listOfMyShips);
+    if (myField != nullptr)
+        freeMemory(myField, 10);
+    if (enemyField != nullptr)
+        freeMemory(enemyField,10);
+
+    if (listOfMyShips != nullptr)
+        freeList(&listOfMyShips);
 }
 
 int **Player::getMyField() const {
