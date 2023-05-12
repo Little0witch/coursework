@@ -3,3 +3,4 @@
 #include <stdio.h>
 
 bool statusGame(int**);
+

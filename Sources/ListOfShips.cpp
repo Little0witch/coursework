@@ -1,3 +1,4 @@
+#include <iostream>
 #include "../Headers/ListOfShips.h"
 
 bool isEmpty(ListOfShips head) {
@@ -86,7 +87,7 @@ int isHit(ListOfShips head, ListOfShips *removeHead, int x, int y) //-1 мимо
 {
     ListOfShips current = head;
 
-    int index = 0, flag = -1;
+    int flag = -1;
 
     if (current == nullptr)
         return -10;
@@ -106,7 +107,6 @@ int isHit(ListOfShips head, ListOfShips *removeHead, int x, int y) //-1 мимо
 
                 break;
             }
-            index++;
             current = current->next;
         }
     }

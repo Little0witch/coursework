@@ -41,13 +41,24 @@ private:
     sf::Sprite hits_of_player[100];
     int value_of_sprite_player;
 
+    int arrayOfPositionForBot[10][10];
+    int arrayOfPositionForPlayer[10][10];
+
     bool flag_exit = false;
 
 public:
     play_window(sf::RenderWindow &other, sf::Sprite* shipsOfPlayer) : window(other)
     {
         value_of_sprite_bot = 0;
-        value_of_sprite_player = 1;
+        value_of_sprite_player = 0;
+
+        for (int i = 0; i < 10; ++i) {
+            for (int j = 0; j < 10; ++j) {
+                arrayOfPositionForBot[i][j] = 0;
+                arrayOfPositionForPlayer[i][j] = 0;
+            }
+        }
+
         background.loadFromFile("../Resources/Img/Play window/field.png");
         button_back.loadFromFile("../Resources/Img/Play window/m_arrow_back_red.png");
         t_missed_bomb.loadFromFile("../Resources/Img/Play window/m_missed_bomb.png");
@@ -94,7 +105,6 @@ public:
     void  play_with_hard(Player&, bool &flag);
     void play_with_friend(Player&, bool &flag);
     void show_placement();
-    void show_field_enemy(sf::Sprite*, sf::Sprite*, int, int);
     void set_sprite_of_hit(int**, int);
     void show_hits();
     bool isEmpty(int, int, int**);
