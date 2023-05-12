@@ -22,10 +22,8 @@ void window_exit::window_exit_run(bool &flag)
                 {
 
                     //замена изображения на красную кнопки
-                   // window.clear(sf::Color::Black);
                     window.draw(sprite_background);
-                   // window.draw(sprite_yes_red);
-                    window.draw(tmp);
+                    window.draw(sprite_yes_red);
                     window.display();
                 }
                 else
@@ -35,18 +33,14 @@ void window_exit::window_exit_run(bool &flag)
                     {
 
                         //замена изображения на красную кнопки
-                     //   window.clear(sf::Color::Black);
                         window.draw(sprite_background);
-                        //window.draw(sprite_no_red);
-                        window.draw(tmp);
+                        window.draw(sprite_no_red);
                         window.display();
                     }
                     else
                     {
                         //замена изображения на голубую кнопку
-                      //  window.clear(sf::Color::Black);
                         window.draw(sprite_background);
-                        window.draw(tmp);
                         window.display();
                     }
                 }
@@ -55,17 +49,15 @@ void window_exit::window_exit_run(bool &flag)
             //открытие нового окна при нажатии
             if (event.type==sf::Event::MouseButtonPressed && event.mouseButton.button==sf::Mouse::Left)
             {
+                sf::Vector2f mouse_pos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
 //кнокпа "да"
-                if ((event.mouseButton.x>=400 && event.mouseButton.x<=710)
-                && (event.mouseButton.y>=570 && event.mouseButton.y<=838))
+                if (sprite_yes_red.getGlobalBounds().contains(mouse_pos))
                 {
                     flag = true;
-                   // window.close();
                     return;
                 }
 //кнокпа "нет"
-                if ((event.mouseButton.x>=1185 && event.mouseButton.x<=1495)
-                && (event.mouseButton.y>=570 && event.mouseButton.y<=838))
+                if (sprite_no_red.getGlobalBounds().contains(mouse_pos))
                 {
                     flag = false;
                     return;

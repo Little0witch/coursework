@@ -20,16 +20,16 @@ int main() {
 //главное окно и все остальные от него
     sf::RenderWindow window(sf::VideoMode(1846, 1048), "Battlership");
 //
-//    main_menu main_window(window);
-//    main_window.main_menu_run();
+    main_menu main_window(window);
+    main_window.main_menu_run();
 
 //поля для игры
 //    play_window window_play(window);
 //    window_play.play_window_run();
-bool flag = false;
 //поле для расстановки
-placement_field placementField(window);
-placementField.placement_field_run(1,flag);
+//    bool flag = false;
+//placement_field placementField(window);
+//placementField.placement_field_run(1,flag);
 
 //окно выбора типа подключения
 //connect_type window_connect_type(window);
