@@ -22,9 +22,10 @@ void window_exit::window_exit_run(bool &flag)
                 {
 
                     //замена изображения на красную кнопки
-                    window.clear(sf::Color::Black);
+                   // window.clear(sf::Color::Black);
                     window.draw(sprite_background);
-                    window.draw(sprite_yes_red);
+                   // window.draw(sprite_yes_red);
+                    window.draw(tmp);
                     window.display();
                 }
                 else
@@ -34,16 +35,18 @@ void window_exit::window_exit_run(bool &flag)
                     {
 
                         //замена изображения на красную кнопки
-                        window.clear(sf::Color::Black);
+                     //   window.clear(sf::Color::Black);
                         window.draw(sprite_background);
-                        window.draw(sprite_no_red);
+                        //window.draw(sprite_no_red);
+                        window.draw(tmp);
                         window.display();
                     }
                     else
                     {
                         //замена изображения на голубую кнопку
-                        window.clear(sf::Color::Black);
+                      //  window.clear(sf::Color::Black);
                         window.draw(sprite_background);
+                        window.draw(tmp);
                         window.display();
                     }
                 }

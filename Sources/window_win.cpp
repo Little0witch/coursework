@@ -11,6 +11,7 @@ void window_win::window_win_run()
             if (event.type == sf::Event::Closed)
             {
                 window.close();
+                return;
             }
 
             if (event.type == sf::Event::MouseMoved)

@@ -26,7 +26,7 @@ int main() {
 //поля для игры
 //    play_window window_play(window);
 //    window_play.play_window_run();
-bool flag = true;
+bool flag = false;
 //поле для расстановки
 placement_field placementField(window);
 placementField.placement_field_run(1,flag);

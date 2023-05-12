@@ -185,7 +185,7 @@ void Player::addHit(int x, int y, int isHit) {
         addEmptyCells();
     }
     if (isHit == -1) {
-        enemyField[x][y] = -1;
+        enemyField[x][y] = 1;
     } else {
         enemyField[x][y] = 2;
     }

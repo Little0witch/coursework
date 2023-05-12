@@ -31,11 +31,9 @@ private:
     sf::Sprite shipsOfPlayer[10];
     //ходы игрока
     sf::Sprite missed_on_bot_field[80];
-    sf::Sprite hit_on_bot[20];
 
     //ходы бота
     sf::Sprite missed_on_player_field[80];
-    sf::Sprite hit_on_player[20];
     sf::RectangleShape tmp;
 
     sf::Sprite hits_of_bot[100];
@@ -43,10 +41,13 @@ private:
     sf::Sprite hits_of_player[100];
     int value_of_sprite_player;
 
+    bool flag_exit = false;
+
 public:
     play_window(sf::RenderWindow &other, sf::Sprite* shipsOfPlayer) : window(other)
     {
-        value_of_sprite_bot = value_of_sprite_player = 0;
+        value_of_sprite_bot = 0;
+        value_of_sprite_player = 1;
         background.loadFromFile("../Resources/Img/Play window/field.png");
         button_back.loadFromFile("../Resources/Img/Play window/m_arrow_back_red.png");
         t_missed_bomb.loadFromFile("../Resources/Img/Play window/m_missed_bomb.png");
@@ -68,12 +69,6 @@ public:
         for (int i = 0; i < 10; ++i) {
             this->shipsOfPlayer[i] = shipsOfPlayer[i];
 
-        }
-
-        for (int i = 0; i < 20; ++i)
-        {
-            hit_on_bot[i].setTexture(t_hit);
-            hit_on_player[i].setTexture(t_hit);
         }
 
         for (int i = 0; i < 80; ++i)
