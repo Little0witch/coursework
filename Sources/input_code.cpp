@@ -5,6 +5,9 @@ void input_code::input_code_run()
     //получение строки из введенных данных
 //    std::string s_tmp;
 //    s_tmp = text.getString();
+    struct dataOfSocket data_of_socket = {-1, -1};
+    std::string stringOfCode;
+    const char* code = NULL;
 
     while ((window.isOpen()))
     {
@@ -39,12 +42,24 @@ void input_code::input_code_run()
                 {
                     if (isCorrectIP(text.getString()))
                     {
-                        placement_field window_placement_field(window);
-                        window_placement_field.placement_field_run(1, flag);
-                        if (flag)
+                        stringOfCode = text.getString().toAnsiString();
+                        code = stringOfCode.c_str();
+                        data_of_socket = createClient(code);
+
+                        if (data_of_socket.sockfd != -1)
                         {
-                            return;
+                            placement_field window_placement_field(window);
+                            window_placement_field.placement_field_run(0, flag);
+                            if (flag)
+                            {
+                                return;
+                            }
                         }
+                        else
+                        {
+                            text.setString("");
+                        }
+
                     } else
                     {
                         text.setString("");

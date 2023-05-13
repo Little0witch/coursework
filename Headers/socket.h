@@ -18,17 +18,20 @@
 #include "pthread.h"
 #include <csignal>
 
-struct dataOfSocket{
+struct dataOfSocket {
     int sockfd;
     int connfd;
 };
 
-void* createServerThread(void* arg);
+void *createServerThread(void *arg);
+
 struct dataOfSocket createServer();
-char* getCode();
+
+char *getCode();
+
 bool isCorrectIP(std::string);
 
-
+struct dataOfSocket createClient(const char *ip);
 
 
 #endif //COURSEWORK_SOCKET_H
