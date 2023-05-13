@@ -1,6 +1,7 @@
 #ifndef COURSEWORK_GET_CODE_H
 #define COURSEWORK_GET_CODE_H
 #include <SFML/Graphics.hpp>
+#include "socket.h"
 
 class get_code {
 
@@ -19,6 +20,7 @@ private:
     std::string s_tmp;
 
 public:
+
     get_code(sf::RenderWindow &other): window(other)
     {
         background.loadFromFile("../Resources/Img/Input code/w_get_code.png");
@@ -30,7 +32,8 @@ public:
 
         font.loadFromFile("../Resources/Txt/JetBreins.ttf");
 
-        s_tmp = "123/123/123/123";
+        s_tmp = getCode();
+
         connect_code.setFont(font);
         connect_code.setCharacterSize(70);
         connect_code.setFillColor(sf::Color::Black);

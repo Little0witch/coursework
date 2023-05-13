@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include <string>
 #include "placement_field.h"
+#include "socket.h"
 
 class input_code {
 private:

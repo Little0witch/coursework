@@ -37,11 +37,17 @@ void input_code::input_code_run()
                 }
                 if (event.key.code == sf::Keyboard::Enter)
                 {
-                    placement_field window_placement_field(window);
-                    window_placement_field.placement_field_run(1, flag);
-                    if (flag)
+                    if (isCorrectIP(text.getString()))
                     {
-                        return;
+                        placement_field window_placement_field(window);
+                        window_placement_field.placement_field_run(1, flag);
+                        if (flag)
+                        {
+                            return;
+                        }
+                    } else
+                    {
+                        text.setString("");
                     }
                 }
             }

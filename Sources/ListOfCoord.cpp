@@ -204,6 +204,7 @@ struct coordinates giveCoord(ListOfCoord head, int indexOfNode){
             head = head->next;
         }
     }
+    return coord;
 }
 
 bool findNode(ListOfCoord head, int x, int y) {
