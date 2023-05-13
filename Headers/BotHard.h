@@ -60,8 +60,8 @@ BotHard::BotHard() {
     xOfLastHit = yOfLastHit = -1;
     myField = autoPositioningOfShips();
     numberOfFile = 4;
-    nameOfFile = allocateMemoryForString(nameOfFile, 60);
-    strcpy(nameOfFile, "/home/user/CLionProjects/coursework/Resources/Txt/PointsFor4");
+    nameOfFile = allocateMemoryForString(nameOfFile, 28);
+    strcpy(nameOfFile, "../Resources/Txt/PointsFor4");
     insertListFromFile(&listOfCoord, nameOfFile);
 }
 
@@ -238,15 +238,15 @@ void BotHard::statusGame(int isHit) {
             freeList(&listOfCoord);
             switch (numberOfFile) {
                 case 1:
-                    strcpy(nameOfFile, "/home/user/CLionProjects/coursework/Resources/Txt/PointsFor1");
+                    strcpy(nameOfFile, "../Resources/Txt/PointsFor1");
                     insertListFromFile(&listOfCoord, nameOfFile);
                     break;
                 case 2:
-                    strcpy(nameOfFile, "/home/user/CLionProjects/coursework/Resources/Txt/PointsFor2");
+                    strcpy(nameOfFile, "../Resources/Txt/PointsFor2");
                     insertListFromFile(&listOfCoord, nameOfFile);
                     break;
                 case 3:
-                    strcpy(nameOfFile, "/home/user/CLionProjects/coursework/Resources/Txt/PointsFor3");
+                    strcpy(nameOfFile, "../Resources/Txt/PointsFor3");
                     insertListFromFile(&listOfCoord, nameOfFile);
                     break;
             }

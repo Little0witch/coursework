@@ -1,6 +1,5 @@
 #include <SFML/Graphics.hpp>
-#include "Headers/placement_field.h"
-#include "Headers/main_menu.h"
+#include "../Headers/main_menu.h"
 //#include "Headers/placement_field.h"
 //#include "Headers/connect_type.h"
 //#include "Headers/input_code.h"
@@ -20,16 +19,16 @@ int main() {
 //главное окно и все остальные от него
     sf::RenderWindow window(sf::VideoMode(1846, 1048), "Battlership");
 //
-    main_menu main_window(window);
-    main_window.main_menu_run();
+//    main_menu main_window(window);
+//    main_window.main_menu_run();
 
 //поля для игры
 //    play_window window_play(window);
 //    window_play.play_window_run();
 //поле для расстановки
-//    bool flag = false;
-//placement_field placementField(window);
-//placementField.placement_field_run(2,flag);
+    bool flag = false;
+placement_field placementField(window);
+placementField.placement_field_run(2,flag);
 
 //окно выбора типа подключения
 //connect_type window_connect_type(window);
@@ -47,19 +46,6 @@ int main() {
 //window_exit window_end(window);
 //window_end.window_exit_run();
 
-
-
-
-//    Player player;
-//    for (int i = 0; i < 10; ++i) {
-//        player.autoPositioningOfShips();
-//
-//        //ListNodeShips* listNodeShips = player.getListOfMyShips();
-//        //printf("\n\n");
-//        showArray(player.getMyField(),10,10);
-//        printf("\n\n");
-//    }
-    //showList(listNodeShips);
 
     return 0;
 }
