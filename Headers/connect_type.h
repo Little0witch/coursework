@@ -2,6 +2,7 @@
 #define COURSEWORK_CONNECT_TYPE_H
 #include <SFML/Graphics.hpp>
 #include "input_code.h"
+#include "get_code.h"
 
 class connect_type {
 private:

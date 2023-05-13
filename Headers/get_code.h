@@ -15,6 +15,9 @@ private:
     sf::Font font;
     sf::Text connect_code;
 
+    bool move_on_button = false;
+    std::string s_tmp;
+
 public:
     get_code(sf::RenderWindow &other): window(other)
     {
@@ -27,12 +30,14 @@ public:
 
         font.loadFromFile("../Resources/Txt/JetBreins.ttf");
 
+        s_tmp = "123/123/123/123";
         connect_code.setFont(font);
-        connect_code.setCharacterSize(50);
+        connect_code.setCharacterSize(70);
         connect_code.setFillColor(sf::Color::Black);
-        connect_code.setPosition(668.f,413.f);
-
+        connect_code.setPosition(614.f,410.f);
+        connect_code.setString(s_tmp);
     }
+    void get_code_run();
 };
 
 

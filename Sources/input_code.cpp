@@ -16,6 +16,7 @@ void input_code::input_code_run()
                 window.close();
                 return;
             }
+            //запись текста
             if (text.getString().getSize()<15)
             {
                 if (event.type == sf::Event::TextEntered)
@@ -27,6 +28,7 @@ void input_code::input_code_run()
                 }
             }
 
+            //обработка удаления и Enter
             if (event.type == sf::Event::KeyPressed)
             {
                 if (event.key.code == sf::Keyboard::Backspace && !text.getString().isEmpty())
