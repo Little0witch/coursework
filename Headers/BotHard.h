@@ -19,7 +19,10 @@ private:
     ListOfShips listOfMyShips = nullptr;
     ListOfCoord listOfCoord = nullptr;
     char *nameOfFile = nullptr;
+public:
+    int **getEnemyField() const;
 
+private:
     void addEmptyCells();
 
     int **autoPositioningOfShips();
@@ -321,5 +324,9 @@ struct coordinates BotHard::giveCoordinates() {
     yOfLastHit = coord.y;
 
     return coord;
+}
+
+int **BotHard::getEnemyField() const {
+    return enemyField;
 }
 
