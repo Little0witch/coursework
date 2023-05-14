@@ -174,7 +174,7 @@ struct dataOfSocket createClient(const char *ip) {
 }
 
 void closeSockets(struct dataOfSocket data_of_socket) {
-    if (data_of_socket.connfd == -1) {
+    if (data_of_socket.connfd == 0) {
         write(data_of_socket.sockfd, "404", sizeof("404"));
 
         if (close(data_of_socket.sockfd) == -1)
@@ -252,7 +252,7 @@ void sendSignalOfReadyToPlay(struct dataOfSocket data_of_socket) {
     memset(buff, 0, sizeof(buff));
     sprintf(buff, "%d", 200);
 
-    if (data_of_socket.connfd == -1){
+    if (data_of_socket.connfd == 0){
         write(data_of_socket.sockfd,buff, sizeof(buff));
     }
     else{
