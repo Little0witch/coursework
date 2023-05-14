@@ -333,7 +333,7 @@ bool play_window::isEmpty(int x, int y, int **field) {
 
 void play_window::play_window_run_for_player(Player &player, bool &flag, struct dataOfSocket dataOfSocket) {
 
-    if (dataOfSocket.connfd == -1) {
+    if (dataOfSocket.connfd == 0) {
         play_with_server(player, flag, dataOfSocket);
     } else {
         play_with_client(player, flag, dataOfSocket);
