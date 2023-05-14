@@ -405,9 +405,7 @@ void play_window::play_with_server(Player &player, bool &flag, struct dataOfSock
 
                                 if (hit == 9) {
                                     clientWin = 1;
-                                }
-                                else
-                                {
+                                } else {
                                     player.addHit(y, x, hit);
 
                                     if (hit == -1)
@@ -425,11 +423,10 @@ void play_window::play_with_server(Player &player, bool &flag, struct dataOfSock
                     if (sizeList(listOfShipsOfPlayer) == 0) {
                         clientWin = 2;
                         hit = 9;
-                    } else
-                    {
-                        server.addHit(coord.y,coord.x,hit);
+                    } else {
+                        server.addHit(coord.y, coord.x, hit);
 
-                        sendIsHitToServer(data_of_socket.sockfd,hit);
+                        sendIsHitToServer(data_of_socket.sockfd, hit);
 
                         if (hit == -1)
                             isClientMove = true;
@@ -558,15 +555,20 @@ void play_window::play_with_client(Player &player, bool &flag, struct dataOfSock
                                 coord.x = x;
                                 coord.y = y;
 
+                                std::cout <<"pause"<<std::endl;
+                                std::cin>>hit;
+
                                 sendCoordToClient(data_of_socket.connfd, coord);
+
+
 
                                 hit = getIsHitFromClient(data_of_socket.connfd);
 
+                                std::cout << "hit from client: " << hit << std::endl;
+
                                 if (hit == 9) {
                                     serverWin = 1;
-                                }
-                                else
-                                {
+                                } else {
                                     player.addHit(y, x, hit);
 
                                     if (hit == -1)
@@ -579,15 +581,16 @@ void play_window::play_with_client(Player &player, bool &flag, struct dataOfSock
                     }
                 } else {
                     coord = getCoordFromClient(data_of_socket.connfd);
+                    std::cout << "coord from client: " << coord.y << "  " << coord.x << std::endl;
                     hit = isHit(listOfShipsOfPlayer, &listOfShipsOfPlayer, coord.y, coord.x);
                     if (sizeList(listOfShipsOfPlayer) == 0) {
                         serverWin = 2;
                         hit = 9;
-                    } else
-                    {
-                        client.addHit(coord.y,coord.x,hit);
+                        sendIsHitToClient(data_of_socket.connfd, hit);
+                    } else {
+                        client.addHit(coord.y, coord.x, hit);
 
-                        sendIsHitToClient(data_of_socket.connfd,hit);
+                        sendIsHitToClient(data_of_socket.connfd, hit);
 
                         if (hit == -1)
                             isServerMove = true;
