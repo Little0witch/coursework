@@ -47,8 +47,8 @@ struct dataOfSocket createServer() {
 
 
     servaddr.sin_family = AF_INET;
-    //servaddr.sin_addr.s_addr = htonl(INADDR_ANY);
-    servaddr.sin_addr.s_addr = INADDR_ANY;
+    servaddr.sin_addr.s_addr = htonl(INADDR_ANY);
+    //servaddr.sin_addr.s_addr = INADDR_ANY;
     servaddr.sin_port = htons(PORT);
 
 
@@ -248,10 +248,15 @@ void *isActiveSocketThread(void *arg) {
 }
 
 void sendSignalOfReadyToPlay(struct dataOfSocket data_of_socket) {
-    if (data_of_socket.connfd == -1) {
-        write(data_of_socket.sockfd, "200", sizeof("200"));
-    } else {
-        write(data_of_socket.connfd, "200", sizeof("200"));
+    char buff[MAX];
+    memset(buff, 0, sizeof(buff));
+    sprintf(buff, "%d", 200);
+
+    if (data_of_socket.connfd == -1){
+        write(data_of_socket.sockfd,buff, sizeof(buff));
+    }
+    else{
+        write(data_of_socket.connfd,buff, sizeof(buff));
     }
 }
 

@@ -1,5 +1,6 @@
 #ifndef COURSEWORK_PLAY_WINDOW_H
 #define COURSEWORK_PLAY_WINDOW_H
+
 #include <SFML/Graphics.hpp>
 #include "Player.h"
 #include "window_win.h"
@@ -48,8 +49,7 @@ private:
     bool flag_exit = false;
 
 public:
-    play_window(sf::RenderWindow &other, sf::Sprite* shipsOfPlayer) : window(other)
-    {
+    play_window(sf::RenderWindow &other, sf::Sprite *shipsOfPlayer) : window(other) {
         value_of_sprite_bot = 0;
         value_of_sprite_player = 0;
 
@@ -66,7 +66,7 @@ public:
         t_hit.loadFromFile("../Resources/Img/Play window/m_injury.png");
         sprite_background.setTexture(background);
         sprite_button_back.setTexture(button_back);
-        sprite_button_back.setPosition(170.f,30.f);
+        sprite_button_back.setPosition(170.f, 30.f);
         sprite_missed_bomb.setTexture(t_missed_bomb);
 
         t_left_arrow.loadFromFile("../Resources/Img/Play window/m_left_arrow_blue.png");
@@ -75,42 +75,51 @@ public:
         sprite_left_arrow.setTexture(t_left_arrow);
         sprite_right_arrow.setTexture(t_right_arrow);
 
-        sprite_right_arrow.setPosition(835.f,458.f);
-        sprite_left_arrow.setPosition(835.f,458.f);
+        sprite_right_arrow.setPosition(835.f, 458.f);
+        sprite_left_arrow.setPosition(835.f, 458.f);
 
         for (int i = 0; i < 10; ++i) {
             this->shipsOfPlayer[i] = shipsOfPlayer[i];
 
         }
 
-        for (int i = 0; i < 80; ++i)
-        {
+        for (int i = 0; i < 80; ++i) {
             missed_on_bot_field[i].setTexture(t_missed_bomb);
             missed_on_player_field[i].setTexture(t_missed_bomb);
         }
 
         //размер клетки
-        tmp_A1.setSize(sf::Vector2f(56.f,56.f));
+        tmp_A1.setSize(sf::Vector2f(56.f, 56.f));
         tmp_A1.setPosition(228.f, 285.f);
-        tmp_B1.setSize(sf::Vector2f(56.f,56.f));
+        tmp_B1.setSize(sf::Vector2f(56.f, 56.f));
         tmp_B1.setFillColor(sf::Color::Red);
         tmp_B1.setPosition(228.f, 342.f);
 
-        tmp.setSize(sf::Vector2f(150.f,195.f));
-        tmp.setPosition(835.f,458.f);
+        tmp.setSize(sf::Vector2f(150.f, 195.f));
+        tmp.setPosition(835.f, 458.f);
         tmp.setFillColor(sf::Color(255, 255, 255, 128));
 
     }
-    void play_window_run(Player&, int, bool &flag);
-    void play_with_soft(Player&, bool &flag);
-    void  play_with_hard(Player&, bool &flag);
-    void play_with_server(Player&,bool& flag, struct dataOfSocket);
-    void play_with_client(Player&,bool& flag, struct dataOfSocket);
-    void play_window_run_for_player(Player&, bool& flag, struct dataOfSocket);
+
+    void play_window_run(Player &, int, bool &flag);
+
+    void play_with_soft(Player &, bool &flag);
+
+    void play_with_hard(Player &, bool &flag);
+
+    void play_with_server(Player &, bool &flag, struct dataOfSocket);
+
+    void play_with_client(Player &, bool &flag, struct dataOfSocket);
+
+    void play_window_run_for_player(Player &, bool &flag, struct dataOfSocket);
+
     void show_placement();
-    void set_sprite_of_hit(int**, int);
+
+    void set_sprite_of_hit(int **, int);
+
     void show_hits();
-    bool isEmpty(int, int, int**);
+
+    bool isEmpty(int, int, int **);
 };
 
 
