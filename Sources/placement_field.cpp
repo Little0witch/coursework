@@ -165,7 +165,7 @@ void placement_field::placement_field_run(int complexity, bool &flag, bool &flag
         exit(0);
     }
 
-
+    bool flagOfReadyToPlay = false;
 
     while (window.isOpen()) {
 
@@ -256,7 +256,7 @@ void placement_field::placement_field_run(int complexity, bool &flag, bool &flag
 //кнокпа "назад"
                 if (sprite_button_back.getGlobalBounds().contains(mousePosition_1)) {
                     pthread_cancel(idOfThread);
-                    closeSocket(data_of_socket);
+                    closeSockets(data_of_socket);
                     flagOfReturn = true;
                     return;
                 }
@@ -279,22 +279,23 @@ void placement_field::placement_field_run(int complexity, bool &flag, bool &flag
                 if (sprite_button_play.getGlobalBounds().contains(mousePosition_1) && flag_auto_pressed) {
 
                     sendSignalOfReadyToPlay(data_of_socket);
-
-                    if (thread_data_of_socket.dataOfBool.readyToPlay)
-                    {
-                        pthread_cancel(idOfThread);
-                        play_window playWindow(window, ships);
-                        playWindow.play_window_run(player, complexity, flag);
-                        return;
-                    }
+                    flagOfReadyToPlay = true;
                 }
+
             }
         }
         if (thread_data_of_socket.dataOfBool.flagToExit) {
             pthread_cancel(idOfThread);
-            closeSocket(data_of_socket);
+            closeSockets(data_of_socket);
             flagOfReturn = true;
             return;
+        }
+
+        if (thread_data_of_socket.dataOfBool.readyToPlay && flagOfReadyToPlay)
+        {
+            pthread_cancel(idOfThread);
+            play_window playWindow(window, ships);
+            playWindow.play_window_run_for_player(player,flag,data_of_socket);
         }
     }
 

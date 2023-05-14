@@ -6,18 +6,12 @@
 
 void play_window::play_window_run(Player &player, int complexity, bool &flag) {
 
-//        if (complexity==0)
-//        {
-//            play_with_friend(player);
-//        }
     if (complexity == 1) {
         play_with_soft(player, flag);
     }
     if (complexity == 2) {
         play_with_hard(player, flag);
     }
-
-
 }
 
 void play_window::show_placement() {
@@ -25,7 +19,6 @@ void play_window::show_placement() {
         window.draw(shipsOfPlayer[i]);
     }
 }
-
 
 void play_window::play_with_soft(Player &player, bool &flag) {
     int hit = 0;
@@ -41,7 +34,6 @@ void play_window::play_with_soft(Player &player, bool &flag) {
             if (event.type == sf::Event::Closed) {
                 window.close();
             }
-//
             else {
                 if (sizeList(listOfShipsOfPlayer) == 0 && sizeList(listOfShipsOfBot) != 0) {
                     //player lose
@@ -338,4 +330,175 @@ bool play_window::isEmpty(int x, int y, int **field) {
         return false;
     else
         return true;
+}
+
+void play_window::play_window_run_for_player(Player &player, bool &flag, struct dataOfSocket dataOfSocket) {
+
+    if (dataOfSocket.connfd == -1) {
+        play_with_server(player, flag, dataOfSocket);
+    } else {
+        play_with_client(player, flag, dataOfSocket);
+    }
+
+}
+
+//we are client
+void play_window::play_with_server(Player &player, bool &flag, struct dataOfSocket dataOfSocket) {
+
+}
+
+//we are server
+void play_window::play_with_client(Player &player, bool &flag, struct dataOfSocket data_of_socket) {
+    int hit = 0;
+    bool isServerMove = true;
+    struct coordinates coord{};
+    ListOfShips listOfShipsOfPlayer = player.getListOfMyShips();
+    int serverWin = 0;//1 - win 2 - lose
+    int** enemyField = nullptr;
+    enemyField = allocateMemory(enemyField,10,10);
+    init(enemyField,10,10);
+
+    struct threadDataOfSocket thread_data_of_socket{};
+    thread_data_of_socket.socketData = data_of_socket;
+    thread_data_of_socket.dataOfBool.flagToExit = false;
+    thread_data_of_socket.dataOfBool.readyToPlay = false;
+
+    pthread_t idOfThread;
+    int resultOfThread = pthread_create(&idOfThread, NULL, isActiveSocketThread, (void*)&thread_data_of_socket);
+    if (resultOfThread != 0)
+    {
+        printf("Error of create thread");
+        exit(0);
+    }
+
+    while (window.isOpen()) {
+        sf::Event event;
+        while (window.pollEvent(event)) {
+            if (event.type == sf::Event::Closed) {
+                window.close();
+            }
+            else {
+                if (serverWin == 2) {
+                    //player lose
+                    closeSocket(data_of_socket);
+                    freeMemory(enemyField,10);
+                    window_lose windowLose(window);
+                    windowLose.window_lose_run();
+                    return;
+                }
+
+                if (serverWin == 1) {
+                    //player win
+                    closeSocket(data_of_socket);
+                    freeMemory(enemyField,10);
+                    window_win windowWin(window);
+                    windowWin.window_win_run();
+                    return;
+                }
+
+                if (isServerMove) {
+                    if (event.type == sf::Event::MouseButtonPressed) {
+                        if (event.mouseButton.button == sf::Mouse::Left) {
+                            // Получение координат щелчка мыши
+                            int x = event.mouseButton.x;
+                            int y = event.mouseButton.y;
+                            if ((x >= 1085 && x <= 1650) && (y >= 285 && y <= 847) &&
+                                isEmpty(x, y, player.getEnemyField())) {
+
+                                x = (x - 1085) / 56;
+                                y = (y - 285) / 56;
+
+
+                                hit = isHit(listOfShipsOfBot, &listOfShipsOfBot, y, x);
+
+                                player.addHit(y, x, hit);
+
+                                if (hit == -1)
+                                    isServerMove = false;
+                                else
+                                    isServerMove = true;
+                            }
+                        }
+                    }
+                } else {
+                    coord = botSoft.giveCoordinates();
+                    hit = isHit(listOfShipsOfPlayer, &listOfShipsOfPlayer, coord.x, coord.y);
+                    botSoft.statusGame(hit);
+                    if (hit == -1)
+                        isServerMove = true;
+                    else
+                        isServerMove = false;
+                    usleep(500000);
+                }
+
+
+            }
+            if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
+                sf::Vector2f mouse_pos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
+                if (sprite_button_back.getGlobalBounds().contains(mouse_pos)) {
+                    flag_exit = true;
+                }
+
+            }
+
+        }
+        window.clear(sf::Color::Black);
+        window.draw(sprite_background);
+        window.draw(sprite_button_back);
+        set_sprite_of_hit(player.getEnemyField(), 0);
+        set_sprite_of_hit(enemyField, 1);
+
+        show_hits();
+
+        if (isServerMove) {
+            window.draw(sprite_right_arrow);
+        } else {
+            window.draw(sprite_left_arrow);
+        }
+
+        show_placement();
+
+        if (thread_data_of_socket.dataOfBool.flagToExit) {
+            pthread_cancel(idOfThread);
+            freeMemory(enemyField,10);
+            closeSockets(data_of_socket);
+            return;
+        }
+
+        if (flag_exit) {
+            window_exit exit_window(window);
+            exit_window.window_exit_run(flag);
+            if (flag) {
+                freeMemory(enemyField,10);
+                pthread_cancel(idOfThread);
+                closeSockets(data_of_socket);
+                return;
+            } else {
+                flag_exit = false;
+                window.clear(sf::Color::Black);
+                window.draw(sprite_background);
+                window.draw(sprite_button_back);
+                set_sprite_of_hit(player.getEnemyField(), 0);
+                set_sprite_of_hit(enemyField, 1);
+
+                show_hits();
+
+                if (isServerMove) {
+                    window.draw(sprite_right_arrow);
+                } else {
+                    window.draw(sprite_left_arrow);
+                }
+                show_placement();
+                window.display();
+            }
+        }
+        window.display();
+    }
+
+
+
+
+
+
+
 }

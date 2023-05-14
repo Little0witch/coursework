@@ -173,23 +173,20 @@ struct dataOfSocket createClient(const char *ip) {
     return data_of_socket;
 }
 
-void closeSocket(struct dataOfSocket data_of_socket) {
-    if (data_of_socket.connfd == -1)
-    {
-        write(data_of_socket.sockfd,"404",sizeof("404"));
+void closeSockets(struct dataOfSocket data_of_socket) {
+    if (data_of_socket.connfd == -1) {
+        write(data_of_socket.sockfd, "404", sizeof("404"));
 
-        if ( close(data_of_socket.sockfd) == -1)
+        if (close(data_of_socket.sockfd) == -1)
             printf("error close of socket");
         else
             printf("socket is close");
 
 
-    }
-    else
-    {
-        write(data_of_socket.connfd,"404",sizeof("404"));
+    } else {
+        write(data_of_socket.connfd, "404", sizeof("404"));
 
-        if ( close(data_of_socket.sockfd) == -1)
+        if (close(data_of_socket.sockfd) == -1)
             printf("error close of socket");
         else
             printf("socket is close");
@@ -207,41 +204,34 @@ struct dataOfBool isActiveSocket(struct dataOfSocket data_of_socket) {
     data_of_bool.readyToPlay = false;
 
     memset(buff, 0, sizeof(buff));
-    if (data_of_socket.connfd == -1)
-    {
-        while (1){
+    if (data_of_socket.connfd == -1) {
+        while (1) {
             bytesRead = read(data_of_socket.sockfd, buff, sizeof(buff));
             if (bytesRead > 0)
                 break;
         }
         number = atoi(buff);
-        if (number == 404)
-        {
+        if (number == 404) {
             data_of_bool.flagToExit = true;
             return data_of_bool;
         }
-        if (number == 200)
-        {
+        if (number == 200) {
             data_of_bool.readyToPlay = true;
             return data_of_bool;
         }
-    }
-    else
-    {
-        while (1){
+    } else {
+        while (1) {
             bytesRead = read(data_of_socket.connfd, buff, sizeof(buff));
             if (bytesRead > 0)
                 break;
         }
         number = atoi(buff);
-        if (number == 404)
-        {
+        if (number == 404) {
             data_of_bool.flagToExit = true;
             return data_of_bool;
         }
 
-        if (number == 200)
-        {
+        if (number == 200) {
             data_of_bool.readyToPlay = true;
             return data_of_bool;
         }
@@ -250,20 +240,126 @@ struct dataOfBool isActiveSocket(struct dataOfSocket data_of_socket) {
     return data_of_bool;
 }
 
-void* isActiveSocketThread(void* arg){
-    auto* threadData = (struct threadDataOfSocket*)arg;
+void *isActiveSocketThread(void *arg) {
+    auto *threadData = (struct threadDataOfSocket *) arg;
     struct dataOfSocket socketData = threadData->socketData;
     threadData->dataOfBool = isActiveSocket(socketData);
     return threadData;
 }
 
 void sendSignalOfReadyToPlay(struct dataOfSocket data_of_socket) {
-    if (data_of_socket.connfd == -1)
-    {
-        write(data_of_socket.sockfd,"200",sizeof("200"));
-    }
-    else
-    {
-        write(data_of_socket.connfd,"200",sizeof("200"));
+    if (data_of_socket.connfd == -1) {
+        write(data_of_socket.sockfd, "200", sizeof("200"));
+    } else {
+        write(data_of_socket.connfd, "200", sizeof("200"));
     }
 }
+
+void closeSocket(struct dataOfSocket data_of_socket) {
+    if (close(data_of_socket.sockfd) == -1)
+        printf("error close of socket");
+    else
+        printf("socket is close");
+    sleep(1);
+}
+
+struct coord getCoordFromClient(int connfd) {
+    struct coord coord{};
+    int number = 0;
+    char buff[MAX];
+    ssize_t bytesRead;
+
+    memset(buff, 0, sizeof(buff));
+
+    while (true) {
+        bytesRead = read(connfd, buff, sizeof(buff));
+        if (bytesRead > 0)
+            break;
+    }
+    number = atoi(buff);
+
+    coord.y = number % 10;
+    coord.x = number / 10;
+
+    return coord;
+}
+
+int getIsHitFromClient(int connfd) {
+    int isHit = 0;
+    char buff[MAX];
+    ssize_t bytesRead;
+    memset(buff, 0, sizeof(buff));
+
+    while (true) {
+        bytesRead = read(connfd, buff, sizeof(buff));
+        if (bytesRead > 0)
+            break;
+    }
+    isHit = atoi(buff);
+
+    return isHit;
+}
+
+void sendCoordToClient(int connfd, struct coord coord) {
+    char buff[MAX];
+    int number = coord.x * 10 + coord.y;
+    memset(buff, 0, sizeof(buff));
+    sprintf(buff, "%d", number);
+    write(connfd, buff, sizeof(buff));
+}
+
+void sendIsHitToClient(int connfd, int isHit) {
+    char buff[MAX];
+    memset(buff, 0, sizeof(buff));
+    sprintf(buff, "%d", isHit);
+    write(connfd, buff, sizeof(buff));
+}
+
+struct coord getCoordFromServer(int sockfd) {
+    struct coord coord{};
+    ssize_t bytesRead;
+    int number = 0;
+    char buff[MAX];
+    memset(buff, 0, sizeof(buff));
+    while (true) {
+        bytesRead = read(sockfd, buff, sizeof(buff));
+        if (bytesRead > 0)
+            break;
+    }
+    number = atoi(buff);
+
+    coord.y = number % 10;
+    coord.x = number / 10;
+    return coord;
+}
+
+int getIsHitFromServer(int sockfd) {
+    int isHit = 0;
+    char buff[MAX];
+    ssize_t bytesRead;
+    memset(buff, 0, sizeof(buff));
+    while (true) {
+        bytesRead = read(sockfd, buff, sizeof(buff));
+        if (bytesRead > 0)
+            break;
+    }
+    isHit = atoi(buff);
+
+    return isHit;
+}
+
+void sendCoordToServer(int sockfd, struct coord coord) {
+    char buff[MAX];
+    int number = coord.x * 10 + coord.y;
+    memset(buff, 0, sizeof(buff));
+    sprintf(buff, "%d", number);
+    write(sockfd, buff, sizeof(buff));
+}
+
+void sendIsHitToServer(int sockfd, int isHit) {
+    char buff[MAX];
+    memset(buff, 0, sizeof(buff));
+    sprintf(buff, "%d", isHit);
+    write(sockfd, buff, sizeof(buff));
+}
+

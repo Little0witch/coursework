@@ -5,6 +5,7 @@
 #include "window_win.h"
 #include "window_lose.h"
 #include "window_exit.h"
+#include "socket.h"
 
 class play_window {
 private:
@@ -103,7 +104,9 @@ public:
     void play_window_run(Player&, int, bool &flag);
     void play_with_soft(Player&, bool &flag);
     void  play_with_hard(Player&, bool &flag);
-    void play_with_friend(Player&, bool &flag);
+    void play_with_server(Player&,bool& flag, struct dataOfSocket);
+    void play_with_client(Player&,bool& flag, struct dataOfSocket);
+    void play_window_run_for_player(Player&, bool& flag, struct dataOfSocket);
     void show_placement();
     void set_sprite_of_hit(int**, int);
     void show_hits();

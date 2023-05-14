@@ -18,6 +18,11 @@
 #include "pthread.h"
 #include <csignal>
 
+struct coord{
+    int x;
+    int y;
+};
+
 struct dataOfSocket {
     int sockfd;
     int connfd;
@@ -43,13 +48,31 @@ bool isCorrectIP(std::string);
 
 struct dataOfSocket createClient(const char *ip);
 
-void closeSocket(struct dataOfSocket);
+void closeSockets(struct dataOfSocket data_of_socket);
+
+void closeSocket(struct dataOfSocket data_of_socket);
 
 struct dataOfBool isActiveSocket(struct dataOfSocket);
 
 void* isActiveSocketThread(void* arg);
 
 void sendSignalOfReadyToPlay(struct dataOfSocket data_of_socket);
+
+struct coord getCoordFromClient(int);
+
+int getIsHitFromClient(int);
+
+void sendCoordToClient(int, struct coord);
+
+void sendIsHitToClient(int, int);
+
+struct coord getCoordFromServer(int);
+
+int getIsHitFromServer(int);
+
+void sendCoordToServer(int, struct coord);
+
+void sendIsHitToServer(int, int);
 
 
 #endif //COURSEWORK_SOCKET_H
