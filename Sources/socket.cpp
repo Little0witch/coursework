@@ -250,7 +250,8 @@ void *isActiveSocketThread(void *arg) {
 void sendSignalOfReadyToPlay(struct dataOfSocket data_of_socket) {
     char buff[MAX];
     memset(buff, 0, sizeof(buff));
-    sprintf(buff, "%d", 200);
+    int number = 200;
+    sprintf(buff, "%d", number);
 
     if (data_of_socket.connfd == 0){
         write(data_of_socket.sockfd,buff, sizeof(buff));
