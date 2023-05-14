@@ -24,7 +24,6 @@ void get_code::get_code_run(bool &flagOfReturn) {
                 if (sprite_ok_red.getGlobalBounds().contains(mouse_pos))
                 {
                     pthread_cancel(idOfThread);
-
                     return;
                 }
             }
@@ -58,7 +57,7 @@ void get_code::get_code_run(bool &flagOfReturn) {
 
         if (dataOfSocket.connfd == 404 && dataOfSocket.sockfd == 404) {
             pthread_cancel(idOfThread);
-            return;
+            //flagOfReturn = true;
         }
 
     }
