@@ -2,6 +2,7 @@
 #define COURSEWORK_GET_CODE_H
 #include <SFML/Graphics.hpp>
 #include "socket.h"
+#include "placement_field.h"
 
 class get_code {
 
@@ -40,7 +41,7 @@ public:
         connect_code.setPosition(614.f,410.f);
         connect_code.setString(s_tmp);
     }
-    void get_code_run();
+    void get_code_run(bool&);
 };
 
 

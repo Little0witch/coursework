@@ -5,6 +5,7 @@
 #include "ListOfShips.h"
 #include "Player.h"
 #include "play_window.h"
+#include "socket.h"
 
 
 class placement_field {
@@ -108,6 +109,7 @@ public:
 
     }
     void placement_field_run(int, bool &flag);//0 online 1 soft 2 hard
+    void placement_field_run(int, bool &flag, bool& flagOfReturn, struct dataOfSocket);//0 online 1 soft 2 hard
     void set_placement(ListOfShips);
     void show_placement();
 };

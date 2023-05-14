@@ -20,6 +20,7 @@ private:
     bool move_client = false;
     bool move_server = false;
     bool move_exit = false;
+    bool flagOfReturn = false;
  //   sf::RectangleShape tmp;
 
 public:

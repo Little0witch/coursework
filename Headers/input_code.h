@@ -55,7 +55,7 @@ public:
 
 
     }
-    void input_code_run();
+    void input_code_run(bool&);
 };
 
 

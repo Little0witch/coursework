@@ -23,6 +23,16 @@ struct dataOfSocket {
     int connfd;
 };
 
+struct dataOfBool{
+    bool flagToExit;
+    bool readyToPlay;
+};
+
+struct threadDataOfSocket{
+    struct dataOfSocket socketData;
+    struct dataOfBool dataOfBool;
+};
+
 void *createServerThread(void *arg);
 
 struct dataOfSocket createServer();
@@ -32,6 +42,14 @@ char *getCode();
 bool isCorrectIP(std::string);
 
 struct dataOfSocket createClient(const char *ip);
+
+void closeSocket(struct dataOfSocket);
+
+struct dataOfBool isActiveSocket(struct dataOfSocket);
+
+void* isActiveSocketThread(void* arg);
+
+void sendSignalOfReadyToPlay(struct dataOfSocket data_of_socket);
 
 
 #endif //COURSEWORK_SOCKET_H

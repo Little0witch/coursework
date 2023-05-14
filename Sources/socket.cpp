@@ -54,6 +54,7 @@ struct dataOfSocket createServer() {
 
     if ((bind(sockfd, (SA *) &servaddr, sizeof(servaddr))) != 0) {
         printf("socket bind failed...\n");
+        data_of_socket.connfd = data_of_socket.sockfd = 404;
         return data_of_socket;
     } else
         printf("Socket successfully binded..\n");
@@ -76,7 +77,6 @@ struct dataOfSocket createServer() {
         printf("server accept to client");
         data_of_socket.connfd = connfd;
         data_of_socket.sockfd = sockfd;
-        exit(0);
         return data_of_socket;
     }
 }
@@ -167,9 +167,103 @@ struct dataOfSocket createClient(const char *ip) {
         return data_of_socket;
     } else if (FD_ISSET(sockfd, &writefds)) {
         data_of_socket.sockfd = sockfd;
-        printf("ura");
         return data_of_socket;
     }
 
     return data_of_socket;
+}
+
+void closeSocket(struct dataOfSocket data_of_socket) {
+    if (data_of_socket.connfd == -1)
+    {
+        write(data_of_socket.sockfd,"404",sizeof("404"));
+
+        if ( close(data_of_socket.sockfd) == -1)
+            printf("error close of socket");
+        else
+            printf("socket is close");
+
+
+    }
+    else
+    {
+        write(data_of_socket.connfd,"404",sizeof("404"));
+
+        if ( close(data_of_socket.sockfd) == -1)
+            printf("error close of socket");
+        else
+            printf("socket is close");
+
+    }
+    sleep(1);
+}
+
+struct dataOfBool isActiveSocket(struct dataOfSocket data_of_socket) {
+    char buff[MAX];
+    int number;
+    ssize_t bytesRead;
+    struct dataOfBool data_of_bool{};
+    data_of_bool.flagToExit = false;
+    data_of_bool.readyToPlay = false;
+
+    memset(buff, 0, sizeof(buff));
+    if (data_of_socket.connfd == -1)
+    {
+        while (1){
+            bytesRead = read(data_of_socket.sockfd, buff, sizeof(buff));
+            if (bytesRead > 0)
+                break;
+        }
+        number = atoi(buff);
+        if (number == 404)
+        {
+            data_of_bool.flagToExit = true;
+            return data_of_bool;
+        }
+        if (number == 200)
+        {
+            data_of_bool.readyToPlay = true;
+            return data_of_bool;
+        }
+    }
+    else
+    {
+        while (1){
+            bytesRead = read(data_of_socket.connfd, buff, sizeof(buff));
+            if (bytesRead > 0)
+                break;
+        }
+        number = atoi(buff);
+        if (number == 404)
+        {
+            data_of_bool.flagToExit = true;
+            return data_of_bool;
+        }
+
+        if (number == 200)
+        {
+            data_of_bool.readyToPlay = true;
+            return data_of_bool;
+        }
+    }
+
+    return data_of_bool;
+}
+
+void* isActiveSocketThread(void* arg){
+    auto* threadData = (struct threadDataOfSocket*)arg;
+    struct dataOfSocket socketData = threadData->socketData;
+    threadData->dataOfBool = isActiveSocket(socketData);
+    return threadData;
+}
+
+void sendSignalOfReadyToPlay(struct dataOfSocket data_of_socket) {
+    if (data_of_socket.connfd == -1)
+    {
+        write(data_of_socket.sockfd,"200",sizeof("200"));
+    }
+    else
+    {
+        write(data_of_socket.connfd,"200",sizeof("200"));
+    }
 }

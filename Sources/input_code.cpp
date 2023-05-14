@@ -1,6 +1,6 @@
 #include "../Headers/input_code.h"
 
-void input_code::input_code_run()
+void input_code::input_code_run(bool& flagOfReturn)
 {
     //получение строки из введенных данных
 //    std::string s_tmp;
@@ -49,7 +49,7 @@ void input_code::input_code_run()
                         if (data_of_socket.sockfd != -1)
                         {
                             placement_field window_placement_field(window);
-                            window_placement_field.placement_field_run(0, flag);
+                            window_placement_field.placement_field_run(0, flag,flagOfReturn, data_of_socket);
                             if (flag)
                             {
                                 return;
@@ -87,6 +87,9 @@ void input_code::input_code_run()
                     }
 
             }
+
+            if (flagOfReturn)
+                return;
 
             window.clear(sf::Color::Black);
             window.draw(sprite);

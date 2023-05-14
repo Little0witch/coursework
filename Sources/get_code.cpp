@@ -1,7 +1,7 @@
 #include "../Headers/get_code.h"
 
 
-void get_code::get_code_run() {
+void get_code::get_code_run(bool &flagOfReturn) {
 
     struct dataOfSocket dataOfSocket= {-1,-1};
 
@@ -23,6 +23,8 @@ void get_code::get_code_run() {
             {
                 if (sprite_ok_red.getGlobalBounds().contains(mouse_pos))
                 {
+                    pthread_cancel(idOfThread);
+
                     return;
                 }
             }
@@ -30,10 +32,7 @@ void get_code::get_code_run() {
             {
                 move_on_button = true;
             }
-            if (dataOfSocket.connfd != -1 && dataOfSocket.sockfd != -1) {
-                printf("ura\n");
-                pthread_cancel(idOfThread);
-            }
+
         }
 
         window.clear(sf::Color::Black);
@@ -44,8 +43,24 @@ void get_code::get_code_run() {
             window.draw(sprite_ok_red);
         }
         window.display();
-    }
 
-    printf("dfsdf");
+        if (flagOfReturn)
+        {
+            return;
+        }
+
+        if (dataOfSocket.connfd != -1 && dataOfSocket.sockfd != -1) {
+            pthread_cancel(idOfThread);
+            placement_field placement_field(window);
+            bool flag = false;
+            placement_field.placement_field_run(0, flag, flagOfReturn, dataOfSocket);
+        }
+
+        if (dataOfSocket.connfd == 404 && dataOfSocket.sockfd == 404) {
+            pthread_cancel(idOfThread);
+            return;
+        }
+
+    }
 }
 
