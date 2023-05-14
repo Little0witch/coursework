@@ -38,6 +38,7 @@ struct dataOfSocket createServer() {
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
     if (sockfd == -1) {
         printf("socket creation failed...\n");
+        data_of_socket.connfd = data_of_socket.sockfd = 404;
         return data_of_socket;
     } else
         printf("Socket successfully created..\n");
@@ -61,6 +62,7 @@ struct dataOfSocket createServer() {
     // Now server is ready to listen and verification
     if ((listen(sockfd, 5)) != 0) {
         printf("Listen failed...\n");
+        data_of_socket.connfd = data_of_socket.sockfd = 404;
         return data_of_socket;
     } else
         printf("Server listening..\n");
@@ -71,6 +73,7 @@ struct dataOfSocket createServer() {
 
     if (connfd < 0) {
         printf("server accept failed...\n");
+        data_of_socket.connfd = data_of_socket.sockfd = 404;
         return data_of_socket;
     } else {
         printf("server accept to client");
