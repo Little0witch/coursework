@@ -48,7 +48,6 @@ struct dataOfSocket createServer() {
 
     servaddr.sin_family = AF_INET;
     servaddr.sin_addr.s_addr = htonl(INADDR_ANY);
-    //servaddr.sin_addr.s_addr = INADDR_ANY;
     servaddr.sin_port = htons(PORT);
 
 
@@ -204,7 +203,7 @@ struct dataOfBool isActiveSocket(struct dataOfSocket data_of_socket) {
     data_of_bool.readyToPlay = false;
 
     memset(buff, 0, sizeof(buff));
-    if (data_of_socket.connfd == -1) {
+    if (data_of_socket.connfd == 0) {
         while (1) {
             bytesRead = read(data_of_socket.sockfd, buff, sizeof(buff));
             if (bytesRead > 0)
