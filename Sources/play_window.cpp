@@ -555,16 +555,9 @@ void play_window::play_with_client(Player &player, bool &flag, struct dataOfSock
                                 coord.x = x;
                                 coord.y = y;
 
-                                std::cout <<"pause"<<std::endl;
-                                std::cin>>hit;
-
                                 sendCoordToClient(data_of_socket.connfd, coord);
 
-
-
                                 hit = getIsHitFromClient(data_of_socket.connfd);
-
-                                std::cout << "hit from client: " << hit << std::endl;
 
                                 if (hit == 9) {
                                     serverWin = 1;
