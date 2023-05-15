@@ -37,22 +37,10 @@ public:
         sprite_exit.setTexture(button_exit);
         sprite_exit.setPosition(572.f,621.f);
 
-        //окна с вводом
-//        tmp.setSize(sf::Vector2f(703.f, 333.f));
-//        tmp.setFillColor(sf::Color(255, 255, 255, 128));
-//        tmp.setPosition(572.f,240.f);
-//
-//        //ввод
+        //        //ввод
         tmp.setSize(sf::Vector2f(523.f, 120.f));
         tmp.setFillColor(sf::Color(255, 255, 255, 128));
         tmp.setPosition(660.f,400.f);
-
-        //выход
-//        tmp.setSize(sf::Vector2f(703.f, 122.f));
-//        tmp.setFillColor(sf::Color(255, 255, 255, 128));
-//        tmp.setPosition(572.f,621.f);
-
-
 
     }
     void input_code_run(bool&);

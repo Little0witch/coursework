@@ -43,22 +43,6 @@ public:
         button_exit.loadFromFile("../Resources/Img/Type connect/button_exit.png");
         sprite_button_exit.setTexture(button_exit);
         sprite_button_exit.setPosition(sf::Vector2f(573.f,620.f));
-
-        //position client
-//        tmp.setSize(sf::Vector2f(700.f, 125.f));
-//        tmp.setFillColor(sf::Color(255, 255, 255, 128));
-//        tmp.setPosition(573.f,280.f);
-
-        //position server
-//        tmp.setSize(sf::Vector2f(700.f, 125.f));
-//        tmp.setFillColor(sf::Color(255, 255, 255, 128));
-//        tmp.setPosition(573.f,450.f);
-//
-//        //position exit
-//        tmp.setSize(sf::Vector2f(700.f, 125.f));
-//        tmp.setFillColor(sf::Color(255, 255, 255, 128));
-//        tmp.setPosition(573.f,620.f);
-
     }
     void connect_type_run();
 

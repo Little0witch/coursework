@@ -350,17 +350,17 @@ void play_window::play_with_server(Player &player, bool &flag, struct dataOfSock
     int clientWin = 0;//1 - win 2 - lose
     Player server;
 
-    struct threadDataOfSocket thread_data_of_socket{};
-    thread_data_of_socket.socketData = data_of_socket;
-    thread_data_of_socket.dataOfBool.flagToExit = false;
-    thread_data_of_socket.dataOfBool.readyToPlay = false;
-
-    pthread_t idOfThread;
-    int resultOfThread = pthread_create(&idOfThread, NULL, isActiveSocketThread, (void *) &thread_data_of_socket);
-    if (resultOfThread != 0) {
-        printf("Error of create thread");
-        exit(0);
-    }
+//    struct threadDataOfSocket thread_data_of_socket{};
+//    thread_data_of_socket.socketData = data_of_socket;
+//    thread_data_of_socket.dataOfBool.flagToExit = false;
+//    thread_data_of_socket.dataOfBool.readyToPlay = false;
+//
+//    pthread_t idOfThread;
+//    int resultOfThread = pthread_create(&idOfThread, NULL, isActiveSocketThread, (void *) &thread_data_of_socket);
+//    if (resultOfThread != 0) {
+//        printf("Error of create thread");
+//        exit(0);
+//    }
 
     while (window.isOpen()) {
         sf::Event event;
@@ -460,17 +460,17 @@ void play_window::play_with_server(Player &player, bool &flag, struct dataOfSock
 
         show_placement();
 
-        if (thread_data_of_socket.dataOfBool.flagToExit) {
-            pthread_cancel(idOfThread);
-            closeSockets(data_of_socket);
-            return;
-        }
+//        if (thread_data_of_socket.dataOfBool.flagToExit) {
+//            pthread_cancel(idOfThread);
+//            closeSockets(data_of_socket);
+//            return;
+//        }
 
         if (flag_exit) {
             window_exit exit_window(window);
             exit_window.window_exit_run(flag);
             if (flag) {
-                pthread_cancel(idOfThread);
+                //pthread_cancel(idOfThread);
                 closeSockets(data_of_socket);
                 return;
             } else {
@@ -506,17 +506,17 @@ void play_window::play_with_client(Player &player, bool &flag, struct dataOfSock
     Player client;
 
 
-    struct threadDataOfSocket thread_data_of_socket{};
-    thread_data_of_socket.socketData = data_of_socket;
-    thread_data_of_socket.dataOfBool.flagToExit = false;
-    thread_data_of_socket.dataOfBool.readyToPlay = false;
-
-    pthread_t idOfThread;
-    int resultOfThread = pthread_create(&idOfThread, NULL, isActiveSocketThread, (void *) &thread_data_of_socket);
-    if (resultOfThread != 0) {
-        printf("Error of create thread");
-        exit(0);
-    }
+//    struct threadDataOfSocket thread_data_of_socket{};
+//    thread_data_of_socket.socketData = data_of_socket;
+//    thread_data_of_socket.dataOfBool.flagToExit = false;
+//    thread_data_of_socket.dataOfBool.readyToPlay = false;
+//
+//    pthread_t idOfThread;
+//    int resultOfThread = pthread_create(&idOfThread, NULL, isActiveSocketThread, (void *) &thread_data_of_socket);
+//    if (resultOfThread != 0) {
+//        printf("Error of create thread");
+//        exit(0);
+//    }
 
     while (window.isOpen()) {
         sf::Event event;
@@ -624,17 +624,17 @@ void play_window::play_with_client(Player &player, bool &flag, struct dataOfSock
 
         show_placement();
 
-        if (thread_data_of_socket.dataOfBool.flagToExit) {
-            pthread_cancel(idOfThread);
-            closeSockets(data_of_socket);
-            return;
-        }
+//        if (thread_data_of_socket.dataOfBool.flagToExit) {
+//            pthread_cancel(idOfThread);
+//            closeSockets(data_of_socket);
+//            return;
+//        }
 
         if (flag_exit) {
             window_exit exit_window(window);
             exit_window.window_exit_run(flag);
             if (flag) {
-                pthread_cancel(idOfThread);
+                //pthread_cancel(idOfThread);
                 closeSockets(data_of_socket);
                 return;
             } else {
