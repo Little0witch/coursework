@@ -28,7 +28,7 @@ void play_window::play_with_soft(Player &player, bool &flag) {
     ListOfShips listOfShipsOfPlayer = player.getListOfMyShips();
 
     while (window.isOpen()) {
-        sf::Event event;
+        sf::Event event{};
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed) {
                 window.close();
@@ -145,7 +145,7 @@ void play_window::play_with_hard(Player &player, bool &flag) {
     ListOfShips listOfShipsOfPlayer = player.getListOfMyShips();
 
     while (window.isOpen()) {
-        sf::Event event;
+        sf::Event event{};
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed) {
                 window.close();
