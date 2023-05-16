@@ -363,7 +363,7 @@ void play_window::play_with_server(Player &player, bool &flag, struct dataOfSock
 //    }
 
     while (window.isOpen()) {
-        sf::Event event;
+        sf::Event event{};
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed) {
                 window.close();

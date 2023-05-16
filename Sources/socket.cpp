@@ -44,15 +44,15 @@ struct dataOfSocket createServer() {
     }
 
     bzero(&servaddr, sizeof(servaddr));
-
     servaddr.sin_family = AF_INET;
     servaddr.sin_addr.s_addr = htonl(INADDR_ANY);
     servaddr.sin_port = htons(PORT);
-
+//    int reuse = 1;
+//    setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(reuse));
 
     if ((bind(sockfd, (SA *) &servaddr, sizeof(servaddr))) != 0) {
         logError("Error 7: socket bind error, the place where the error occurred: /Sources/Socket.cpp, line 53");
-        data_of_socket.connfd = data_of_socket.sockfd = 404;
+        data_of_socket.connfd = data_of_socket.sockfd = 400;
         return data_of_socket;
     }
 

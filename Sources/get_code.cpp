@@ -54,6 +54,11 @@ void get_code::get_code_run(bool &flagOfReturn) {
             closeSocket(dataOfSocket);
         }
 
+        if (dataOfSocket.connfd == 400 && dataOfSocket.sockfd == 400) {
+            pthread_cancel(idOfThread);
+            flagOfReturn = true;
+        }
+
     }
 }
 
