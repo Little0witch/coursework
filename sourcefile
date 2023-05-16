@@ -3,3 +3,7 @@
 1-4 убил
 
 hit = 9 is win
+
+
+Error 1: memory allocation error, the place where the error occurred:
+Error 2: file opening error, the place where the error occurred:

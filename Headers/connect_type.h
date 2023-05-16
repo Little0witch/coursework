@@ -1,5 +1,6 @@
 #ifndef COURSEWORK_CONNECT_TYPE_H
 #define COURSEWORK_CONNECT_TYPE_H
+
 #include <SFML/Graphics.hpp>
 #include "input_code.h"
 #include "get_code.h"
@@ -21,29 +22,46 @@ private:
     bool move_server = false;
     bool move_exit = false;
     bool flagOfReturn = false;
- //   sf::RectangleShape tmp;
 
 public:
-    connect_type(sf::RenderWindow &other) : window(other)
-    {
-        background.loadFromFile("../Resources/Img/Type connect/w_connect_type.png");
-       // background.loadFromFile("../Resources/Img/Type connect/w_connect_type_without.png");
+    connect_type(sf::RenderWindow &other) : window(other) {
+
+        if (!background.loadFromFile("../Resources/Img/Type connect/w_connect_type.png")) {
+            logError(
+                    "Error 2: file opening error, the place where the error occurred: /Headers/connect_type.h, line 29");
+            exit(1);
+        }
+
         sprite_background.setTexture(background);
 
-        //texture_atlas.loadFromFile("../Resources/Img/Type connect/w_connect_type.png");
-        button_client.loadFromFile("../Resources/Img/Type connect/button_client.png");
+        if (!button_client.loadFromFile("../Resources/Img/Type connect/button_client.png")) {
+            logError(
+                    "Error 2: file opening error, the place where the error occurred: /Headers/connect_type.h, line 37");
+            exit(1);
+        }
+
         sprite_button_client.setTexture(button_client);
-        //sprite_button_client.setTextureRect(sf::IntRect(573.f,280.f,700.f, 125.f));
-        sprite_button_client.setPosition(sf::Vector2f(573.f,280.f));
+        sprite_button_client.setPosition(sf::Vector2f(573.f, 280.f));
 
-        button_server.loadFromFile("../Resources/Img/Type connect/button_server.png");
+        if (!button_server.loadFromFile("../Resources/Img/Type connect/button_server.png")) {
+            logError(
+                    "Error 2: file opening error, the place where the error occurred: /Headers/connect_type.h, line 46");
+            exit(1);
+        }
+
         sprite_button_server.setTexture(button_server);
-        sprite_button_server.setPosition(sf::Vector2f(573.f,450.f));
+        sprite_button_server.setPosition(sf::Vector2f(573.f, 450.f));
 
-        button_exit.loadFromFile("../Resources/Img/Type connect/button_exit.png");
+        if (!button_exit.loadFromFile("../Resources/Img/Type connect/button_exit.png")) {
+            logError(
+                    "Error 2: file opening error, the place where the error occurred: /Headers/connect_type.h, line 55");
+            exit(1);
+        }
+
         sprite_button_exit.setTexture(button_exit);
-        sprite_button_exit.setPosition(sf::Vector2f(573.f,620.f));
+        sprite_button_exit.setPosition(sf::Vector2f(573.f, 620.f));
     }
+
     void connect_type_run();
 
 };

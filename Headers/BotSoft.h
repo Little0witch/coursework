@@ -190,8 +190,6 @@ void BotSoft::statusGame(int isHit) {
         freeList(&listOfHit);
         enemyField[xOfLastHit][yOfLastHit] = 2;
         addEmptyCells();
-        printf("\n\n\n");
-        showArray(enemyField,10,10);
     }
 
     if (isHit == 0)
