@@ -357,3 +357,6 @@ void sendIsHitToServer(int sockfd, int isHit) {
     write(sockfd, buff, sizeof(buff));
 }
 
+void handle_alarm(int signal, struct dataOfSocket dataOfSocket){
+    closeSockets(dataOfSocket);
+}

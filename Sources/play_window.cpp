@@ -2,7 +2,6 @@
 #include "../Headers/BotSoft.h"
 #include "../Headers/BotHard.h"
 
-
 void play_window::play_window_run(Player &player, int complexity, bool &flag) {
 
     if (complexity == 1) {
@@ -390,7 +389,7 @@ void play_window::play_with_server(Player &player, bool &flag, struct dataOfSock
 
                                 hit = getIsHitFromServer(data_of_socket.sockfd);
 
-                                if (hit == 9) {
+                                if (hit == 9 || hit == 404) {
                                     clientWin = 1;
                                 } else {
                                     player.addHit(y, x, hit);
@@ -407,18 +406,22 @@ void play_window::play_with_server(Player &player, bool &flag, struct dataOfSock
                     coord = getCoordFromServer(data_of_socket.sockfd);
                     hit = isHit(listOfShipsOfPlayer, &listOfShipsOfPlayer, coord.y, coord.x);
 
-                    if (sizeList(listOfShipsOfPlayer) == 0) {
-                        clientWin = 2;
-                        hit = 9;
+                    if (coord.x * 10 + coord.y == 404) {
+                        clientWin = 1;
                     } else {
-                        server.addHit(coord.y, coord.x, hit);
+                        if (sizeList(listOfShipsOfPlayer) == 0) {
+                            clientWin = 2;
+                            hit = 9;
+                        } else {
+                            server.addHit(coord.y, coord.x, hit);
 
-                        sendIsHitToServer(data_of_socket.sockfd, hit);
+                            sendIsHitToServer(data_of_socket.sockfd, hit);
 
-                        if (hit == -1)
-                            isClientMove = true;
-                        else
-                            isClientMove = false;
+                            if (hit == -1)
+                                isClientMove = true;
+                            else
+                                isClientMove = false;
+                        }
                     }
                 }
             }
@@ -524,7 +527,7 @@ void play_window::play_with_client(Player &player, bool &flag, struct dataOfSock
 
                                 hit = getIsHitFromClient(data_of_socket.connfd);
 
-                                if (hit == 9) {
+                                if (hit == 9 || hit == 404) {
                                     serverWin = 1;
                                 } else {
                                     player.addHit(y, x, hit);
@@ -539,20 +542,25 @@ void play_window::play_with_client(Player &player, bool &flag, struct dataOfSock
                     }
                 } else {
                     coord = getCoordFromClient(data_of_socket.connfd);
-                    hit = isHit(listOfShipsOfPlayer, &listOfShipsOfPlayer, coord.y, coord.x);
-                    if (sizeList(listOfShipsOfPlayer) == 0) {
-                        serverWin = 2;
-                        hit = 9;
-                        sendIsHitToClient(data_of_socket.connfd, hit);
+
+                    if (coord.x * 10 + coord.y == 404) {
+                        serverWin = 1;
                     } else {
-                        client.addHit(coord.y, coord.x, hit);
+                        hit = isHit(listOfShipsOfPlayer, &listOfShipsOfPlayer, coord.y, coord.x);
+                        if (sizeList(listOfShipsOfPlayer) == 0) {
+                            serverWin = 2;
+                            hit = 9;
+                            sendIsHitToClient(data_of_socket.connfd, hit);
+                        } else {
+                            client.addHit(coord.y, coord.x, hit);
 
-                        sendIsHitToClient(data_of_socket.connfd, hit);
+                            sendIsHitToClient(data_of_socket.connfd, hit);
 
-                        if (hit == -1)
-                            isServerMove = true;
-                        else
-                            isServerMove = false;
+                            if (hit == -1)
+                                isServerMove = true;
+                            else
+                                isServerMove = false;
+                        }
                     }
                 }
             }
