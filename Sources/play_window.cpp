@@ -1,4 +1,3 @@
-#include <iostream>
 #include "../Headers/play_window.h"
 #include "../Headers/BotSoft.h"
 #include "../Headers/BotHard.h"
@@ -350,18 +349,6 @@ void play_window::play_with_server(Player &player, bool &flag, struct dataOfSock
     int clientWin = 0;//1 - win 2 - lose
     Player server;
 
-//    struct threadDataOfSocket thread_data_of_socket{};
-//    thread_data_of_socket.socketData = data_of_socket;
-//    thread_data_of_socket.dataOfBool.flagToExit = false;
-//    thread_data_of_socket.dataOfBool.readyToPlay = false;
-//
-//    pthread_t idOfThread;
-//    int resultOfThread = pthread_create(&idOfThread, NULL, isActiveSocketThread, (void *) &thread_data_of_socket);
-//    if (resultOfThread != 0) {
-//        printf("Error of create thread");
-//        exit(0);
-//    }
-
     while (window.isOpen()) {
         sf::Event event{};
         while (window.pollEvent(event)) {
@@ -460,17 +447,10 @@ void play_window::play_with_server(Player &player, bool &flag, struct dataOfSock
 
         show_placement();
 
-//        if (thread_data_of_socket.dataOfBool.flagToExit) {
-//            pthread_cancel(idOfThread);
-//            closeSockets(data_of_socket);
-//            return;
-//        }
-
         if (flag_exit) {
             window_exit exit_window(window);
             exit_window.window_exit_run(flag);
             if (flag) {
-                //pthread_cancel(idOfThread);
                 closeSockets(data_of_socket);
                 return;
             } else {
@@ -480,8 +460,6 @@ void play_window::play_with_server(Player &player, bool &flag, struct dataOfSock
                 window.draw(sprite_button_back);
                 set_sprite_of_hit(player.getEnemyField(), 0);
                 set_sprite_of_hit(server.getEnemyField(), 1);
-
-                show_hits();
 
                 if (isClientMove) {
                     window.draw(sprite_right_arrow);
@@ -505,21 +483,8 @@ void play_window::play_with_client(Player &player, bool &flag, struct dataOfSock
     int serverWin = 0;//1 - win 2 - lose
     Player client;
 
-
-//    struct threadDataOfSocket thread_data_of_socket{};
-//    thread_data_of_socket.socketData = data_of_socket;
-//    thread_data_of_socket.dataOfBool.flagToExit = false;
-//    thread_data_of_socket.dataOfBool.readyToPlay = false;
-//
-//    pthread_t idOfThread;
-//    int resultOfThread = pthread_create(&idOfThread, NULL, isActiveSocketThread, (void *) &thread_data_of_socket);
-//    if (resultOfThread != 0) {
-//        printf("Error of create thread");
-//        exit(0);
-//    }
-
     while (window.isOpen()) {
-        sf::Event event;
+        sf::Event event{};
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed) {
                 window.close();
@@ -574,7 +539,6 @@ void play_window::play_with_client(Player &player, bool &flag, struct dataOfSock
                     }
                 } else {
                     coord = getCoordFromClient(data_of_socket.connfd);
-                    std::cout << "coord from client: " << coord.y << "  " << coord.x << std::endl;
                     hit = isHit(listOfShipsOfPlayer, &listOfShipsOfPlayer, coord.y, coord.x);
                     if (sizeList(listOfShipsOfPlayer) == 0) {
                         serverWin = 2;
@@ -597,9 +561,7 @@ void play_window::play_with_client(Player &player, bool &flag, struct dataOfSock
                 if (sprite_button_back.getGlobalBounds().contains(mouse_pos)) {
                     flag_exit = true;
                 }
-
             }
-
         }
         window.clear(sf::Color::Black);
         window.draw(sprite_background);
@@ -617,17 +579,10 @@ void play_window::play_with_client(Player &player, bool &flag, struct dataOfSock
 
         show_placement();
 
-//        if (thread_data_of_socket.dataOfBool.flagToExit) {
-//            pthread_cancel(idOfThread);
-//            closeSockets(data_of_socket);
-//            return;
-//        }
-
         if (flag_exit) {
             window_exit exit_window(window);
             exit_window.window_exit_run(flag);
             if (flag) {
-                //pthread_cancel(idOfThread);
                 closeSockets(data_of_socket);
                 return;
             } else {
@@ -637,8 +592,6 @@ void play_window::play_with_client(Player &player, bool &flag, struct dataOfSock
                 window.draw(sprite_button_back);
                 set_sprite_of_hit(player.getEnemyField(), 0);
                 set_sprite_of_hit(client.getEnemyField(), 1);
-
-                show_hits();
 
                 if (isServerMove) {
                     window.draw(sprite_right_arrow);
