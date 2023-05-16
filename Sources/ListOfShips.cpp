@@ -20,7 +20,6 @@ void freeList(ListOfShips *head) {
 }
 
 void showList(ListOfShips head) {
-
     if (head == nullptr)
         printf("Список пуст\n");
     else {
@@ -52,13 +51,13 @@ int sizeList(ListOfShips head) {
 }
 
 void insertNode(ListOfShips *head, ListOfCoord list, int orient) {
-
     ListOfShips newPtr, currentPtr;
     newPtr = (ListOfShips) malloc(sizeof(ListNodeShips));
 
     if (newPtr == nullptr) {
-        printf("Ошибка выделения памяти!");
-        return;
+        logError(
+                "Error 1: memory allocation error, the place where the error occurred: /Sources/ListOfShips.cpp, line 55");
+        exit(1);
     }
 
     newPtr->size = sizeList(list);
@@ -119,6 +118,8 @@ int isHit(ListOfShips head, ListOfShips *removeHead, int x, int y) //-1 мимо
 
 void autoRemoveNode(ListOfShips *head) {
     if (*head == nullptr) {
+        logError(
+                "Error 4: segmentation fault,  the place where the error occurred: /Sources/ListOfShips.cpp, line 119");
         return;
     }
 
@@ -154,10 +155,11 @@ void autoRemoveNode(ListOfShips *head) {
 }
 
 struct coordinateOfShip giveCoordOfShip(ListOfShips head, int index) {
-
-    if (head == nullptr)
-        return {};
-    else {
+    if (head == nullptr) {
+        logError(
+                "Error 4: segmentation fault,  the place where the error occurred: /Sources/ListOfShips.cpp, line 157");
+        return coordinateOfShip{};
+    } else {
         struct coordinateOfShip coord{};
         int i = 0;
 
@@ -181,45 +183,30 @@ struct coordinateOfShip giveCoordOfShip(ListOfShips head, int index) {
 
 
         if (coord.orientation == 1) {
-            if (coord.size == 4)
-            {
+            if (coord.size == 4) {
                 coord.y = 228 + (head->list->x + 1) * 56.3;
                 coord.x = 285 + (head->list->y) * 56.7;
-            }
-            else
-            if (coord.size == 3)
-            {
+            } else if (coord.size == 3) {
                 coord.y = 228 + (head->list->x + 1) * 56.2;
                 coord.x = 285 + (head->list->y) * 56;
-            }
-            else
-            if (coord.size == 2)
-            {
+            } else if (coord.size == 2) {
                 coord.y = 228 + (head->list->x + 1) * 56.7;
                 coord.x = 287 + (head->list->y) * 57.9;
             }
         } else {
-            if (coord.size == 4)
-            {
+            if (coord.size == 4) {
                 coord.y = 228 + (head->list->x + 1) * 57.5;
                 coord.x = 285 + (head->list->y - 1) * 56.9;
-            }
-            else
-            if (coord.size == 3)
-            {
+            } else if (coord.size == 3) {
                 coord.y = 228 + (head->list->x + 1) * 57;
-                coord.x = 285 + (head->list->y -1) * 57.8;
-            }
-            else
-            if (coord.size == 2)
-            {
+                coord.x = 285 + (head->list->y - 1) * 57.8;
+            } else if (coord.size == 2) {
                 coord.y = 228 + (head->list->x + 1) * 55.5;
                 coord.x = 285 + (head->list->y - 1) * 56.8;
             }
 
         }
-        if (coord.size == 1)
-        {
+        if (coord.size == 1) {
             coord.y = 228 + (head->list->x + 1) * 55.5;
             coord.x = 285 + (head->list->y - 1) * 56.5;
         }

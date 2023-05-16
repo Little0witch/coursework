@@ -1,6 +1,4 @@
 #include "../Headers/placement_field.h"
-#include "../Headers/Player.h"
-#include "../Headers/play_window.h"
 
 void placement_field::placement_field_run(int complexity, bool &flag) {
     Player player;
@@ -150,7 +148,8 @@ void placement_field::show_placement() {
     // window.display();
 }
 
-void placement_field::placement_field_run(int complexity, bool &flag, bool &flagOfReturn, struct dataOfSocket data_of_socket) {
+void placement_field::placement_field_run(int complexity, bool &flag, bool &flagOfReturn,
+                                          struct dataOfSocket data_of_socket) {
     Player player;
     struct threadDataOfSocket thread_data_of_socket{};
     thread_data_of_socket.socketData = data_of_socket;
@@ -158,11 +157,10 @@ void placement_field::placement_field_run(int complexity, bool &flag, bool &flag
     thread_data_of_socket.dataOfBool.readyToPlay = false;
 
     pthread_t idOfThread;
-    int resultOfThread = pthread_create(&idOfThread, NULL, isActiveSocketThread, (void*)&thread_data_of_socket);
-    if (resultOfThread != 0)
-    {
-        printf("Error of create thread");
-        exit(0);
+    if (pthread_create(&idOfThread, nullptr, isActiveSocketThread, (void *) &thread_data_of_socket) != 0) {
+        logError(
+                "Error 3: error creating a thread, the place where the error occurred: /Sources/placement_field.cpp, line 161");
+        exit(1);
     }
 
     bool flagOfReadyToPlay = false;
@@ -291,15 +289,12 @@ void placement_field::placement_field_run(int complexity, bool &flag, bool &flag
             return;
         }
 
-        if (thread_data_of_socket.dataOfBool.readyToPlay && flagOfReadyToPlay)
-        {
+        if (thread_data_of_socket.dataOfBool.readyToPlay && flagOfReadyToPlay) {
             pthread_cancel(idOfThread);
             play_window playWindow(window, ships);
-            playWindow.play_window_run_for_player(player,flag,data_of_socket);
+            playWindow.play_window_run_for_player(player, flag, data_of_socket);
         }
     }
-
-
 }
 
 

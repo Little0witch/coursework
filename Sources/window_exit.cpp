@@ -4,7 +4,7 @@ void window_exit::window_exit_run(bool &flag)
 {
     while (window.isOpen())
     {
-        sf::Event event;
+        sf::Event event{};
         while (window.pollEvent(event))
         {
             //обязательная проверка на закрытие окна

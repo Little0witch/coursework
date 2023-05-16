@@ -3,32 +3,26 @@
 
 void get_code::get_code_run(bool &flagOfReturn) {
 
-    struct dataOfSocket dataOfSocket= {-1,-1};
+    struct dataOfSocket dataOfSocket = {-1, -1};
 
     pthread_t idOfThread;
-    int resultOfThread = pthread_create(&idOfThread, NULL, createServerThread, (void*)&dataOfSocket);
-    if (resultOfThread != 0)
-    {
-        printf("Error of create thread");
-        exit(0);
+    int resultOfThread = pthread_create(&idOfThread, NULL, createServerThread, (void *) &dataOfSocket);
+    if (resultOfThread != 0) {
+        logError("Error 3: error creating a thread, the place where the error occurred: /Sources/get_code.cpp, line 11");
+        exit(1);
     }
 
-    while (window.isOpen())
-    {
-        sf::Event event;
-        while (window.pollEvent(event))
-        {
+    while (window.isOpen()) {
+        sf::Event event{};
+        while (window.pollEvent(event)) {
             sf::Vector2f mouse_pos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
-            if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
-            {
-                if (sprite_ok_red.getGlobalBounds().contains(mouse_pos))
-                {
+            if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
+                if (sprite_ok_red.getGlobalBounds().contains(mouse_pos)) {
                     pthread_cancel(idOfThread);
                     return;
                 }
             }
-            if (sprite_ok_red.getGlobalBounds().contains(mouse_pos))
-            {
+            if (sprite_ok_red.getGlobalBounds().contains(mouse_pos)) {
                 move_on_button = true;
             }
 
@@ -37,18 +31,17 @@ void get_code::get_code_run(bool &flagOfReturn) {
         window.clear(sf::Color::Black);
         window.draw(sprite_background);
         window.draw(connect_code);
-        if (move_on_button)
-        {
+        if (move_on_button) {
             window.draw(sprite_ok_red);
         }
         window.display();
 
-        if (flagOfReturn)
-        {
+        if (flagOfReturn) {
             return;
         }
 
-        if (dataOfSocket.connfd != -1 && dataOfSocket.sockfd != -1 && dataOfSocket.connfd != 404 && dataOfSocket.sockfd != 404) {
+        if (dataOfSocket.connfd != -1 && dataOfSocket.sockfd != -1 && dataOfSocket.connfd != 404 &&
+            dataOfSocket.sockfd != 404) {
             pthread_cancel(idOfThread);
             placement_field placement_field(window);
             bool flag = false;
@@ -58,6 +51,7 @@ void get_code::get_code_run(bool &flagOfReturn) {
         if (dataOfSocket.connfd == 404 && dataOfSocket.sockfd == 404) {
             pthread_cancel(idOfThread);
             flagOfReturn = true;
+            closeSocket(dataOfSocket);
         }
 
     }

@@ -1,27 +1,35 @@
 #pragma once
+
 #include <cstdio>
 #include <cstdlib>
 #include "ListOfCoord.h"
 
-struct Node{
+struct Node {
     bool destroy;
     int size;
     int hit;
     ListOfCoord list = nullptr;
     int orientation;
-    struct Node* next;
+    struct Node *next;
 };
 
 
 typedef struct Node ListNodeShips;
-typedef ListNodeShips* ListOfShips;
+typedef ListNodeShips *ListOfShips;
 
 void showList(ListOfShips);
+
 bool isEmpty(ListOfShips);
-void freeList(ListOfShips*);
-void insertNode(ListOfShips*, ListOfCoord, int);
+
+void freeList(ListOfShips *);
+
+void insertNode(ListOfShips *, ListOfCoord, int);
+
 int sizeList(ListOfShips);
-void autoRemoveNode(ListOfShips*);
-int isHit(ListOfShips,ListOfShips*, int, int);
+
+void autoRemoveNode(ListOfShips *);
+
+int isHit(ListOfShips, ListOfShips *, int, int);
+
 struct coordinateOfShip giveCoordOfShip(ListOfShips, int);
 

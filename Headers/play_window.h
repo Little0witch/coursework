@@ -60,17 +60,46 @@ public:
             }
         }
 
-        background.loadFromFile("../Resources/Img/Play window/field.png");
-        button_back.loadFromFile("../Resources/Img/Play window/m_arrow_back_red.png");
-        t_missed_bomb.loadFromFile("../Resources/Img/Play window/m_missed_bomb.png");
-        t_hit.loadFromFile("../Resources/Img/Play window/m_injury.png");
+        if (!background.loadFromFile("../Resources/Img/Play window/field.png")) {
+            logError(
+                    "Error 2: file opening error, the place where the error occurred: /Headers/play_window.h, line 63");
+            exit(1);
+        }
+
+        if (!button_back.loadFromFile("../Resources/Img/Play window/m_arrow_back_red.png")) {
+            logError(
+                    "Error 2: file opening error, the place where the error occurred: /Headers/play_window.h, line 69");
+            exit(1);
+        }
+
+        if (!t_missed_bomb.loadFromFile("../Resources/Img/Play window/m_missed_bomb.png")) {
+            logError(
+                    "Error 2: file opening error, the place where the error occurred: /Headers/play_window.h, line 75");
+            exit(1);
+        }
+
+        if (!t_hit.loadFromFile("../Resources/Img/Play window/m_injury.png")) {
+            logError(
+                    "Error 2: file opening error, the place where the error occurred: /Headers/play_window.h, line 81");
+            exit(1);
+        }
+
         sprite_background.setTexture(background);
         sprite_button_back.setTexture(button_back);
         sprite_button_back.setPosition(170.f, 30.f);
         sprite_missed_bomb.setTexture(t_missed_bomb);
 
-        t_left_arrow.loadFromFile("../Resources/Img/Play window/m_left_arrow_blue.png");
-        t_right_arrow.loadFromFile("../Resources/Img/Play window/m_right_arrow_blue.png");
+        if (!t_left_arrow.loadFromFile("../Resources/Img/Play window/m_left_arrow_blue.png")) {
+            logError(
+                    "Error 2: file opening error, the place where the error occurred: /Headers/play_window.h, line 92");
+            exit(1);
+        }
+
+        if (!t_right_arrow.loadFromFile("../Resources/Img/Play window/m_right_arrow_blue.png")) {
+            logError(
+                    "Error 2: file opening error, the place where the error occurred: /Headers/play_window.h, line 98");
+            exit(1);
+        }
 
         sprite_left_arrow.setTexture(t_left_arrow);
         sprite_right_arrow.setTexture(t_right_arrow);
@@ -80,7 +109,6 @@ public:
 
         for (int i = 0; i < 10; ++i) {
             this->shipsOfPlayer[i] = shipsOfPlayer[i];
-
         }
 
         for (int i = 0; i < 80; ++i) {

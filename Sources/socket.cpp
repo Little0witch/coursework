@@ -4,14 +4,14 @@
 char *getCode() {
     system("hostname -I > ip.txt");
     FILE *file = fopen("ip.txt", "r");
-    if (file == NULL) {
-        printf("Ошибка 1 файл не открылся");
-        return NULL;
+    if (file == nullptr) {
+        logError("Error 2: file opening error, the place where the error occurred: /Sources/Socket.cpp, line 6");
+        exit(1);
     }
-    char *code = NULL;
+    char *code = nullptr;
     if (!(code = (char *) malloc(15))) {
-        printf("Error 1: bad allocate memory");
-        return NULL;
+        logError("Error 1: memory allocation error, the place where the error occurred: /Sources/Socket.cpp, line 12");
+        exit(1);
     }
     char ip[15];
     fscanf(file, "%s", ip);
@@ -19,8 +19,9 @@ char *getCode() {
     remove("ip.txt");
     strcpy(code, ip);
     if (strlen(code) < 7) {
-        printf("connect the inet");
-        return NULL;
+        logError(
+                "Error 5: error getting an ip address, the place where the error occurred: /Sources/Socket.cpp, line 5");
+        return nullptr;
     } else
         return code;
 }
@@ -37,15 +38,12 @@ struct dataOfSocket createServer() {
 
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
     if (sockfd == -1) {
-        printf("socket creation failed...\n");
+        logError("Error 6: socket creation error, the place where the error occurred: /Sources/Socket.cpp, line 39");
         data_of_socket.connfd = data_of_socket.sockfd = 404;
         return data_of_socket;
-    } else
-        printf("Socket successfully created..\n");
-
+    }
 
     bzero(&servaddr, sizeof(servaddr));
-
 
     servaddr.sin_family = AF_INET;
     servaddr.sin_addr.s_addr = htonl(INADDR_ANY);
@@ -53,30 +51,26 @@ struct dataOfSocket createServer() {
 
 
     if ((bind(sockfd, (SA *) &servaddr, sizeof(servaddr))) != 0) {
-        printf("socket bind failed...\n");
+        logError("Error 7: socket bind error, the place where the error occurred: /Sources/Socket.cpp, line 53");
         data_of_socket.connfd = data_of_socket.sockfd = 404;
         return data_of_socket;
-    } else
-        printf("Socket successfully binded..\n");
+    }
 
-    // Now server is ready to listen and verification
     if ((listen(sockfd, 5)) != 0) {
-        printf("Listen failed...\n");
+        logError("Error 8: listen error, the place where the error occurred: /Sources/Socket.cpp, line 59");
         data_of_socket.connfd = data_of_socket.sockfd = 404;
         return data_of_socket;
-    } else
-        printf("Server listening..\n");
+    }
 
     len = sizeof(cli);
 
     connfd = accept(sockfd, (SA *) &cli, &len);
 
     if (connfd < 0) {
-        printf("server accept failed...\n");
+        logError("Error 9: server accept failed, the place where the error occurred: /Sources/Socket.cpp, line 67");
         data_of_socket.connfd = data_of_socket.sockfd = 404;
         return data_of_socket;
     } else {
-        printf("server accept to client");
         data_of_socket.connfd = connfd;
         data_of_socket.sockfd = sockfd;
         return data_of_socket;
@@ -121,18 +115,14 @@ struct dataOfSocket createClient(const char *ip) {
     data_of_socket.sockfd = -1;
     data_of_socket.connfd = 0;
 
-
-    // socket create and varification
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
     if (sockfd == -1) {
-        printf("socket creation failed...\n");
+        logError("Error 6: socket creation error, the place where the error occurred: /Sources/Socket.cpp, line 118");
         exit(0);
-    } else
-        printf("Socket successfully created..\n");
+    }
 
     bzero(&servaddr, sizeof(servaddr));
 
-    // assign IP, PORT
     servaddr.sin_family = AF_INET;
     servaddr.sin_addr.s_addr = inet_addr(ip);
     servaddr.sin_port = htons(PORT);
@@ -140,11 +130,11 @@ struct dataOfSocket createClient(const char *ip) {
 
     int flags = fcntl(sockfd, F_GETFL, 0);
     if (flags == -1) {
-        perror("fcntl F_GETFL error");
+        logError("Error 10: F_GETFL error, the place where the error occurred: /Sources/Socket.cpp, line 131");
         return data_of_socket;
     }
     if (fcntl(sockfd, F_SETFL, flags | O_NONBLOCK) == -1) {
-        perror("fcntl F_SETFL error");
+        logError("Error 10: F_SETFL error, the place where the error occurred: /Sources/Socket.cpp, line 136");
         return data_of_socket;
     }
 
@@ -162,10 +152,10 @@ struct dataOfSocket createClient(const char *ip) {
 
     int selectResult = select(sockfd + 1, NULL, &writefds, NULL, &timeout);
     if (selectResult == -1) {
-        perror("select error");
+        logError("Error 12: select error, the place where the error occurred: /Sources/Socket.cpp, line 153");
         return data_of_socket;
     } else if (selectResult == 0) {
-        printf("Connection timeout\n");
+        logError("Error 13: connection timeout, the place where the error occurred: /Sources/Socket.cpp, line 153");
         return data_of_socket;
     } else if (FD_ISSET(sockfd, &writefds)) {
         data_of_socket.sockfd = sockfd;
@@ -180,18 +170,15 @@ void closeSockets(struct dataOfSocket data_of_socket) {
         write(data_of_socket.sockfd, "404", sizeof("404"));
 
         if (close(data_of_socket.sockfd) == -1)
-            printf("error close of socket");
-        else
-            printf("socket is close");
-
+            logError(
+                    "Error 14: error close of socket, the place where the error occurred: /Sources/Socket.cpp, line 172");
 
     } else {
         write(data_of_socket.connfd, "404", sizeof("404"));
 
         if (close(data_of_socket.sockfd) == -1)
-            printf("error close of socket");
-        else
-            printf("socket is close");
+            logError(
+                    "Error 14: error close of socket, the place where the error occurred: /Sources/Socket.cpp, line 179");
 
     }
     sleep(1);
@@ -255,19 +242,18 @@ void sendSignalOfReadyToPlay(struct dataOfSocket data_of_socket) {
     int number = 200;
     sprintf(buff, "%d", number);
 
-    if (data_of_socket.connfd == 0){
-        write(data_of_socket.sockfd,buff, sizeof(buff));
-    }
-    else{
-        write(data_of_socket.connfd,buff, sizeof(buff));
+    if (data_of_socket.connfd == 0) {
+        write(data_of_socket.sockfd, buff, sizeof(buff));
+    } else {
+        write(data_of_socket.connfd, buff, sizeof(buff));
     }
 }
 
 void closeSocket(struct dataOfSocket data_of_socket) {
     if (close(data_of_socket.sockfd) == -1)
-        printf("error close of socket");
-    else
-        printf("socket is close");
+        logError(
+                "Error 14: error close of socket, the place where the error occurred: /Sources/Socket.cpp, line 179");
+
     sleep(1);
 }
 

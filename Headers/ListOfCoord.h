@@ -1,21 +1,23 @@
 #pragma once
+
 #include <cstdio>
 #include <cstdlib>
 #include <ctime>
 #include <unistd.h>
+#include "logs.h"
 
-struct node{
+struct node {
     int x;
     int y;
-    struct node* next;
+    struct node *next;
 };
 
-struct coordinates{
+struct coordinates {
     int x;
     int y;
 };
 
-struct coordinateOfShip{
+struct coordinateOfShip {
     float x;
     float y;
     int size;
@@ -24,19 +26,32 @@ struct coordinateOfShip{
 
 
 typedef struct node ListNode;
-typedef ListNode* ListOfCoord;
+typedef ListNode *ListOfCoord;
 
 void showList(ListOfCoord);
+
 bool isEmpty(ListOfCoord);
-void freeList(ListOfCoord*);
-void insertListFromFile(ListOfCoord*, char*);
-void insertNode(ListOfCoord*, int, int);
-bool checkFile(char*);
+
+void freeList(ListOfCoord *);
+
+void insertListFromFile(ListOfCoord *, char *);
+
+void insertNode(ListOfCoord *, int, int);
+
+bool checkFile(char *);
+
 int sizeList(ListOfCoord);
-void removeNode(ListOfCoord*, int);
+
+void removeNode(ListOfCoord *, int);
+
 int randomNumber(int);
+
 struct coordinates giveCoord(ListOfCoord, int);
+
 bool findNode(ListOfCoord, int, int);
-void removeNode(ListOfCoord*, int, int);
+
+void removeNode(ListOfCoord *, int, int);
+
 struct coordinates giveMinCoord(ListOfCoord);
+
 struct coordinates giveMaxCoord(ListOfCoord);

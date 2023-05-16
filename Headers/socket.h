@@ -17,6 +17,7 @@
 #include <fcntl.h>
 #include "pthread.h"
 #include <csignal>
+#include "logs.h"
 
 struct coord{
     int x;

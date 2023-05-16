@@ -4,7 +4,7 @@ void instruction_manual::instruction_manual_run()
 {
     while (window.isOpen())
     {
-        sf::Event event;
+        sf::Event event{};
         while (window.pollEvent(event))
         {
             //обязательная проверка на закрытие окна

@@ -7,3 +7,15 @@ hit = 9 is win
 
 Error 1: memory allocation error, the place where the error occurred:
 Error 2: file opening error, the place where the error occurred:
+Error 3: error creating a thread, the place where the error occurred:
+Error 4: segmentation fault, the place where the error occurred:
+Error 5: error getting an ip address, the place where the error occurred:
+Error 6: socket creation error, the place where the error occurred:
+Error 7: socket bind error, the place where the error occurred:
+Error 8: listen error, the place where the error occurred:
+Error 9: server accept failed, the place where the error occurred:
+Error 10: F_GETFL error, the place where the error occurred:
+Error 11: F_SETFL error, the place where the error occurred:
+Error 12: select error, the place where the error occurred:
+Error 13: connection timeout, the place where the error occurred:
+Error 14: error close of socket, the place where the error occurred:

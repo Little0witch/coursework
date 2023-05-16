@@ -5,12 +5,7 @@
 #include <ctime>
 #include <iostream>
 
-void logError(const std::string&);
-
-
-
-
-
+void logError(const std::string &);
 
 
 #endif //COURSEWORK_LOGS_H

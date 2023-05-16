@@ -1,8 +1,7 @@
 #include "../Headers/ListOfCoord.h"
 
 
-void showList(ListOfCoord head)
-{
+void showList(ListOfCoord head) {
     if (head == nullptr)
         printf("Список пуст\n");
     else {
@@ -15,8 +14,7 @@ void showList(ListOfCoord head)
     }
 }
 
-bool isEmpty(ListOfCoord head)
-{
+bool isEmpty(ListOfCoord head) {
     if (head == nullptr)
         return true;
 
@@ -24,36 +22,29 @@ bool isEmpty(ListOfCoord head)
 }
 
 //TODO::make normal freeList
-void freeList(ListOfCoord* head)
-{
+void freeList(ListOfCoord *head) {
     *head = nullptr;
     ListOfCoord current = *head;
-    while (current != nullptr)
-    {
+    while (current != nullptr) {
         current = current->next;
         free(*head);
         *head = current;
     }
-
-
 }
 
 
-void insertListFromFile(ListOfCoord * head, char* nameOfFile)
-{
-    if (!checkFile(nameOfFile))
-    {
-        printf("Ошибка файла");
-        return;
+void insertListFromFile(ListOfCoord *head, char *nameOfFile) {
+    if (!checkFile(nameOfFile)) {
+        logError("Error 2: file opening error, the place where the error occurred: /Sources/ListOfCoord.cpp line 40");
+        exit(1);
     }
 
-    FILE* file = fopen(nameOfFile, "a+");
+    FILE *file = fopen(nameOfFile, "a+");
     char c;
     int x, y;
     rewind(file);
     c = getc(file);
-    while (c != EOF)
-    {
+    while (c != EOF) {
         if (c == '0')
             x = 10;
         else
@@ -69,30 +60,28 @@ void insertListFromFile(ListOfCoord * head, char* nameOfFile)
 
         x--;
         y--;
-        insertNode(head,x,y);
+        insertNode(head, x, y);
 
         c = getc(file);
         c = getc(file);
     }
 }
 
-bool checkFile(char * nameOfFile)
-{
+bool checkFile(char *nameOfFile) {
     if (fopen(nameOfFile, "r") == nullptr)
         return false;
 
     return true;
 }
 
-void insertNode(ListOfCoord * head, int x, int y)
-{
+void insertNode(ListOfCoord *head, int x, int y) {
     ListOfCoord newPtr, currentPtr;
-    newPtr = (ListOfCoord)malloc(sizeof(ListNode));
+    newPtr = (ListOfCoord) malloc(sizeof(ListNode));
 
-    if (newPtr == nullptr)
-    {
-        printf("Ошибка выделения памяти!");
-        return;
+    if (newPtr == nullptr) {
+        logError(
+                "Error 1: memory allocation error, the place where the error occurred: /Sources/ListOfCoord.cpp line 82");
+        exit(1);
     }
 
     newPtr->y = y;
@@ -103,8 +92,7 @@ void insertNode(ListOfCoord * head, int x, int y)
 
     if (currentPtr == nullptr)
         *head = newPtr;
-    else
-    {
+    else {
         while (currentPtr->next != nullptr)
             currentPtr = currentPtr->next;
 
@@ -113,8 +101,7 @@ void insertNode(ListOfCoord * head, int x, int y)
 
 }
 
-int sizeList(ListOfCoord head)
-{
+int sizeList(ListOfCoord head) {
     if (head == nullptr)
         return 0;
 
@@ -128,15 +115,14 @@ int sizeList(ListOfCoord head)
     return size;
 }
 
-void removeNode(ListOfCoord* head, int indexOfNode)
-{
-    if (*head == nullptr)
-    {
-        return;
+void removeNode(ListOfCoord *head, int indexOfNode) {
+    if (*head == nullptr) {
+        logError(
+                "Error 4: segmentation fault,  the place where the error occurred: /Sources/ListOfCoord.cpp, line 117");
+        exit(1);
     }
 
-    if (indexOfNode < 0)
-    {
+    if (indexOfNode < 0) {
         return;
     }
 
@@ -144,58 +130,53 @@ void removeNode(ListOfCoord* head, int indexOfNode)
 
     indexOfNode--;
 
-    if ((*head)->next == nullptr && indexOfNode == 0)
-    {
+    if ((*head)->next == nullptr && indexOfNode == 0) {
         free(*head);
         *head = nullptr;
-    }
-    else
-    {
-        if (indexOfNode == 0)
-        {
+    } else {
+        if (indexOfNode == 0) {
             remove = *head;
             *head = (*head)->next;
             free(remove);
-        }
-        else
-        {
+        } else {
             ListOfCoord current = *head;
             ListOfCoord previous = nullptr;
-            while (current != nullptr && indexOfNode > 0)
-            {
+            while (current != nullptr && indexOfNode > 0) {
                 previous = current;
                 current = current->next;
                 indexOfNode--;
             }
-            if (current == nullptr)
-            {
+            if (current == nullptr) {
                 printf("Index is out of range");
                 return;
-            } else
-            {
-                previous->next = current->next;
+            } else {
+                if (previous->next != nullptr)
+                    previous->next = current->next;
+                else {
+                    logError(
+                            "Error 4: segmentation fault,  the place where the error occurred: /Sources/ListOfCoord.cpp, line 153");
+                }
                 free(current);
             }
         }
     }
 }
 
-int randomNumber(int board)
-{
+int randomNumber(int board) {
     return 0 + rand() % board;
 }
 
-struct coordinates giveCoord(ListOfCoord head, int indexOfNode){
+struct coordinates giveCoord(ListOfCoord head, int indexOfNode) {
     struct coordinates coord{};
     int index = 0;
 
-    if (head == nullptr || indexOfNode > sizeList(head))
+    if (head == nullptr || indexOfNode > sizeList(head)) {
+        logError(
+                "Error 4: segmentation fault,  the place where the error occurred: /Sources/ListOfCoord.cpp, line 169");
         return coord;
-    else
-    {
+    } else {
         while (head != nullptr) {
-            if (indexOfNode == index)
-            {
+            if (indexOfNode == index) {
                 coord.x = head->x;
                 coord.y = head->y;
                 return coord;
@@ -219,47 +200,38 @@ bool findNode(ListOfCoord head, int x, int y) {
     return false;
 }
 
-void removeNode(ListOfCoord * head, int x, int y) {
-    if (*head == nullptr)
-    {
+void removeNode(ListOfCoord *head, int x, int y) {
+    if (*head == nullptr) {
+        logError(
+                "Error 4: segmentation fault,  the place where the error occurred: /Sources/ListOfCoord.cpp, line 203");
         return;
     }
 
     ListOfCoord remove = *head;
 
-    if ((*head)->next == nullptr && (*head)->x == x && (*head)->y == y)
-    {
+    if ((*head)->next == nullptr && (*head)->x == x && (*head)->y == y) {
         free(*head);
         *head = nullptr;
-    }
-    else
-    {
-        if ((*head)->next != nullptr && (*head)->x == x && (*head)->y == y)
-        {
+    } else {
+        if ((*head)->next != nullptr && (*head)->x == x && (*head)->y == y) {
             remove = *head;
             *head = (*head)->next;
             free(remove);
-        }
-        else
-        {
+        } else {
             ListOfCoord current = *head;
             ListOfCoord previous = nullptr;
-            while (current != nullptr )
-            {
+            while (current != nullptr) {
                 if (current->y == y && current->x == x)
                     break;
-                else
-                {
+                else {
                     previous = current;
                     current = current->next;
                 }
             }
-            if (current == nullptr)
-            {
+            if (current == nullptr) {
                 printf("Index is out of range");
                 return;
-            } else
-            {
+            } else {
                 previous->next = current->next;
                 free(current);
             }
@@ -270,16 +242,19 @@ void removeNode(ListOfCoord * head, int x, int y) {
 struct coordinates giveMinCoord(ListOfCoord head) {
     struct coordinates minCoord{};
 
-    if (head == nullptr)
+    if (head == nullptr) {
+        logError(
+                "Error 4: segmentation fault,  the place where the error occurred: /Sources/ListOfCoord.cpp, line 242");
         return minCoord;
+    }
+
 
     minCoord.x = head->x;
     minCoord.y = head->y;
 
     while (head != nullptr) {
 
-        if (head->y + head->x < minCoord.x + minCoord.y)
-        {
+        if (head->y + head->x < minCoord.x + minCoord.y) {
             minCoord.y = head->y;
             minCoord.x = head->x;
         }
@@ -293,16 +268,18 @@ struct coordinates giveMinCoord(ListOfCoord head) {
 struct coordinates giveMaxCoord(ListOfCoord head) {
     struct coordinates maxCoord{};
 
-    if (head == nullptr)
+    if (head == nullptr) {
+        logError(
+                "Error 4: segmentation fault,  the place where the error occurred: /Sources/ListOfCoord.cpp, line 268");
         return maxCoord;
+    }
 
     maxCoord.x = head->x;
     maxCoord.y = head->y;
 
     while (head != nullptr) {
 
-        if (head->y + head->x > maxCoord.x + maxCoord.y)
-        {
+        if (head->y + head->x > maxCoord.x + maxCoord.y) {
             maxCoord.y = head->y;
             maxCoord.x = head->x;
         }
