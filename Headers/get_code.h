@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include "socket.h"
 #include "placement_field.h"
+#include "netw_status.h"
 
 class get_code {
 
@@ -49,7 +50,17 @@ public:
             exit(1);
         }
 
-        s_tmp = getCode();
+        if (getCode() == nullptr)
+        {
+            netw_status window_netw_status(window);
+            window_netw_status.netw_status_run();
+            return;
+        }
+        else
+        {
+            s_tmp = getCode();
+        }
+
         connect_code.setFont(font);
         connect_code.setCharacterSize(70);
         connect_code.setFillColor(sf::Color::Black);

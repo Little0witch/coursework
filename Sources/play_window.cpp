@@ -79,9 +79,22 @@ void play_window::play_with_soft(Player &player, bool &flag) {
                     else
                         isPlayerMove = false;
                     usleep(500000);
+                    window.clear(sf::Color::Black);
+                    window.draw(sprite_background);
+                    window.draw(sprite_button_back);
+                    set_sprite_of_hit(player.getEnemyField(), 0);
+                    set_sprite_of_hit(botSoft.getEnemyField(), 1);
+
+                    show_hits();
+
+                    if (isPlayerMove) {
+                        window.draw(sprite_right_arrow);
+                    } else {
+                        window.draw(sprite_left_arrow);
+                    }
+                    show_placement();
+                    window.display();
                 }
-
-
             }
             if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
                 sf::Vector2f mouse_pos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
@@ -198,6 +211,21 @@ void play_window::play_with_hard(Player &player, bool &flag) {
                     else
                         isPlayerMove = false;
                     usleep(500000);
+                    window.clear(sf::Color::Black);
+                    window.draw(sprite_background);
+                    window.draw(sprite_button_back);
+                    set_sprite_of_hit(player.getEnemyField(), 0);
+                    set_sprite_of_hit(botHard.getEnemyField(), 1);
+
+                    show_hits();
+
+                    if (isPlayerMove) {
+                        window.draw(sprite_right_arrow);
+                    } else {
+                        window.draw(sprite_left_arrow);
+                    }
+                    show_placement();
+                    window.display();
                 }
 
 
@@ -421,6 +449,21 @@ void play_window::play_with_server(Player &player, bool &flag, struct dataOfSock
                                 isClientMove = true;
                             else
                                 isClientMove = false;
+                            window.clear(sf::Color::Black);
+                            window.draw(sprite_background);
+                            window.draw(sprite_button_back);
+                            set_sprite_of_hit(player.getEnemyField(), 0);
+                            set_sprite_of_hit(server.getEnemyField(), 1);
+
+                            show_hits();
+
+                            if (isClientMove) {
+                                window.draw(sprite_right_arrow);
+                            } else {
+                                window.draw(sprite_left_arrow);
+                            }
+                            show_placement();
+                            window.display();
                         }
                     }
                 }
@@ -560,6 +603,21 @@ void play_window::play_with_client(Player &player, bool &flag, struct dataOfSock
                                 isServerMove = true;
                             else
                                 isServerMove = false;
+                            window.clear(sf::Color::Black);
+                            window.draw(sprite_background);
+                            window.draw(sprite_button_back);
+                            set_sprite_of_hit(player.getEnemyField(), 0);
+                            set_sprite_of_hit(client.getEnemyField(), 1);
+
+                            show_hits();
+
+                            if (isServerMove) {
+                                window.draw(sprite_right_arrow);
+                            } else {
+                                window.draw(sprite_left_arrow);
+                            }
+                            show_placement();
+                            window.display();
                         }
                     }
                 }
@@ -590,7 +648,8 @@ void play_window::play_with_client(Player &player, bool &flag, struct dataOfSock
         if (flag_exit) {
             window_exit exit_window(window);
             exit_window.window_exit_run(flag);
-            if (flag) {
+            if (flag)
+            {
                 closeSockets(data_of_socket);
                 return;
             } else {

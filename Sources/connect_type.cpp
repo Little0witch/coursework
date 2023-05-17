@@ -8,6 +8,7 @@ void connect_type::connect_type_run() {
         sf::Event event{};
         while (window.pollEvent(event))
         {
+            flagOfReturn = false;
             if (event.type == sf::Event::Closed)
             {
                 window.close();
@@ -66,7 +67,7 @@ void connect_type::connect_type_run() {
                 }
             }
 
-            window.clear(sf::Color::Black);
+         //   window.clear(sf::Color::Black);
             window.draw(sprite_background);
             if (move_client)
             {

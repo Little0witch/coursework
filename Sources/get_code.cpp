@@ -41,7 +41,7 @@ void get_code::get_code_run(bool &flagOfReturn) {
         }
 
         if (dataOfSocket.connfd != -1 && dataOfSocket.sockfd != -1 && dataOfSocket.connfd != 404 &&
-            dataOfSocket.sockfd != 404) {
+            dataOfSocket.sockfd != 404 && dataOfSocket.connfd != 400 && dataOfSocket.sockfd != 400) {
             pthread_cancel(idOfThread);
             placement_field placement_field(window);
             bool flag = false;
@@ -57,6 +57,10 @@ void get_code::get_code_run(bool &flagOfReturn) {
         if (dataOfSocket.connfd == 400 && dataOfSocket.sockfd == 400) {
             pthread_cancel(idOfThread);
             flagOfReturn = true;
+        }
+        if (flagOfReturn)
+        {
+            return;
         }
 
     }
