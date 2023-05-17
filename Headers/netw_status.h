@@ -1,0 +1,24 @@
+#ifndef COURSEWORK_NETW_STATUS_H
+#define COURSEWORK_NETW_STATUS_H
+#include <SFML/Graphics.hpp>
+
+class netw_status {
+
+private:
+    sf::RenderWindow &window;
+    sf::Texture background;
+    sf::Texture button_ok;
+
+    sf::Sprite sprite_background;
+    sf::Sprite sprite_button_ok;
+    sf::RectangleShape tmp;
+    bool move_ok = false;
+    bool clik_ok = false;
+
+public:
+    netw_status(sf::RenderWindow &other);
+    void netw_status_run();
+};
+
+
+#endif //COURSEWORK_NETW_STATUS_H
