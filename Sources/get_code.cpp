@@ -3,6 +3,10 @@
 
 void get_code::get_code_run(bool &flagOfReturn) {
 
+    if (flag_incorrect_code)
+    {
+        return;
+    }
     struct dataOfSocket dataOfSocket = {-1, -1};
 
     pthread_t idOfThread;

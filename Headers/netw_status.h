@@ -11,9 +11,7 @@ private:
 
     sf::Sprite sprite_background;
     sf::Sprite sprite_button_ok;
-    sf::RectangleShape tmp;
     bool move_ok = false;
-    bool clik_ok = false;
 
 public:
     netw_status(sf::RenderWindow &other);

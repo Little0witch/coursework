@@ -20,6 +20,7 @@ private:
     sf::Text connect_code;
 
     bool move_on_button = false;
+    bool flag_incorrect_code = false;
     std::string s_tmp;
 
 public:
@@ -52,6 +53,7 @@ public:
 
         if (getCode() == nullptr)
         {
+            flag_incorrect_code = true;
             netw_status window_netw_status(window);
             window_netw_status.netw_status_run();
             return;

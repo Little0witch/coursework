@@ -54,7 +54,6 @@ void dif_levels::dif_levels_run()
                             //замена изображения на голубую кнопку
                             window.clear(sf::Color::Black);
                             window.draw(sprite_background);
-                            window.draw(tmp);
                             window.display();
                         }
                     }

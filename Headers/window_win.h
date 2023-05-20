@@ -17,26 +17,27 @@ private:
 
 public:
     window_win(sf::RenderWindow &other) : window(other) {
-        if (!background.loadFromFile("../Resources/Img/Win and lose/window_win.png")) {
+        if (!background.loadFromFile("../Resources/Img/Win and lose/m_window_win.png")) {
             logError(
                     "Error 2: file opening error, the place where the error occurred: /Headers/window_win.h, line 20");
             exit(1);
         }
         sprite_background.setTexture(background);
-        if (!ok_blue.loadFromFile("../Resources/Img/Win and lose/ok_blue.png")) {
+        sprite_background.setPosition(590.f, 290.f);
+        if (!ok_blue.loadFromFile("../Resources/Img/Win and lose/m_ok_blue.png")) {
             logError(
                     "Error 2: file opening error, the place where the error occurred: /Headers/window_win.h, line 26");
             exit(1);
         }
         sprite_ok_blue.setTexture(ok_blue);
-        sprite_ok_blue.setPosition(700.f, 570.f);
-        if (!ok_red.loadFromFile("../Resources/Img/Win and lose/ok_red.png")) {
+        sprite_ok_blue.setPosition(894.f, 520.f);
+        if (!ok_red.loadFromFile("../Resources/Img/Win and lose/m_ok_red.png")) {
             logError(
                     "Error 2: file opening error, the place where the error occurred: /Headers/window_win.h, line 33");
             exit(1);
         }
         sprite_ok_red.setTexture(ok_red);
-        sprite_ok_red.setPosition(700.f, 570.f);
+        sprite_ok_red.setPosition(894.f, 520.f);
     }
 
     void window_win_run();

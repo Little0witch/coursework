@@ -116,17 +116,6 @@ public:
             missed_on_player_field[i].setTexture(t_missed_bomb);
         }
 
-        //размер клетки
-        tmp_A1.setSize(sf::Vector2f(56.f, 56.f));
-        tmp_A1.setPosition(228.f, 285.f);
-        tmp_B1.setSize(sf::Vector2f(56.f, 56.f));
-        tmp_B1.setFillColor(sf::Color::Red);
-        tmp_B1.setPosition(228.f, 342.f);
-
-        tmp.setSize(sf::Vector2f(150.f, 195.f));
-        tmp.setPosition(835.f, 458.f);
-        tmp.setFillColor(sf::Color(255, 255, 255, 128));
-
     }
 
     void play_window_run(Player &, int, bool &flag);

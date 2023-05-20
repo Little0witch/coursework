@@ -31,11 +31,13 @@ void play_window::play_with_soft(Player &player, bool &flag) {
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed) {
                 window.close();
+                return;
             } else {
                 if (sizeList(listOfShipsOfPlayer) == 0 && sizeList(listOfShipsOfBot) != 0) {
                     //player lose
                     window_lose windowLose(window);
                     windowLose.window_lose_run();
+                    flag = true;
                     return;
                 }
 
@@ -43,15 +45,18 @@ void play_window::play_with_soft(Player &player, bool &flag) {
                     //player win
                     window_win windowWin(window);
                     windowWin.window_win_run();
+                    flag = true;
                     return;
                 }
 
                 if (isPlayerMove) {
                     if (event.type == sf::Event::MouseButtonPressed) {
                         if (event.mouseButton.button == sf::Mouse::Left) {
+
                             // Получение координат щелчка мыши
                             int x = event.mouseButton.x;
                             int y = event.mouseButton.y;
+
                             if ((x >= 1085 && x <= 1650) && (y >= 285 && y <= 847) &&
                                 isEmpty(x, y, player.getEnemyField())) {
 
@@ -64,13 +69,34 @@ void play_window::play_with_soft(Player &player, bool &flag) {
                                 player.addHit(y, x, hit);
 
                                 if (hit == -1)
+                                {
                                     isPlayerMove = false;
+                                   // while (window.pollEvent(event)){}
+                                }
                                 else
                                     isPlayerMove = true;
                             }
                         }
                     }
+                    window.clear(sf::Color::Black);
+                    window.draw(sprite_background);
+                    window.draw(sprite_button_back);
+                    set_sprite_of_hit(player.getEnemyField(), 0);
+                    set_sprite_of_hit(botSoft.getEnemyField(), 1);
+
+                    show_hits();
+
+                    if (isPlayerMove) {
+                        window.draw(sprite_right_arrow);
+                    } else {
+                        window.draw(sprite_left_arrow);
+                       // while (window.pollEvent(event)){}
+                    }
+                    show_placement();
+                    window.display();
+                    while (window.pollEvent(event)){}
                 } else {
+                  //  while (window.pollEvent(event)){}
                     coord = botSoft.giveCoordinates();
                     hit = isHit(listOfShipsOfPlayer, &listOfShipsOfPlayer, coord.x, coord.y);
                     botSoft.statusGame(hit);
@@ -94,6 +120,8 @@ void play_window::play_with_soft(Player &player, bool &flag) {
                     }
                     show_placement();
                     window.display();
+                    //while (window.pollEvent(event)) {}
+
                 }
             }
             if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
@@ -144,6 +172,8 @@ void play_window::play_with_soft(Player &player, bool &flag) {
             }
         }
         window.display();
+//        while (window.pollEvent(event)){}
+
     }
 
 }
@@ -168,6 +198,8 @@ void play_window::play_with_hard(Player &player, bool &flag) {
                     //player lose
                     window_lose windowLose(window);
                     windowLose.window_lose_run();
+                    flag = true;
+
                     return;
                 }
 
@@ -175,6 +207,7 @@ void play_window::play_with_hard(Player &player, bool &flag) {
                     //player win
                     window_win windowWin(window);
                     windowWin.window_win_run();
+                    flag = true;
                     return;
                 }
 
@@ -202,6 +235,8 @@ void play_window::play_with_hard(Player &player, bool &flag) {
                             }
                         }
                     }
+                    while (window.pollEvent(event)){}
+
                 } else {
                     coord = botHard.giveCoordinates();
                     hit = isHit(listOfShipsOfPlayer, &listOfShipsOfPlayer, coord.x, coord.y);
@@ -211,6 +246,7 @@ void play_window::play_with_hard(Player &player, bool &flag) {
                     else
                         isPlayerMove = false;
                     usleep(500000);
+                    while (window.pollEvent(event)) {}
                     window.clear(sf::Color::Black);
                     window.draw(sprite_background);
                     window.draw(sprite_button_back);
@@ -387,6 +423,7 @@ void play_window::play_with_server(Player &player, bool &flag, struct dataOfSock
                     closeSocket(data_of_socket);
                     window_lose windowLose(window);
                     windowLose.window_lose_run();
+                    flag = true;
                     return;
                 }
 
@@ -395,6 +432,7 @@ void play_window::play_with_server(Player &player, bool &flag, struct dataOfSock
                     closeSocket(data_of_socket);
                     window_win windowWin(window);
                     windowWin.window_win_run();
+                    flag = true;
                     return;
                 }
 
@@ -430,6 +468,7 @@ void play_window::play_with_server(Player &player, bool &flag, struct dataOfSock
                             }
                         }
                     }
+                    while (window.pollEvent(event)){}
                 } else {
                     coord = getCoordFromServer(data_of_socket.sockfd);
                     hit = isHit(listOfShipsOfPlayer, &listOfShipsOfPlayer, coord.y, coord.x);
@@ -444,7 +483,8 @@ void play_window::play_with_server(Player &player, bool &flag, struct dataOfSock
                             server.addHit(coord.y, coord.x, hit);
 
                             sendIsHitToServer(data_of_socket.sockfd, hit);
-
+                            //проверить там ли вставила строчку
+                            while (window.pollEvent(event)) {}
                             if (hit == -1)
                                 isClientMove = true;
                             else
@@ -540,6 +580,7 @@ void play_window::play_with_client(Player &player, bool &flag, struct dataOfSock
                     closeSocket(data_of_socket);
                     window_lose windowLose(window);
                     windowLose.window_lose_run();
+                    flag = true;
                     return;
                 }
 
@@ -548,6 +589,7 @@ void play_window::play_with_client(Player &player, bool &flag, struct dataOfSock
                     closeSocket(data_of_socket);
                     window_win windowWin(window);
                     windowWin.window_win_run();
+                    flag = true;
                     return;
                 }
 
@@ -583,6 +625,7 @@ void play_window::play_with_client(Player &player, bool &flag, struct dataOfSock
                             }
                         }
                     }
+                    while (window.pollEvent(event)){}
                 } else {
                     coord = getCoordFromClient(data_of_socket.connfd);
 
@@ -599,6 +642,7 @@ void play_window::play_with_client(Player &player, bool &flag, struct dataOfSock
 
                             sendIsHitToClient(data_of_socket.connfd, hit);
 
+                            while (window.pollEvent(event)) {}
                             if (hit == -1)
                                 isServerMove = true;
                             else

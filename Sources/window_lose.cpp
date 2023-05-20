@@ -32,7 +32,7 @@ void window_lose::window_lose_run()
 
             if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
             {
-                if ((event.mouseButton.x>=700 && event.mouseButton.x<=1050) && (event.mouseButton.y>=570 && event.mouseButton.y<=820))
+                if (sprite_ok_blue.getGlobalBounds().contains(mouse_position))
                 {
                     return;
                 }

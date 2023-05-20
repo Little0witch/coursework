@@ -26,7 +26,7 @@ private:
     sf::Sprite sprite_button_exit_red;
 
     bool flag = false;
-    sf::RectangleShape tmp;
+    bool flag_of_return = false;
 public:
     dif_levels(sf::RenderWindow &other) : window(other) {
 
