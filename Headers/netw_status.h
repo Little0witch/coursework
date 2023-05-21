@@ -2,6 +2,8 @@
 #define COURSEWORK_NETW_STATUS_H
 #include <SFML/Graphics.hpp>
 
+#include "../Headers/logs.h"
+
 class netw_status {
 
 private:

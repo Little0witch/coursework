@@ -1,11 +1,18 @@
 #include "../Headers/netw_status.h"
 
 netw_status::netw_status(sf::RenderWindow &other) : window(other) {
-
-    background.loadFromFile("../Resources/Img/Network status/m_window_netw_status.png");
+    if (!background.loadFromFile("../Resources/Img/Network status/m_window_netw_status.png")) {
+        logError(
+                "Error 2: file opening error, the place where the error occurred: /Sources/netw_status.cpp, line 6");
+        exit(1);
+    }
     sprite_background.setTexture(background);
     sprite_background.setPosition(590.f, 290.f);
-    button_ok.loadFromFile("../Resources/Img/Network status/button_ok.png");
+    if (!button_ok.loadFromFile("../Resources/Img/Network status/button_ok.png")) {
+        logError(
+                "Error 2: file opening error, the place where the error occurred: /Sources/netw_status.cpp, line 11");
+        exit(1);
+    }
     sprite_button_ok.setTexture(button_ok);
     sprite_button_ok.setPosition(894.f, 540.f);
 }
@@ -14,7 +21,7 @@ void netw_status::netw_status_run() {
 
     while (window.isOpen())
     {
-        sf::Event event;
+        sf::Event event{};
         while (window.pollEvent(event))
         {
             if (event.type == sf::Event::Closed)
