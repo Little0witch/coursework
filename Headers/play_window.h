@@ -8,6 +8,7 @@
 #include "window_exit.h"
 #include "socket.h"
 
+
 class play_window {
 private:
     sf::RenderWindow &window;

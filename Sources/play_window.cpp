@@ -1,6 +1,8 @@
 #include "../Headers/play_window.h"
 #include "../Headers/BotSoft.h"
 #include "../Headers/BotHard.h"
+#include <chrono>
+
 
 void play_window::play_window_run(Player &player, int complexity, bool &flag) {
 
@@ -21,13 +23,32 @@ void play_window::show_placement() {
 void play_window::play_with_soft(Player &player, bool &flag) {
     int hit = 0;
     bool isPlayerMove = true;
+    bool flagOfTimer = false;
     struct coordinates coord{};
     BotSoft botSoft;
     ListOfShips listOfShipsOfBot = botSoft.getListOfMyShips();
     ListOfShips listOfShipsOfPlayer = player.getListOfMyShips();
+    auto start = std::chrono::high_resolution_clock::now();
 
     while (window.isOpen()) {
         sf::Event event{};
+        if (isPlayerMove && !flagOfTimer) {
+            start = std::chrono::high_resolution_clock::now();
+            flagOfTimer = true;
+        }
+
+        if (isPlayerMove && flagOfTimer){
+            auto end = std::chrono::high_resolution_clock::now();
+            std::chrono::duration<double> duration = end - start;
+            if (duration.count() > 30){
+                return;
+            }
+        }
+
+        if (!isPlayerMove){
+            flagOfTimer = false;
+        }
+
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed) {
                 window.close();
@@ -171,9 +192,9 @@ void play_window::play_with_soft(Player &player, bool &flag) {
                 window.display();
             }
         }
-        window.display();
-//        while (window.pollEvent(event)){}
 
+
+        window.display();
     }
 
 }
@@ -181,18 +202,37 @@ void play_window::play_with_soft(Player &player, bool &flag) {
 void play_window::play_with_hard(Player &player, bool &flag) {
     int hit = 0;
     bool isPlayerMove = true;
+    bool flagOfTimer = false;
     struct coordinates coord{};
     BotHard botHard;
     ListOfShips listOfShipsOfBot = botHard.getListOfMyShips();
     ListOfShips listOfShipsOfPlayer = player.getListOfMyShips();
+    auto start = std::chrono::high_resolution_clock::now();
 
     while (window.isOpen()) {
         sf::Event event{};
+
+        if (isPlayerMove && !flagOfTimer) {
+            start = std::chrono::high_resolution_clock::now();
+            flagOfTimer = true;
+        }
+
+        if (isPlayerMove && flagOfTimer){
+            auto end = std::chrono::high_resolution_clock::now();
+            std::chrono::duration<double> duration = end - start;
+            if (duration.count() > 30){
+                return;
+            }
+        }
+
+        if (!isPlayerMove){
+            flagOfTimer = false;
+        }
+
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed) {
                 window.close();
             }
-//
             else {
                 if (sizeList(listOfShipsOfPlayer) == 0 && sizeList(listOfShipsOfBot) != 0) {
                     //player lose
@@ -406,14 +446,35 @@ void play_window::play_window_run_for_player(Player &player, bool &flag, struct 
 //we are client
 void play_window::play_with_server(Player &player, bool &flag, struct dataOfSocket data_of_socket) {
     int hit = 0;
+    int clientWin = 0;//1 - win 2 - lose
     bool isClientMove = false;
+    bool flagOfTimer = false;
     struct coord coord{};
     ListOfShips listOfShipsOfPlayer = player.getListOfMyShips();
-    int clientWin = 0;//1 - win 2 - lose
     Player server;
+    auto start = std::chrono::high_resolution_clock::now();
 
     while (window.isOpen()) {
         sf::Event event{};
+
+        if (isClientMove && !flagOfTimer) {
+            start = std::chrono::high_resolution_clock::now();
+            flagOfTimer = true;
+        }
+
+        if (isClientMove && flagOfTimer){
+            auto end = std::chrono::high_resolution_clock::now();
+            std::chrono::duration<double> duration = end - start;
+            if (duration.count() > 30){
+                closeSockets(data_of_socket);
+                return;
+            }
+        }
+
+        if (!isClientMove){
+            flagOfTimer = false;
+        }
+
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed) {
                 window.close();
@@ -563,14 +624,35 @@ void play_window::play_with_server(Player &player, bool &flag, struct dataOfSock
 //we are server
 void play_window::play_with_client(Player &player, bool &flag, struct dataOfSocket data_of_socket) {
     int hit = 0;
+    int serverWin = 0;//1 - win 2 - lose
     bool isServerMove = true;
+    bool flagOfTimer = false;
     struct coord coord{};
     ListOfShips listOfShipsOfPlayer = player.getListOfMyShips();
-    int serverWin = 0;//1 - win 2 - lose
     Player client;
+    auto start = std::chrono::high_resolution_clock::now();
 
     while (window.isOpen()) {
         sf::Event event{};
+
+        if (isServerMove && !flagOfTimer) {
+            start = std::chrono::high_resolution_clock::now();
+            flagOfTimer = true;
+        }
+
+        if (isServerMove && flagOfTimer){
+            auto end = std::chrono::high_resolution_clock::now();
+            std::chrono::duration<double> duration = end - start;
+            if (duration.count() > 30){
+                closeSockets(data_of_socket);
+                return;
+            }
+        }
+
+        if (!isServerMove){
+            flagOfTimer = false;
+        }
+
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed) {
                 window.close();
