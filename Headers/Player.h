@@ -19,7 +19,9 @@ public:
 
     ListNodeShips *getListOfMyShips() const;
 
-    void addEmptyCells();
+    void addEmptyCells(int, int, int);
+
+    void addEmptyCell(int,int);
 
     void addHit(int, int, int);
 

@@ -127,7 +127,7 @@ Player::~Player() {
     if (myField != nullptr)
         freeMemory(myField, 10);
     if (enemyField != nullptr)
-        freeMemory(enemyField,10);
+        freeMemory(enemyField, 10);
 
     if (listOfMyShips != nullptr)
         freeList(&listOfMyShips);
@@ -141,7 +141,15 @@ ListNodeShips *Player::getListOfMyShips() const {
     return listOfMyShips;
 }
 
-void Player::addEmptyCells() {
+void Player::addEmptyCells(int x, int y, int size) {
+//    ListOfCoord listOfCoord = nullptr;
+//    struct coordinates coord{};
+//
+//    for (int i = 0; i < size; ++i) {
+//        coord = giveCoord(listOfCoord, i);
+//        addEmptyCell(coord.x, coord.y);
+//    }
+
     for (int i = 0; i < 10; ++i) {
         for (int j = 0; j < 10; ++j) {
             if (enemyField[i][j] == 2) {
@@ -182,7 +190,7 @@ Player::Player() {
 void Player::addHit(int x, int y, int isHit) {
     if (isHit >= 1) {
         enemyField[x][y] = 2;
-        addEmptyCells();
+        addEmptyCells(x,y,isHit);
     }
     if (isHit == -1) {
         enemyField[x][y] = 1;
@@ -194,6 +202,32 @@ void Player::addHit(int x, int y, int isHit) {
 
 int **Player::getEnemyField() const {
     return enemyField;
+}
+
+void Player::addEmptyCell(int x, int y) {
+    if (x - 1 >= 0 && y - 1 >= 0)
+        enemyField[x - 1][y - 1] = 1;
+
+    if (x - 1 >= 0 && enemyField[x - 1][y] != 2)
+        enemyField[x - 1][y] = 1;
+
+    if (x - 1 >= 0 && y + 1 <= 9)
+        enemyField[x - 1][y + 1] = 1;
+
+    if (y - 1 >= 0 && enemyField[x][y - 1] != 2)
+        enemyField[x][y - 1] = 1;
+
+    if (y + 1 <= 9 && enemyField[x][y + 1] != 2)
+        enemyField[x][y + 1] = 1;
+
+    if (x + 1 <= 9 && y - 1 >= 0)
+        enemyField[x + 1][y - 1] = 1;
+
+    if (x + 1 <= 9 && enemyField[x + 1][y] != 2)
+        enemyField[x + 1][y] = 1;
+
+    if (x + 1 <= 9 && y + 1 <= 9)
+        enemyField[x + 1][y + 1] = 1;
 }
 
 
