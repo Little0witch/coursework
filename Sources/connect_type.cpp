@@ -1,5 +1,43 @@
 #include "../Headers/connect_type.h"
 
+connect_type::connect_type(sf::RenderWindow &other) : window(other) {
+
+        if (!background.loadFromFile("../Resources/Img/Type connect/w_connect_type.png")) {
+            logError(
+                    "Error 2: file opening error, the place where the error occurred: /Headers/connect_type.cpp, line 7");
+            exit(1);
+        }
+
+        sprite_background.setTexture(background);
+
+        if (!button_client.loadFromFile("../Resources/Img/Type connect/button_client.png")) {
+            logError(
+                    "Error 2: file opening error, the place where the error occurred: /Headers/connect_type.cpp, line 15");
+            exit(1);
+        }
+
+        sprite_button_client.setTexture(button_client);
+        sprite_button_client.setPosition(sf::Vector2f(573.f, 280.f));
+
+        if (!button_server.loadFromFile("../Resources/Img/Type connect/button_server.png")) {
+            logError(
+                    "Error 2: file opening error, the place where the error occurred: /Headers/connect_type.cpp, line 24");
+            exit(1);
+        }
+
+        sprite_button_server.setTexture(button_server);
+        sprite_button_server.setPosition(sf::Vector2f(573.f, 450.f));
+
+        if (!button_exit.loadFromFile("../Resources/Img/Type connect/button_exit.png")) {
+            logError(
+                    "Error 2: file opening error, the place where the error occurred: /Headers/connect_type.cpp, line 533");
+            exit(1);
+        }
+
+        sprite_button_exit.setTexture(button_exit);
+        sprite_button_exit.setPosition(sf::Vector2f(573.f, 620.f));
+}
+
 
 void connect_type::connect_type_run() {
 
@@ -57,7 +95,6 @@ void connect_type::connect_type_run() {
                         //создание подключения
                         get_code window_get_code(window);
                         window_get_code.get_code_run(flagOfReturn);
-//                        if (flagOfReturn)
                         return;
                     }
                     else
