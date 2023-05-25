@@ -49,11 +49,15 @@ void play_window::play_with_soft(Player &player, bool &flag) {
             flagOfTimer = false;
         }
 
-        while (window.pollEvent(event)) {
-            if (event.type == sf::Event::Closed) {
-                window.close();
-                return;
-            } else {
+        while (window.pollEvent(event))
+        {
+            if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
+                sf::Vector2f mouse_pos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
+                if (sprite_button_back.getGlobalBounds().contains(mouse_pos)) {
+                    flag_exit = true;
+                }
+
+            }
                 if (sizeList(listOfShipsOfPlayer) == 0 && sizeList(listOfShipsOfBot) != 0) {
                     //player lose
                     window_lose windowLose(window);
@@ -92,32 +96,14 @@ void play_window::play_with_soft(Player &player, bool &flag) {
                                 if (hit == -1)
                                 {
                                     isPlayerMove = false;
-                                   // while (window.pollEvent(event)){}
                                 }
                                 else
                                     isPlayerMove = true;
                             }
                         }
                     }
-                    window.clear(sf::Color::Black);
-                    window.draw(sprite_background);
-                    window.draw(sprite_button_back);
-                    set_sprite_of_hit(player.getEnemyField(), 0);
-                    set_sprite_of_hit(botSoft.getEnemyField(), 1);
-
-                    show_hits();
-
-                    if (isPlayerMove) {
-                        window.draw(sprite_right_arrow);
-                    } else {
-                        window.draw(sprite_left_arrow);
-                       // while (window.pollEvent(event)){}
-                    }
-                    show_placement();
-                    window.display();
                     while (window.pollEvent(event)){}
                 } else {
-                  //  while (window.pollEvent(event)){}
                     coord = botSoft.giveCoordinates();
                     hit = isHit(listOfShipsOfPlayer, &listOfShipsOfPlayer, coord.x, coord.y);
                     botSoft.statusGame(hit);
@@ -145,15 +131,6 @@ void play_window::play_with_soft(Player &player, bool &flag) {
 
                 }
             }
-            if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
-                sf::Vector2f mouse_pos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
-                if (sprite_button_back.getGlobalBounds().contains(mouse_pos)) {
-                    flag_exit = true;
-                }
-
-            }
-
-        }
         window.clear(sf::Color::Black);
         window.draw(sprite_background);
         window.draw(sprite_button_back);
@@ -175,29 +152,11 @@ void play_window::play_with_soft(Player &player, bool &flag) {
                 return;
             } else {
                 flag_exit = false;
-                window.clear(sf::Color::Black);
-                window.draw(sprite_background);
-                window.draw(sprite_button_back);
-                set_sprite_of_hit(player.getEnemyField(), 0);
-                set_sprite_of_hit(botSoft.getEnemyField(), 1);
-
-                show_hits();
-
-                if (isPlayerMove) {
-                    window.draw(sprite_right_arrow);
-                } else {
-                    window.draw(sprite_left_arrow);
-                }
-                show_placement();
-                window.display();
             }
         }
-
-
-        window.display();
+         window.display();
+        }
     }
-
-}
 
 void play_window::play_with_hard(Player &player, bool &flag) {
     int hit = 0;
@@ -217,23 +176,22 @@ void play_window::play_with_hard(Player &player, bool &flag) {
             flagOfTimer = true;
         }
 
-        if (isPlayerMove && flagOfTimer){
+        if (isPlayerMove && flagOfTimer) {
             auto end = std::chrono::high_resolution_clock::now();
             std::chrono::duration<double> duration = end - start;
-            if (duration.count() > 30){
+            if (duration.count() > 30) {
                 return;
             }
         }
 
-        if (!isPlayerMove){
+        if (!isPlayerMove) {
             flagOfTimer = false;
         }
 
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed) {
                 window.close();
-            }
-            else {
+            } else {
                 if (sizeList(listOfShipsOfPlayer) == 0 && sizeList(listOfShipsOfBot) != 0) {
                     //player lose
                     window_lose windowLose(window);
@@ -275,7 +233,7 @@ void play_window::play_with_hard(Player &player, bool &flag) {
                             }
                         }
                     }
-                    while (window.pollEvent(event)){}
+                    while (window.pollEvent(event)) {}
 
                 } else {
                     coord = botHard.giveCoordinates();
@@ -302,18 +260,15 @@ void play_window::play_with_hard(Player &player, bool &flag) {
                     }
                     show_placement();
                     window.display();
+
                 }
-
-
             }
             if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
                 sf::Vector2f mouse_pos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
                 if (sprite_button_back.getGlobalBounds().contains(mouse_pos)) {
                     flag_exit = true;
                 }
-
             }
-
         }
         window.clear(sf::Color::Black);
         window.draw(sprite_background);
@@ -336,29 +291,15 @@ void play_window::play_with_hard(Player &player, bool &flag) {
                 return;
             } else {
                 flag_exit = false;
-                window.clear(sf::Color::Black);
-                window.draw(sprite_background);
-                window.draw(sprite_button_back);
-                set_sprite_of_hit(player.getEnemyField(), 0);
-                set_sprite_of_hit(botHard.getEnemyField(), 1);
-
-                show_hits();
-
-                if (isPlayerMove) {
-                    window.draw(sprite_right_arrow);
-                } else {
-                    window.draw(sprite_left_arrow);
-                }
-                show_placement();
-                window.display();
             }
         }
         window.display();
     }
-
 }
 
-void play_window::set_sprite_of_hit(int **field, int flag) {
+
+void play_window::set_sprite_of_hit(int **field, int flag)
+{
     //flag =1 bot field 0 player
 
     float x;
@@ -412,7 +353,8 @@ void play_window::set_sprite_of_hit(int **field, int flag) {
 
 }
 
-void play_window::show_hits() {
+void play_window::show_hits()
+{
     for (int i = 0; i < value_of_sprite_bot; ++i) {
         window.draw(hits_of_bot[i]);
     }
@@ -602,19 +544,6 @@ void play_window::play_with_server(Player &player, bool &flag, struct dataOfSock
                 return;
             } else {
                 flag_exit = false;
-                window.clear(sf::Color::Black);
-                window.draw(sprite_background);
-                window.draw(sprite_button_back);
-                set_sprite_of_hit(player.getEnemyField(), 0);
-                set_sprite_of_hit(server.getEnemyField(), 1);
-
-                if (isClientMove) {
-                    window.draw(sprite_right_arrow);
-                } else {
-                    window.draw(sprite_left_arrow);
-                }
-                show_placement();
-                window.display();
             }
         }
         window.display();
@@ -780,19 +709,6 @@ void play_window::play_with_client(Player &player, bool &flag, struct dataOfSock
                 return;
             } else {
                 flag_exit = false;
-                window.clear(sf::Color::Black);
-                window.draw(sprite_background);
-                window.draw(sprite_button_back);
-                set_sprite_of_hit(player.getEnemyField(), 0);
-                set_sprite_of_hit(client.getEnemyField(), 1);
-
-                if (isServerMove) {
-                    window.draw(sprite_right_arrow);
-                } else {
-                    window.draw(sprite_left_arrow);
-                }
-                show_placement();
-                window.display();
             }
         }
         window.display();

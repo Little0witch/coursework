@@ -40,12 +40,12 @@ private:
     sf::Texture shipOf3;
     sf::Texture shipOf4;
 
-
     sf::Sprite ships[10];
 
     //флаг нажатия на автоматическую расстановку
     bool flag_auto_pressed = false;
-    sf::RectangleShape tmp;
+    bool red_auto = false;
+    bool red_play = false;
 
 public:
     placement_field(sf::RenderWindow &other_window) : window(other_window)

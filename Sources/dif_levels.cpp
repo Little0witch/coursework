@@ -7,10 +7,14 @@ void dif_levels::dif_levels_run()
         sf::Event event{};
         while (window.pollEvent(event))
         {
+            red_easy = false;
+            red_hard = false;
+            red_exit = false;
             //обязательная проверка на закрытие окна
             if (event.type==sf::Event::Closed)
             {
                 window.close();
+                return;
             }
 
             //подсветка красным при наведении курсора на кнопку
@@ -22,10 +26,9 @@ void dif_levels::dif_levels_run()
                 if (sprite_button_easy_red.getGlobalBounds().contains(mousePosition))
                 {
                     //замена изображения на красную кнопки
-                    window.clear(sf::Color::Black);
-                    window.draw(sprite_background);
-                    window.draw(sprite_button_easy_red);
-                    window.display();
+                    red_easy = true;
+                    red_hard = false;
+                    red_exit = false;
                 }
                 else
                 {
@@ -33,10 +36,9 @@ void dif_levels::dif_levels_run()
                     if (sprite_button_hard_red.getGlobalBounds().contains(mousePosition))
                     {
                         //замена изображения на красную кнопки
-                        window.clear(sf::Color::Black);
-                        window.draw(sprite_background);
-                        window.draw(sprite_button_hard_red);
-                        window.display();
+                        red_easy = false;
+                        red_hard = true;
+                        red_exit = false;
                     }
                     else
                     {
@@ -44,22 +46,14 @@ void dif_levels::dif_levels_run()
                         if (sprite_button_exit_red.getGlobalBounds().contains(mousePosition))
                         {
                             //замена изображения на красную кнопки
-                            window.clear(sf::Color::Black);
-                            window.draw(sprite_background);
-                            window.draw(sprite_button_exit_red);
-                            window.display();
-                        }
-                        else
-                        {
-                            //замена изображения на голубую кнопку
-                            window.clear(sf::Color::Black);
-                            window.draw(sprite_background);
-                            window.display();
+                            red_easy = false;
+                            red_hard = false;
+                            red_exit = true;
                         }
                     }
                 }
             }
-
+else
             //открытие нового окна при нажатии
             if (event.type==sf::Event::MouseButtonPressed && event.mouseButton.button==sf::Mouse::Left)
             {
@@ -90,5 +84,20 @@ void dif_levels::dif_levels_run()
                 }
             }
         }
+        window.clear(sf::Color::Black);
+        window.draw(sprite_background);
+        if (red_easy)
+        {
+            window.draw(sprite_button_easy_red);
+        }
+        if (red_hard)
+        {
+            window.draw(sprite_button_hard_red);
+        }
+        if (red_exit)
+        {
+            window.draw(sprite_button_exit_red);
+        }
+        window.display();
     }
 }

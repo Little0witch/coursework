@@ -10,10 +10,5 @@ int main() {
     main_menu main_window(window);
     main_window.main_menu_run();
 
-//    sf::RenderWindow window(sf::VideoMode(1846, 1048), "Battlership");
-////окно выбора типа подключения
-//    connect_type window_connect_type(window);
-//    window_connect_type.connect_type_run();
-
     return 0;
 }

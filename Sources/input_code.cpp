@@ -1,10 +1,14 @@
 #include "../Headers/input_code.h"
+#include "../Headers/netw_status.h"
 
 void input_code::input_code_run(bool& flagOfReturn)
 {
-    //получение строки из введенных данных
-//    std::string s_tmp;
-//    s_tmp = text.getString();
+    if (getCode() == nullptr)
+    {
+        netw_status window_netw_status(window);
+        window_netw_status.netw_status_run();
+        return;
+    }
     struct dataOfSocket data_of_socket = {-1, -1};
     std::string stringOfCode;
     const char* code = NULL;
@@ -50,10 +54,11 @@ void input_code::input_code_run(bool& flagOfReturn)
                         {
                             placement_field window_placement_field(window);
                             window_placement_field.placement_field_run(0, flag,flagOfReturn, data_of_socket);
-                            if (flag)
-                            {
-                                return;
-                            }
+                            return;
+//                            if (flag)
+//                            {
+//                                return;
+//                            }
                         }
                         else
                         {

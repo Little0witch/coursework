@@ -50,6 +50,7 @@ void get_code::get_code_run(bool &flagOfReturn) {
             placement_field placement_field(window);
             bool flag = false;
             placement_field.placement_field_run(0, flag, flagOfReturn, dataOfSocket);
+            return;
         }
 
         if (dataOfSocket.connfd == 404 && dataOfSocket.sockfd == 404) {

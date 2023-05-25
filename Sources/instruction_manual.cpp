@@ -7,6 +7,7 @@ void instruction_manual::instruction_manual_run()
         sf::Event event{};
         while (window.pollEvent(event))
         {
+            red_exit = false;
             //обязательная проверка на закрытие окна
             if (event.type==sf::Event::Closed)
             {
@@ -29,20 +30,17 @@ void instruction_manual::instruction_manual_run()
                 //кнокпа выхода
                 if (sprite_exit_red.getGlobalBounds().contains(mousePosition))
                 {
+                    red_exit = true;
                     //замена изображения на красную кнопки
-                    window.clear(sf::Color::Black);
-                    window.draw(sprite_background);
-                    window.draw(sprite_exit_red);
-                    window.display();
-                }
-                else
-                {
-                    //замена изображения на голубую кнопку
-                    window.clear(sf::Color::Black);
-                    window.draw(sprite_background);
-                    window.display();
                 }
             }
         }
+        window.clear(sf::Color::Black);
+        window.draw(sprite_background);
+        if (red_exit)
+        {
+            window.draw(sprite_exit_red);
+        }
+        window.display();
     }
 }

@@ -23,6 +23,11 @@ private:
     sf::Sprite sprite_instruction_manual;
     sf::Sprite sprite_exit;
 
+    bool red_online = false;
+    bool red_dif_lv = false;
+    bool red_man = false;
+    bool red_exit = false;
+
 public:
     main_menu(sf::RenderWindow &other) : window(other) {
         if (!background.loadFromFile("../Resources/Img/Main window/main_window.png")) {

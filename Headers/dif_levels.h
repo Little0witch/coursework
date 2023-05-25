@@ -26,7 +26,10 @@ private:
     sf::Sprite sprite_button_exit_red;
 
     bool flag = false;
-    bool flag_of_return = false;
+    bool red_easy = false;
+    bool red_hard = false;
+    bool red_exit = false;
+
 public:
     dif_levels(sf::RenderWindow &other) : window(other) {
 

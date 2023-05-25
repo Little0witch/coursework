@@ -12,6 +12,8 @@ private:
     sf::Sprite sprite_background;
     sf::Sprite sprite_exit_red;
 
+    bool red_exit = false;
+
 public:
     instruction_manual(sf::RenderWindow &other) : window(other)
     {

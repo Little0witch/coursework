@@ -7,6 +7,8 @@ void window_exit::window_exit_run(bool &flag)
         sf::Event event{};
         while (window.pollEvent(event))
         {
+            red_no = false;
+            red_yes = false;
             //обязательная проверка на закрытие окна
             if (event.type == sf::Event::Closed)
             {
@@ -20,28 +22,18 @@ void window_exit::window_exit_run(bool &flag)
                 //если курсор наведен на кнопку
                 if (sprite_yes_red.getGlobalBounds().contains(mousePosition))
                 {
-
                     //замена изображения на красную кнопки
-                    window.draw(sprite_background);
-                    window.draw(sprite_yes_red);
-                    window.display();
+                    red_yes = true;
+                    red_no = false;
                 }
                 else
                 {
                     //кнокпа "нет"
                     if (sprite_no_red.getGlobalBounds().contains(mousePosition))
                     {
-
                         //замена изображения на красную кнопки
-                        window.draw(sprite_background);
-                        window.draw(sprite_no_red);
-                        window.display();
-                    }
-                    else
-                    {
-                        //замена изображения на голубую кнопку
-                        window.draw(sprite_background);
-                        window.display();
+                        red_no = true;
+                        red_yes = false;
                     }
                 }
             }
@@ -64,5 +56,15 @@ void window_exit::window_exit_run(bool &flag)
                 }
             }
         }
+        window.draw(sprite_background);
+        if (red_yes)
+        {
+            window.draw(sprite_yes_red);
+        }
+        if (red_no)
+        {
+            window.draw(sprite_no_red);
+        }
+        window.display();
     }
 }

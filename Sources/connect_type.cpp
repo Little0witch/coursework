@@ -47,6 +47,8 @@ void connect_type::connect_type_run() {
                     //открытие окна ввода
                     input_code window_input_code(window);
                     window_input_code.input_code_run(flagOfReturn);
+//                    if (flagOfReturn)
+                    return;
                 }
                 else
                 {
@@ -55,6 +57,8 @@ void connect_type::connect_type_run() {
                         //создание подключения
                         get_code window_get_code(window);
                         window_get_code.get_code_run(flagOfReturn);
+//                        if (flagOfReturn)
+                        return;
                     }
                     else
                     {

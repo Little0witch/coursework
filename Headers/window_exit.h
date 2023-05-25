@@ -15,6 +15,8 @@ private:
     sf::Sprite sprite_background;
     sf::Sprite sprite_yes_red;
     sf::Sprite sprite_no_red;
+    bool red_yes = false;
+    bool red_no = false;
 
 public:
     window_exit(sf::RenderWindow &other) : window(other) {
