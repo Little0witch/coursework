@@ -1,4 +1,3 @@
-#include <iostream>
 #include "../Headers/Player.h"
 
 void Player::autoPositioningOfShips() {
@@ -142,14 +141,6 @@ ListNodeShips *Player::getListOfMyShips() const {
 }
 
 void Player::addEmptyCells(int x, int y, int size) {
-//    ListOfCoord listOfCoord = nullptr;
-//    struct coordinates coord{};
-//
-//    for (int i = 0; i < size; ++i) {
-//        coord = giveCoord(listOfCoord, i);
-//        addEmptyCell(coord.x, coord.y);
-//    }
-
     for (int i = 0; i < 10; ++i) {
         for (int j = 0; j < 10; ++j) {
             if (enemyField[i][j] == 2) {
@@ -203,35 +194,4 @@ void Player::addHit(int x, int y, int isHit) {
 int **Player::getEnemyField() const {
     return enemyField;
 }
-
-void Player::addEmptyCell(int x, int y) {
-    if (x - 1 >= 0 && y - 1 >= 0)
-        enemyField[x - 1][y - 1] = 1;
-
-    if (x - 1 >= 0 && enemyField[x - 1][y] != 2)
-        enemyField[x - 1][y] = 1;
-
-    if (x - 1 >= 0 && y + 1 <= 9)
-        enemyField[x - 1][y + 1] = 1;
-
-    if (y - 1 >= 0 && enemyField[x][y - 1] != 2)
-        enemyField[x][y - 1] = 1;
-
-    if (y + 1 <= 9 && enemyField[x][y + 1] != 2)
-        enemyField[x][y + 1] = 1;
-
-    if (x + 1 <= 9 && y - 1 >= 0)
-        enemyField[x + 1][y - 1] = 1;
-
-    if (x + 1 <= 9 && enemyField[x + 1][y] != 2)
-        enemyField[x + 1][y] = 1;
-
-    if (x + 1 <= 9 && y + 1 <= 9)
-        enemyField[x + 1][y + 1] = 1;
-}
-
-
-
-
-
 

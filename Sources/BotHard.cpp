@@ -1,5 +1,3 @@
-
-
 #include "../Headers/BotHard.h"
 
 BotHard::BotHard() {

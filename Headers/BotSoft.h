@@ -33,6 +33,7 @@ public:
         myField = autoPositioningOfShips();
     }
 
+
     int **getMyField() const;
     struct coordinates giveCoordinates();
     void statusGame(int);
