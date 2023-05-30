@@ -75,7 +75,6 @@ void sendCoordToServer(int, struct coord);
 
 void sendIsHitToServer(int, int);
 
-void handle_alarm(int, struct dataOfSocket);
 
 
 #endif //COURSEWORK_SOCKET_H

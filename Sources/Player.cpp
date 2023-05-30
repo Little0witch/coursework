@@ -140,7 +140,7 @@ ListNodeShips *Player::getListOfMyShips() const {
     return listOfMyShips;
 }
 
-void Player::addEmptyCells(int x, int y, int size) {
+void Player::addEmptyCells() {
     for (int i = 0; i < 10; ++i) {
         for (int j = 0; j < 10; ++j) {
             if (enemyField[i][j] == 2) {
@@ -181,7 +181,7 @@ Player::Player() {
 void Player::addHit(int x, int y, int isHit) {
     if (isHit >= 1) {
         enemyField[x][y] = 2;
-        addEmptyCells(x,y,isHit);
+        addEmptyCells();
     }
     if (isHit == -1) {
         enemyField[x][y] = 1;
