@@ -1,4 +1,4 @@
-#include "../Headers/logs.h"
+#include "../Headers/Logs.h"
 
 void logError(const std::string& errorMessage) {
     std::ofstream logfile;

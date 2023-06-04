@@ -21,7 +21,6 @@ bool isEmpty(ListOfCoord head) {
     return false;
 }
 
-//TODO::make normal freeList
 void freeList(ListOfCoord *head) {
     *head = nullptr;
     ListOfCoord current = *head;

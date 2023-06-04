@@ -1,26 +1,26 @@
-#include "../Headers/play_window.h"
+#include "../Headers/PlayWindow.h"
 #include "../Headers/BotSoft.h"
 #include "../Headers/BotHard.h"
 #include <chrono>
 
 
-void play_window::play_window_run(Player &player, int complexity, bool &flag) {
+void PlayWindow::playWindowRun(Player &player, int complexity, bool &flag) {
 
     if (complexity == 1) {
-        play_with_soft(player, flag);
+        playWithSoft(player, flag);
     }
     if (complexity == 2) {
-        play_with_hard(player, flag);
+        playWithHard(player, flag);
     }
 }
 
-void play_window::show_placement() {
+void PlayWindow::showPlacement() {
     for (int i = 0; i < 10; ++i) {
         window.draw(shipsOfPlayer[i]);
     }
 }
 
-void play_window::play_with_soft(Player &player, bool &flag) {
+void PlayWindow::playWithSoft(Player &player, bool &flag) {
     int hit = 0;
     bool isPlayerMove = true;
     bool flagOfTimer = false;
@@ -53,23 +53,23 @@ void play_window::play_with_soft(Player &player, bool &flag) {
         {
             if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
                 sf::Vector2f mouse_pos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
-                if (sprite_button_back.getGlobalBounds().contains(mouse_pos)) {
-                    flag_exit = true;
+                if (spriteButtonBack.getGlobalBounds().contains(mouse_pos)) {
+                    flagExit = true;
                 }
 
             }
                 if (sizeList(listOfShipsOfPlayer) == 0 && sizeList(listOfShipsOfBot) != 0) {
                     //player lose
-                    window_lose windowLose(window);
-                    windowLose.window_lose_run();
+                    WindowLose windowLose(window);
+                    windowLose.windowLoseRun();
                     flag = true;
                     return;
                 }
 
                 if (sizeList(listOfShipsOfPlayer) != 0 && sizeList(listOfShipsOfBot) == 0) {
                     //player win
-                    window_win windowWin(window);
-                    windowWin.window_win_run();
+                    WindowWin windowWin(window);
+                    windowWin.windowWinRun();
                     flag = true;
                     return;
                 }
@@ -113,52 +113,50 @@ void play_window::play_with_soft(Player &player, bool &flag) {
                         isPlayerMove = false;
                     usleep(500000);
                     window.clear(sf::Color::Black);
-                    window.draw(sprite_background);
-                    window.draw(sprite_button_back);
-                    set_sprite_of_hit(player.getEnemyField(), 0);
-                    set_sprite_of_hit(botSoft.getEnemyField(), 1);
+                    window.draw(spriteBackground);
+                    window.draw(spriteButtonBack);
+                    setSpriteOfHit(player.getEnemyField(), 0);
+                    setSpriteOfHit(botSoft.getEnemyField(), 1);
 
-                    show_hits();
+                    showHits();
 
                     if (isPlayerMove) {
-                        window.draw(sprite_right_arrow);
+                        window.draw(spriteRightArrow);
                     } else {
-                        window.draw(sprite_left_arrow);
+                        window.draw(spriteLeftArrow);
                     }
-                    show_placement();
+                    showPlacement();
                     window.display();
-                    //while (window.pollEvent(event)) {}
-
                 }
             }
         window.clear(sf::Color::Black);
-        window.draw(sprite_background);
-        window.draw(sprite_button_back);
-        set_sprite_of_hit(player.getEnemyField(), 0);
-        set_sprite_of_hit(botSoft.getEnemyField(), 1);
+        window.draw(spriteBackground);
+        window.draw(spriteButtonBack);
+        setSpriteOfHit(player.getEnemyField(), 0);
+        setSpriteOfHit(botSoft.getEnemyField(), 1);
 
-        show_hits();
+        showHits();
 
         if (isPlayerMove) {
-            window.draw(sprite_right_arrow);
+            window.draw(spriteRightArrow);
         } else {
-            window.draw(sprite_left_arrow);
+            window.draw(spriteLeftArrow);
         }
-        show_placement();
-        if (flag_exit) {
-            window_exit exit_window(window);
-            exit_window.window_exit_run(flag);
+        showPlacement();
+        if (flagExit) {
+            WindowExit exit_window(window);
+            exit_window.windowExitRun(flag);
             if (flag) {
                 return;
             } else {
-                flag_exit = false;
+                flagExit = false;
             }
         }
          window.display();
         }
     }
 
-void play_window::play_with_hard(Player &player, bool &flag) {
+void PlayWindow::playWithHard(Player &player, bool &flag) {
     int hit = 0;
     bool isPlayerMove = true;
     bool flagOfTimer = false;
@@ -193,18 +191,16 @@ void play_window::play_with_hard(Player &player, bool &flag) {
                 window.close();
             } else {
                 if (sizeList(listOfShipsOfPlayer) == 0 && sizeList(listOfShipsOfBot) != 0) {
-                    //player lose
-                    window_lose windowLose(window);
-                    windowLose.window_lose_run();
+                    WindowLose windowLose(window);
+                    windowLose.windowLoseRun();
                     flag = true;
 
                     return;
                 }
 
                 if (sizeList(listOfShipsOfPlayer) != 0 && sizeList(listOfShipsOfBot) == 0) {
-                    //player win
-                    window_win windowWin(window);
-                    windowWin.window_win_run();
+                    WindowWin windowWin(window);
+                    windowWin.windowWinRun();
                     flag = true;
                     return;
                 }
@@ -212,7 +208,6 @@ void play_window::play_with_hard(Player &player, bool &flag) {
                 if (isPlayerMove) {
                     if (event.type == sf::Event::MouseButtonPressed) {
                         if (event.mouseButton.button == sf::Mouse::Left) {
-                            // Получение координат щелчка мыши
                             int x = event.mouseButton.x;
                             int y = event.mouseButton.y;
                             if ((x >= 1085 && x <= 1650) && (y >= 285 && y <= 847) &&
@@ -246,51 +241,51 @@ void play_window::play_with_hard(Player &player, bool &flag) {
                     usleep(500000);
                     while (window.pollEvent(event)) {}
                     window.clear(sf::Color::Black);
-                    window.draw(sprite_background);
-                    window.draw(sprite_button_back);
-                    set_sprite_of_hit(player.getEnemyField(), 0);
-                    set_sprite_of_hit(botHard.getEnemyField(), 1);
+                    window.draw(spriteBackground);
+                    window.draw(spriteButtonBack);
+                    setSpriteOfHit(player.getEnemyField(), 0);
+                    setSpriteOfHit(botHard.getEnemyField(), 1);
 
-                    show_hits();
+                    showHits();
 
                     if (isPlayerMove) {
-                        window.draw(sprite_right_arrow);
+                        window.draw(spriteRightArrow);
                     } else {
-                        window.draw(sprite_left_arrow);
+                        window.draw(spriteLeftArrow);
                     }
-                    show_placement();
+                    showPlacement();
                     window.display();
 
                 }
             }
             if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
                 sf::Vector2f mouse_pos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
-                if (sprite_button_back.getGlobalBounds().contains(mouse_pos)) {
-                    flag_exit = true;
+                if (spriteButtonBack.getGlobalBounds().contains(mouse_pos)) {
+                    flagExit = true;
                 }
             }
         }
         window.clear(sf::Color::Black);
-        window.draw(sprite_background);
-        window.draw(sprite_button_back);
-        set_sprite_of_hit(player.getEnemyField(), 0);
-        set_sprite_of_hit(botHard.getEnemyField(), 1);
+        window.draw(spriteBackground);
+        window.draw(spriteButtonBack);
+        setSpriteOfHit(player.getEnemyField(), 0);
+        setSpriteOfHit(botHard.getEnemyField(), 1);
 
-        show_hits();
+        showHits();
 
         if (isPlayerMove) {
-            window.draw(sprite_right_arrow);
+            window.draw(spriteRightArrow);
         } else {
-            window.draw(sprite_left_arrow);
+            window.draw(spriteLeftArrow);
         }
-        show_placement();
-        if (flag_exit) {
-            window_exit exit_window(window);
-            exit_window.window_exit_run(flag);
+        showPlacement();
+        if (flagExit) {
+            WindowExit exit_window(window);
+            exit_window.windowExitRun(flag);
             if (flag) {
                 return;
             } else {
-                flag_exit = false;
+                flagExit = false;
             }
         }
         window.display();
@@ -298,7 +293,7 @@ void play_window::play_with_hard(Player &player, bool &flag) {
 }
 
 
-void play_window::set_sprite_of_hit(int **field, int flag)
+void PlayWindow::setSpriteOfHit(int **field, int flag)
 {
     //flag =1 bot field 0 player
 
@@ -309,19 +304,19 @@ void play_window::set_sprite_of_hit(int **field, int flag)
         for (int i = 0; i < 10; ++i) {
             for (int j = 0; j < 10; ++j) {
                 if (field[i][j] == 2 && arrayOfPositionForBot[i][j] == 0) {
-                    hits_of_bot[value_of_sprite_bot].setTexture(t_hit);
+                    hitsOfBot[valueOfSpriteBot].setTexture(tHit);
                     x = 228 + (j * 56.5);
                     y = 285 + (i * 56.5);
                     arrayOfPositionForBot[i][j] = 1;
-                    hits_of_bot[value_of_sprite_bot].setPosition(x, y);
-                    value_of_sprite_bot++;
+                    hitsOfBot[valueOfSpriteBot].setPosition(x, y);
+                    valueOfSpriteBot++;
                 } else if (field[i][j] == 1 && arrayOfPositionForBot[i][j] == 0) {
-                    hits_of_bot[value_of_sprite_bot].setTexture(t_missed_bomb);
+                    hitsOfBot[valueOfSpriteBot].setTexture(tMissedBomb);
                     x = 228 + (j * 56.5);
                     y = 285 + (i * 56.5);
                     arrayOfPositionForBot[i][j] = 1;
-                    hits_of_bot[value_of_sprite_bot].setPosition(x, y);
-                    value_of_sprite_bot++;
+                    hitsOfBot[valueOfSpriteBot].setPosition(x, y);
+                    valueOfSpriteBot++;
                 }
             }
         }
@@ -330,21 +325,21 @@ void play_window::set_sprite_of_hit(int **field, int flag)
             for (int j = 0; j < 10; j++) {
 
                 if (field[i][j] == 2 && arrayOfPositionForPlayer[i][j] == 0) {
-                    hits_of_player[value_of_sprite_player].setTexture(t_hit);
+                    hitsOfPlayer[valueOfSpritePlayer].setTexture(tHit);
                     x = 1084 + (j * 56.5);
                     y = 285 + (i * 56.5);
                     arrayOfPositionForPlayer[i][j] = 1;
-                    hits_of_player[value_of_sprite_player].setPosition(x, y);
-                    value_of_sprite_player++;
+                    hitsOfPlayer[valueOfSpritePlayer].setPosition(x, y);
+                    valueOfSpritePlayer++;
                 }
 
                 if (field[i][j] == 1 && arrayOfPositionForPlayer[i][j] == 0) {
-                    hits_of_player[value_of_sprite_player].setTexture(t_missed_bomb);
+                    hitsOfPlayer[valueOfSpritePlayer].setTexture(tMissedBomb);
                     x = 1084 + (j * 56.5);
                     y = 285 + (i * 56.5);
                     arrayOfPositionForPlayer[i][j] = 1;
-                    hits_of_player[value_of_sprite_player].setPosition(x, y);
-                    value_of_sprite_player++;
+                    hitsOfPlayer[valueOfSpritePlayer].setPosition(x, y);
+                    valueOfSpritePlayer++;
                 }
 
             }
@@ -353,18 +348,18 @@ void play_window::set_sprite_of_hit(int **field, int flag)
 
 }
 
-void play_window::show_hits()
+void PlayWindow::showHits()
 {
-    for (int i = 0; i < value_of_sprite_bot; ++i) {
-        window.draw(hits_of_bot[i]);
+    for (int i = 0; i < valueOfSpriteBot; ++i) {
+        window.draw(hitsOfBot[i]);
     }
 
-    for (int i = 0; i < value_of_sprite_player; ++i) {
-        window.draw(hits_of_player[i]);
+    for (int i = 0; i < valueOfSpritePlayer; ++i) {
+        window.draw(hitsOfPlayer[i]);
     }
 }
 
-bool play_window::isEmpty(int x, int y, int **field) {
+bool PlayWindow::isEmpty(int x, int y, int **field) {
 
     x = (x - 1085) / 56;
     y = (y - 285) / 56;
@@ -375,20 +370,19 @@ bool play_window::isEmpty(int x, int y, int **field) {
         return true;
 }
 
-void play_window::play_window_run_for_player(Player &player, bool &flag, struct dataOfSocket dataOfSocket) {
+void PlayWindow::playWindowRunForPlayer(Player &player, bool &flag, struct dataOfSocket dataOfSocket) {
 
     if (dataOfSocket.connfd == 0) {
-        play_with_server(player, flag, dataOfSocket);
+        playWithServer(player, flag, dataOfSocket);
     } else {
-        play_with_client(player, flag, dataOfSocket);
+        playWithClient(player, flag, dataOfSocket);
     }
 
 }
 
-//we are client
-void play_window::play_with_server(Player &player, bool &flag, struct dataOfSocket data_of_socket) {
+void PlayWindow::playWithServer(Player &player, bool &flag, struct dataOfSocket dataOfSocket) {
     int hit = 0;
-    int clientWin = 0;//1 - win 2 - lose
+    int clientWin = 0;
     bool isClientMove = false;
     bool flagOfTimer = false;
     struct coord coord{};
@@ -408,7 +402,7 @@ void play_window::play_with_server(Player &player, bool &flag, struct dataOfSock
             auto end = std::chrono::high_resolution_clock::now();
             std::chrono::duration<double> duration = end - start;
             if (duration.count() > 30){
-                closeSockets(data_of_socket);
+                closeSockets(dataOfSocket);
                 return;
             }
         }
@@ -423,18 +417,18 @@ void play_window::play_with_server(Player &player, bool &flag, struct dataOfSock
             } else {
                 if (clientWin == 2) {
                     //player lose
-                    closeSocket(data_of_socket);
-                    window_lose windowLose(window);
-                    windowLose.window_lose_run();
+                    closeSocket(dataOfSocket);
+                    WindowLose windowLose(window);
+                    windowLose.windowLoseRun();
                     flag = true;
                     return;
                 }
 
                 if (clientWin == 1) {
                     //player win
-                    closeSocket(data_of_socket);
-                    window_win windowWin(window);
-                    windowWin.window_win_run();
+                    closeSocket(dataOfSocket);
+                    WindowWin windowWin(window);
+                    windowWin.windowWinRun();
                     flag = true;
                     return;
                 }
@@ -454,9 +448,9 @@ void play_window::play_with_server(Player &player, bool &flag, struct dataOfSock
                                 coord.x = x;
                                 coord.y = y;
 
-                                sendCoordToServer(data_of_socket.sockfd, coord);
+                                sendCoordToServer(dataOfSocket.sockfd, coord);
 
-                                hit = getIsHitFromServer(data_of_socket.sockfd);
+                                hit = getIsHitFromServer(dataOfSocket.sockfd);
 
                                 if (hit == 9 || hit == 404) {
                                     clientWin = 1;
@@ -473,7 +467,7 @@ void play_window::play_with_server(Player &player, bool &flag, struct dataOfSock
                     }
                     while (window.pollEvent(event)){}
                 } else {
-                    coord = getCoordFromServer(data_of_socket.sockfd);
+                    coord = getCoordFromServer(dataOfSocket.sockfd);
                     hit = isHit(listOfShipsOfPlayer, &listOfShipsOfPlayer, coord.y, coord.x);
 
                     if (coord.x * 10 + coord.y == 404) {
@@ -485,7 +479,7 @@ void play_window::play_with_server(Player &player, bool &flag, struct dataOfSock
                         } else {
                             server.addHit(coord.y, coord.x, hit);
 
-                            sendIsHitToServer(data_of_socket.sockfd, hit);
+                            sendIsHitToServer(dataOfSocket.sockfd, hit);
                             //проверить там ли вставила строчку
                             while (window.pollEvent(event)) {}
                             if (hit == -1)
@@ -493,19 +487,19 @@ void play_window::play_with_server(Player &player, bool &flag, struct dataOfSock
                             else
                                 isClientMove = false;
                             window.clear(sf::Color::Black);
-                            window.draw(sprite_background);
-                            window.draw(sprite_button_back);
-                            set_sprite_of_hit(player.getEnemyField(), 0);
-                            set_sprite_of_hit(server.getEnemyField(), 1);
+                            window.draw(spriteBackground);
+                            window.draw(spriteButtonBack);
+                            setSpriteOfHit(player.getEnemyField(), 0);
+                            setSpriteOfHit(server.getEnemyField(), 1);
 
-                            show_hits();
+                            showHits();
 
                             if (isClientMove) {
-                                window.draw(sprite_right_arrow);
+                                window.draw(spriteRightArrow);
                             } else {
-                                window.draw(sprite_left_arrow);
+                                window.draw(spriteLeftArrow);
                             }
-                            show_placement();
+                            showPlacement();
                             window.display();
                         }
                     }
@@ -513,47 +507,46 @@ void play_window::play_with_server(Player &player, bool &flag, struct dataOfSock
             }
             if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
                 sf::Vector2f mouse_pos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
-                if (sprite_button_back.getGlobalBounds().contains(mouse_pos)) {
-                    flag_exit = true;
+                if (spriteButtonBack.getGlobalBounds().contains(mouse_pos)) {
+                    flagExit = true;
                 }
 
             }
 
         }
         window.clear(sf::Color::Black);
-        window.draw(sprite_background);
-        window.draw(sprite_button_back);
-        set_sprite_of_hit(player.getEnemyField(), 0);
-        set_sprite_of_hit(server.getEnemyField(), 1);
+        window.draw(spriteBackground);
+        window.draw(spriteButtonBack);
+        setSpriteOfHit(player.getEnemyField(), 0);
+        setSpriteOfHit(server.getEnemyField(), 1);
 
-        show_hits();
+        showHits();
 
         if (isClientMove) {
-            window.draw(sprite_right_arrow);
+            window.draw(spriteRightArrow);
         } else {
-            window.draw(sprite_left_arrow);
+            window.draw(spriteLeftArrow);
         }
 
-        show_placement();
+        showPlacement();
 
-        if (flag_exit) {
-            window_exit exit_window(window);
-            exit_window.window_exit_run(flag);
+        if (flagExit) {
+            WindowExit exit_window(window);
+            exit_window.windowExitRun(flag);
             if (flag) {
-                closeSockets(data_of_socket);
+                closeSockets(dataOfSocket);
                 return;
             } else {
-                flag_exit = false;
+                flagExit = false;
             }
         }
         window.display();
     }
 }
 
-//we are server
-void play_window::play_with_client(Player &player, bool &flag, struct dataOfSocket data_of_socket) {
+void PlayWindow::playWithClient(Player &player, bool &flag, struct dataOfSocket dataOfSocket) {
     int hit = 0;
-    int serverWin = 0;//1 - win 2 - lose
+    int serverWin = 0;
     bool isServerMove = true;
     bool flagOfTimer = false;
     struct coord coord{};
@@ -573,7 +566,7 @@ void play_window::play_with_client(Player &player, bool &flag, struct dataOfSock
             auto end = std::chrono::high_resolution_clock::now();
             std::chrono::duration<double> duration = end - start;
             if (duration.count() > 30){
-                closeSockets(data_of_socket);
+                closeSockets(dataOfSocket);
                 return;
             }
         }
@@ -588,18 +581,18 @@ void play_window::play_with_client(Player &player, bool &flag, struct dataOfSock
             } else {
                 if (serverWin == 2) {
                     //player lose
-                    closeSocket(data_of_socket);
-                    window_lose windowLose(window);
-                    windowLose.window_lose_run();
+                    closeSocket(dataOfSocket);
+                    WindowLose windowLose(window);
+                    windowLose.windowLoseRun();
                     flag = true;
                     return;
                 }
 
                 if (serverWin == 1) {
                     //player win
-                    closeSocket(data_of_socket);
-                    window_win windowWin(window);
-                    windowWin.window_win_run();
+                    closeSocket(dataOfSocket);
+                    WindowWin windowWin(window);
+                    windowWin.windowWinRun();
                     flag = true;
                     return;
                 }
@@ -619,9 +612,9 @@ void play_window::play_with_client(Player &player, bool &flag, struct dataOfSock
                                 coord.x = x;
                                 coord.y = y;
 
-                                sendCoordToClient(data_of_socket.connfd, coord);
+                                sendCoordToClient(dataOfSocket.connfd, coord);
 
-                                hit = getIsHitFromClient(data_of_socket.connfd);
+                                hit = getIsHitFromClient(dataOfSocket.connfd);
 
                                 if (hit == 9 || hit == 404) {
                                     serverWin = 1;
@@ -638,7 +631,7 @@ void play_window::play_with_client(Player &player, bool &flag, struct dataOfSock
                     }
                     while (window.pollEvent(event)){}
                 } else {
-                    coord = getCoordFromClient(data_of_socket.connfd);
+                    coord = getCoordFromClient(dataOfSocket.connfd);
 
                     if (coord.x * 10 + coord.y == 404) {
                         serverWin = 1;
@@ -647,11 +640,11 @@ void play_window::play_with_client(Player &player, bool &flag, struct dataOfSock
                         if (sizeList(listOfShipsOfPlayer) == 0) {
                             serverWin = 2;
                             hit = 9;
-                            sendIsHitToClient(data_of_socket.connfd, hit);
+                            sendIsHitToClient(dataOfSocket.connfd, hit);
                         } else {
                             client.addHit(coord.y, coord.x, hit);
 
-                            sendIsHitToClient(data_of_socket.connfd, hit);
+                            sendIsHitToClient(dataOfSocket.connfd, hit);
 
                             while (window.pollEvent(event)) {}
                             if (hit == -1)
@@ -659,19 +652,19 @@ void play_window::play_with_client(Player &player, bool &flag, struct dataOfSock
                             else
                                 isServerMove = false;
                             window.clear(sf::Color::Black);
-                            window.draw(sprite_background);
-                            window.draw(sprite_button_back);
-                            set_sprite_of_hit(player.getEnemyField(), 0);
-                            set_sprite_of_hit(client.getEnemyField(), 1);
+                            window.draw(spriteBackground);
+                            window.draw(spriteButtonBack);
+                            setSpriteOfHit(player.getEnemyField(), 0);
+                            setSpriteOfHit(client.getEnemyField(), 1);
 
-                            show_hits();
+                            showHits();
 
                             if (isServerMove) {
-                                window.draw(sprite_right_arrow);
+                                window.draw(spriteRightArrow);
                             } else {
-                                window.draw(sprite_left_arrow);
+                                window.draw(spriteLeftArrow);
                             }
-                            show_placement();
+                            showPlacement();
                             window.display();
                         }
                     }
@@ -679,36 +672,36 @@ void play_window::play_with_client(Player &player, bool &flag, struct dataOfSock
             }
             if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
                 sf::Vector2f mouse_pos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
-                if (sprite_button_back.getGlobalBounds().contains(mouse_pos)) {
-                    flag_exit = true;
+                if (spriteButtonBack.getGlobalBounds().contains(mouse_pos)) {
+                    flagExit = true;
                 }
             }
         }
         window.clear(sf::Color::Black);
-        window.draw(sprite_background);
-        window.draw(sprite_button_back);
-        set_sprite_of_hit(player.getEnemyField(), 0);
-        set_sprite_of_hit(client.getEnemyField(), 1);
+        window.draw(spriteBackground);
+        window.draw(spriteButtonBack);
+        setSpriteOfHit(player.getEnemyField(), 0);
+        setSpriteOfHit(client.getEnemyField(), 1);
 
-        show_hits();
+        showHits();
 
         if (isServerMove) {
-            window.draw(sprite_right_arrow);
+            window.draw(spriteRightArrow);
         } else {
-            window.draw(sprite_left_arrow);
+            window.draw(spriteLeftArrow);
         }
 
-        show_placement();
+        showPlacement();
 
-        if (flag_exit) {
-            window_exit exit_window(window);
-            exit_window.window_exit_run(flag);
+        if (flagExit) {
+            WindowExit exit_window(window);
+            exit_window.windowExitRun(flag);
             if (flag)
             {
-                closeSockets(data_of_socket);
+                closeSockets(dataOfSocket);
                 return;
             } else {
-                flag_exit = false;
+                flagExit = false;
             }
         }
         window.display();

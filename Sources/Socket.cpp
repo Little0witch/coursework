@@ -1,4 +1,4 @@
-#include "../Headers/socket.h"
+#include "../Headers/Socket.h"
 
 
 char *getCode() {
@@ -106,11 +106,11 @@ bool isCorrectIP(std::string string) {
 }
 
 struct dataOfSocket createClient(const char *ip) {
-    struct dataOfSocket data_of_socket{};
+    struct dataOfSocket dataOfSocket{};
     int sockfd;
     struct sockaddr_in servaddr, cli;
-    data_of_socket.sockfd = -1;
-    data_of_socket.connfd = 0;
+    dataOfSocket.sockfd = -1;
+    dataOfSocket.connfd = 0;
 
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
     if (sockfd == -1) {
@@ -128,15 +128,15 @@ struct dataOfSocket createClient(const char *ip) {
     int flags = fcntl(sockfd, F_GETFL, 0);
     if (flags == -1) {
         logError("Error 10: F_GETFL error, the place where the error occurred: /Sources/Socket.cpp, line 131");
-        return data_of_socket;
+        return dataOfSocket;
     }
     if (fcntl(sockfd, F_SETFL, flags | O_NONBLOCK) == -1) {
         logError("Error 10: F_SETFL error, the place where the error occurred: /Sources/Socket.cpp, line 136");
-        return data_of_socket;
+        return dataOfSocket;
     }
 
     if (connect(sockfd, (struct sockaddr *) &servaddr, sizeof(servaddr)) == 0) {
-        return data_of_socket;
+        return dataOfSocket;
     }
 
     struct timeval timeout;
@@ -150,30 +150,30 @@ struct dataOfSocket createClient(const char *ip) {
     int selectResult = select(sockfd + 1, NULL, &writefds, NULL, &timeout);
     if (selectResult == -1) {
         logError("Error 12: select error, the place where the error occurred: /Sources/Socket.cpp, line 153");
-        return data_of_socket;
+        return dataOfSocket;
     } else if (selectResult == 0) {
         logError("Error 13: connection timeout, the place where the error occurred: /Sources/Socket.cpp, line 153");
-        return data_of_socket;
+        return dataOfSocket;
     } else if (FD_ISSET(sockfd, &writefds)) {
-        data_of_socket.sockfd = sockfd;
-        return data_of_socket;
+        dataOfSocket.sockfd = sockfd;
+        return dataOfSocket;
     }
 
-    return data_of_socket;
+    return dataOfSocket;
 }
 
-void closeSockets(struct dataOfSocket data_of_socket) {
-    if (data_of_socket.connfd == 0) {
-        write(data_of_socket.sockfd, "404", sizeof("404"));
+void closeSockets(struct dataOfSocket dataOfSocket) {
+    if (dataOfSocket.connfd == 0) {
+        write(dataOfSocket.sockfd, "404", sizeof("404"));
 
-        if (close(data_of_socket.sockfd) == -1)
+        if (close(dataOfSocket.sockfd) == -1)
             logError(
                     "Error 14: error close of socket, the place where the error occurred: /Sources/Socket.cpp, line 172");
 
     } else {
-        write(data_of_socket.connfd, "404", sizeof("404"));
+        write(dataOfSocket.connfd, "404", sizeof("404"));
 
-        if (close(data_of_socket.sockfd) == -1)
+        if (close(dataOfSocket.sockfd) == -1)
             logError(
                     "Error 14: error close of socket, the place where the error occurred: /Sources/Socket.cpp, line 179");
 
@@ -181,7 +181,7 @@ void closeSockets(struct dataOfSocket data_of_socket) {
     sleep(1);
 }
 
-struct dataOfBool isActiveSocket(struct dataOfSocket data_of_socket) {
+struct dataOfBool isActiveSocket(struct dataOfSocket dataOfSocket) {
     char buff[MAX];
     int number;
     ssize_t bytesRead;
@@ -190,9 +190,9 @@ struct dataOfBool isActiveSocket(struct dataOfSocket data_of_socket) {
     data_of_bool.readyToPlay = false;
 
     memset(buff, 0, sizeof(buff));
-    if (data_of_socket.connfd == 0) {
+    if (dataOfSocket.connfd == 0) {
         while (1) {
-            bytesRead = read(data_of_socket.sockfd, buff, sizeof(buff));
+            bytesRead = read(dataOfSocket.sockfd, buff, sizeof(buff));
             if (bytesRead > 0)
                 break;
         }
@@ -207,7 +207,7 @@ struct dataOfBool isActiveSocket(struct dataOfSocket data_of_socket) {
         }
     } else {
         while (1) {
-            bytesRead = read(data_of_socket.connfd, buff, sizeof(buff));
+            bytesRead = read(dataOfSocket.connfd, buff, sizeof(buff));
             if (bytesRead > 0)
                 break;
         }
@@ -233,21 +233,21 @@ void *isActiveSocketThread(void *arg) {
     return threadData;
 }
 
-void sendSignalOfReadyToPlay(struct dataOfSocket data_of_socket) {
+void sendSignalOfReadyToPlay(struct dataOfSocket dataOfSocket) {
     char buff[MAX];
     memset(buff, 0, sizeof(buff));
     int number = 200;
     sprintf(buff, "%d", number);
 
-    if (data_of_socket.connfd == 0) {
-        write(data_of_socket.sockfd, buff, sizeof(buff));
+    if (dataOfSocket.connfd == 0) {
+        write(dataOfSocket.sockfd, buff, sizeof(buff));
     } else {
-        write(data_of_socket.connfd, buff, sizeof(buff));
+        write(dataOfSocket.connfd, buff, sizeof(buff));
     }
 }
 
-void closeSocket(struct dataOfSocket data_of_socket) {
-    if (close(data_of_socket.sockfd) == -1)
+void closeSocket(struct dataOfSocket dataOfSocket) {
+    if (close(dataOfSocket.sockfd) == -1)
         logError(
                 "Error 14: error close of socket, the place where the error occurred: /Sources/Socket.cpp, line 179");
 

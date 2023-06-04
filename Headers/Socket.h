@@ -17,7 +17,7 @@
 #include <fcntl.h>
 #include "pthread.h"
 #include <csignal>
-#include "logs.h"
+#include "Logs.h"
 
 struct coord{
     int x;
@@ -49,15 +49,15 @@ bool isCorrectIP(std::string);
 
 struct dataOfSocket createClient(const char *ip);
 
-void closeSockets(struct dataOfSocket data_of_socket);
+void closeSockets(struct dataOfSocket dataOfSocket);
 
-void closeSocket(struct dataOfSocket data_of_socket);
+void closeSocket(struct dataOfSocket dataOfSocket);
 
 struct dataOfBool isActiveSocket(struct dataOfSocket);
 
 void* isActiveSocketThread(void* arg);
 
-void sendSignalOfReadyToPlay(struct dataOfSocket data_of_socket);
+void sendSignalOfReadyToPlay(struct dataOfSocket dataOfSocket);
 
 struct coord getCoordFromClient(int);
 

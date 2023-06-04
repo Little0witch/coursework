@@ -2,7 +2,7 @@
 
 #include <cstdio>
 #include <cstdlib>
-#include "logs.h"
+#include "Logs.h"
 
 
 void freeMemory(int **array, int n);

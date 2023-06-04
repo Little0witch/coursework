@@ -4,7 +4,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <unistd.h>
-#include "logs.h"
+#include "Logs.h"
 
 struct node {
     int x;
@@ -21,9 +21,8 @@ struct coordinateOfShip {
     float x;
     float y;
     int size;
-    int orientation;//0 - gorizont (y=   x!=) 1 - vert(x= y!=)
+    int orientation;
 };
-
 
 typedef struct node ListNode;
 typedef ListNode *ListOfCoord;

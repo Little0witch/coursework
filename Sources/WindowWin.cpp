@@ -1,6 +1,6 @@
-#include "../Headers/window_lose.h"
+#include "../Headers/WindowWin.h"
 
-void window_lose::window_lose_run()
+void WindowWin::windowWinRun()
 {
     sf::Vector2f mouse_position;
     while (window.isOpen())
@@ -11,28 +11,29 @@ void window_lose::window_lose_run()
             if (event.type == sf::Event::Closed)
             {
                 window.close();
+                return;
             }
 
             if (event.type == sf::Event::MouseMoved)
             {
                 mouse_position = window.mapPixelToCoords(sf::Mouse::getPosition(window));
-                if (sprite_ok_blue.getGlobalBounds().contains(mouse_position))
+                if (spriteOkBlue.getGlobalBounds().contains(mouse_position))
                 {
-                    window.draw(sprite_background);
-                    window.draw(sprite_ok_red);
+                    window.draw(spriteBackground);
+                    window.draw(spriteOkRed);
                     window.display();
                 }
                 else
                 {
-                    window.draw(sprite_background);
-                    window.draw(sprite_ok_blue);
+                    window.draw(spriteBackground);
+                    window.draw(spriteOkBlue);
                     window.display();
                 }
             }
 
             if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
             {
-                if (sprite_ok_blue.getGlobalBounds().contains(mouse_position))
+                if (spriteOkBlue.getGlobalBounds().contains(mouse_position))
                 {
                     return;
                 }
